@@ -1,9 +1,9 @@
 <?php
 
 $_CONFIG = array(
-    'hostname' => '127.0.0.1',
+    'hostname' => 'db',
     'username' => 'monolegacy',
-    'password' => '****************',
+    'password' => 'secret',
     'database' => 'monolegacy',
     'persistent' => false,
     'driver' => 'mysqli',

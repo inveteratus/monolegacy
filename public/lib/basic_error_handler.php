@@ -28,7 +28,7 @@
  */
 
 // Change to true to show the user more information (for development)
-define('DEBUG', false);
+define('DEBUG', true);
 
 function error_critical($human_error, $debug_error, $action,
         $context = array())

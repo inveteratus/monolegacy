@@ -1,24 +1,67 @@
--- --------------------------------------------------------
 
---
--- Table structure for table `announcements`
---
+DROP TABLE IF EXISTS `announcements`;
+DROP TABLE IF EXISTS `applications`;
+DROP TABLE IF EXISTS `attacklogs`;
+DROP TABLE IF EXISTS `bankxferlogs`;
+DROP TABLE IF EXISTS `blacklist`;
+DROP TABLE IF EXISTS `cashxferlogs`;
+DROP TABLE IF EXISTS `challengebots`;
+DROP TABLE IF EXISTS `challengesbeaten`;
+DROP TABLE IF EXISTS `cities`;
+DROP TABLE IF EXISTS `contactlist`;
+DROP TABLE IF EXISTS `courses`;
+DROP TABLE IF EXISTS `coursesdone`;
+DROP TABLE IF EXISTS `crimegroups`;
+DROP TABLE IF EXISTS `crimes`;
+DROP TABLE IF EXISTS `crystalmarket`;
+DROP TABLE IF EXISTS `crystalxferlogs`;
+DROP TABLE IF EXISTS `dps_accepted`;
+DROP TABLE IF EXISTS `events`;
+DROP TABLE IF EXISTS `fedjail`;
+DROP TABLE IF EXISTS `forum_forums`;
+DROP TABLE IF EXISTS `forum_posts`;
+DROP TABLE IF EXISTS `forum_topics`;
+DROP TABLE IF EXISTS `friendslist`;
+DROP TABLE IF EXISTS `gangevents`;
+DROP TABLE IF EXISTS `gangs`;
+DROP TABLE IF EXISTS `gangwars`;
+DROP TABLE IF EXISTS `houses`;
+DROP TABLE IF EXISTS `imarketaddlogs`;
+DROP TABLE IF EXISTS `imbuylogs`;
+DROP TABLE IF EXISTS `imremovelogs`;
+DROP TABLE IF EXISTS `inventory`;
+DROP TABLE IF EXISTS `itembuylogs`;
+DROP TABLE IF EXISTS `itemmarket`;
+DROP TABLE IF EXISTS `items`;
+DROP TABLE IF EXISTS `itemselllogs`;
+DROP TABLE IF EXISTS `itemtypes`;
+DROP TABLE IF EXISTS `itemxferlogs`;
+DROP TABLE IF EXISTS `jaillogs`;
+DROP TABLE IF EXISTS `jobranks`;
+DROP TABLE IF EXISTS `jobs`;
+DROP TABLE IF EXISTS `mail`;
+DROP TABLE IF EXISTS `oclogs`;
+DROP TABLE IF EXISTS `orgcrimes`;
+DROP TABLE IF EXISTS `papercontent`;
+DROP TABLE IF EXISTS `polls`;
+DROP TABLE IF EXISTS `preports`;
+DROP TABLE IF EXISTS `referals`;
+DROP TABLE IF EXISTS `settings`;
+DROP TABLE IF EXISTS `shopitems`;
+DROP TABLE IF EXISTS `shops`;
+DROP TABLE IF EXISTS `stafflog`;
+DROP TABLE IF EXISTS `staffnotelogs`;
+DROP TABLE IF EXISTS `surrenders`;
+DROP TABLE IF EXISTS `unjaillogs`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `userstats`;
+DROP TABLE IF EXISTS `votes`;
+DROP TABLE IF EXISTS `willps_accepted`;
 
 CREATE TABLE `announcements` (
   `a_text` text NOT NULL,
   `a_time` int(11) NOT NULL default '0'
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `announcements`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `applications`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `applications` (
   `appID` int(11) NOT NULL auto_increment,
@@ -26,18 +69,7 @@ CREATE TABLE `applications` (
   `appGANG` int(11) NOT NULL default '0',
   `appTEXT` text NOT NULL,
   PRIMARY KEY  (`appID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `applications`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attacklogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `attacklogs` (
   `log_id` int(11) NOT NULL auto_increment,
@@ -48,18 +80,7 @@ CREATE TABLE `attacklogs` (
   `stole` int(11) NOT NULL default '0',
   `attacklog` longtext NOT NULL,
   PRIMARY KEY  (`log_id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `attacklogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `bankxferlogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `bankxferlogs` (
   `cxID` int(11) NOT NULL auto_increment,
@@ -71,18 +92,7 @@ CREATE TABLE `bankxferlogs` (
   `cxTOIP` varchar(15) NOT NULL default '127.0.0.1',
   `cxBANK` enum('bank','cyber') NOT NULL default 'bank',
   PRIMARY KEY  (`cxID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `bankxferlogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `blacklist`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `blacklist` (
   `bl_ID` int(11) NOT NULL auto_increment,
@@ -90,18 +100,7 @@ CREATE TABLE `blacklist` (
   `bl_ADDED` int(11) NOT NULL default '0',
   `bl_COMMENT` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`bl_ID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `blacklist`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cashxferlogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `cashxferlogs` (
   `cxID` int(11) NOT NULL auto_increment,
@@ -112,50 +111,17 @@ CREATE TABLE `cashxferlogs` (
   `cxFROMIP` varchar(15) NOT NULL default '127.0.0.1',
   `cxTOIP` varchar(15) NOT NULL default '127.0.0.1',
   PRIMARY KEY  (`cxID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `cashxferlogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `challengebots`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `challengebots` (
   `cb_npcid` int(11) NOT NULL default '0',
   `cb_money` int(11) NOT NULL default '0'
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `challengebots`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `challengesbeaten`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `challengesbeaten` (
   `userid` int(11) NOT NULL default '0',
   `npcid` int(11) NOT NULL default '0'
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `challengesbeaten`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cities`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `cities` (
   `cityid` int(11) NOT NULL auto_increment,
@@ -163,38 +129,18 @@ CREATE TABLE `cities` (
   `citydesc` longtext NOT NULL,
   `cityminlevel` int(11) NOT NULL default '0',
   PRIMARY KEY  (`cityid`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `cities`
---
-
-INSERT INTO `cities` (`cityid`, `cityname`, `citydesc`, `cityminlevel`) VALUES
-(1, 'Default City', 'A standard city added to start you off', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `contactlist`
---
+INSERT INTO `cities` (`cityid`, `cityname`, `citydesc`, `cityminlevel`)
+  VALUES
+    (1, 'Default City', 'A standard city added to start you off', 1);
 
 CREATE TABLE `contactlist` (
   `cl_ID` int(11) NOT NULL auto_increment,
   `cl_ADDER` int(11) NOT NULL default '0',
   `cl_ADDED` int(11) NOT NULL default '0',
   PRIMARY KEY  (`cl_ID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `contactlist`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `courses`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `courses` (
   `crID` int(11) NOT NULL auto_increment,
@@ -209,52 +155,19 @@ CREATE TABLE `courses` (
   `crAGIL` int(11) NOT NULL default '0',
   `crIQ` int(11) NOT NULL default '0',
   PRIMARY KEY  (`crID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `courses`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `coursesdone`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `coursesdone` (
   `userid` int(11) NOT NULL default '0',
   `courseid` int(11) NOT NULL default '0'
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `coursesdone`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `crimegroups`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `crimegroups` (
   `cgID` int(11) NOT NULL auto_increment,
   `cgNAME` varchar(255) NOT NULL default '',
   `cgORDER` int(11) NOT NULL default '0',
   PRIMARY KEY  (`cgID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `crimegroups`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `crimes`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `crimes` (
   `crimeID` int(11) NOT NULL auto_increment,
@@ -273,18 +186,7 @@ CREATE TABLE `crimes` (
   `crimeJREASON` varchar(255) NOT NULL default '',
   `crimeXP` int(11) NOT NULL default '0',
   PRIMARY KEY  (`crimeID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `crimes`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `crystalmarket`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `crystalmarket` (
   `cmID` int(11) NOT NULL auto_increment,
@@ -292,18 +194,7 @@ CREATE TABLE `crystalmarket` (
   `cmADDER` int(11) NOT NULL default '0',
   `cmPRICE` int(11) NOT NULL default '0',
   PRIMARY KEY  (`cmID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `crystalmarket`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `crystalxferlogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `crystalxferlogs` (
   `cxID` int(11) NOT NULL auto_increment,
@@ -314,18 +205,7 @@ CREATE TABLE `crystalxferlogs` (
   `cxFROMIP` varchar(15) NOT NULL default '127.0.0.1',
   `cxTOIP` varchar(15) NOT NULL default '127.0.0.1',
   PRIMARY KEY  (`cxID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `crystalxferlogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dps_accepted`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `dps_accepted` (
   `dpID` int(11) NOT NULL auto_increment,
@@ -335,18 +215,7 @@ CREATE TABLE `dps_accepted` (
   `dpTIME` int(11) NOT NULL default '0',
   `dpTXN` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`dpID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `dps_accepted`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `events`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `events` (
   `evID` int(11) NOT NULL auto_increment,
@@ -355,18 +224,7 @@ CREATE TABLE `events` (
   `evREAD` int(11) NOT NULL default '0',
   `evTEXT` text NOT NULL,
   PRIMARY KEY  (`evID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `events`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `fedjail`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `fedjail` (
   `fed_id` int(11) NOT NULL auto_increment,
@@ -376,20 +234,9 @@ CREATE TABLE `fedjail` (
   `fed_reason` text NOT NULL,
   PRIMARY KEY  (`fed_id`),
   UNIQUE (`fed_userid`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `fedjail`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `forum_forums`
---
-
-CREATE TABLE IF NOT EXISTS `forum_forums` (
+CREATE TABLE `forum_forums` (
   `ff_id` int(11) NOT NULL auto_increment,
   `ff_name` varchar(255) NOT NULL default '',
   `ff_desc` varchar(255) NOT NULL default '',
@@ -403,20 +250,9 @@ CREATE TABLE IF NOT EXISTS `forum_forums` (
   `ff_auth` enum('public','gang','staff') NOT NULL default 'public',
   `ff_owner` int(11) NOT NULL default '0',
   PRIMARY KEY  (`ff_id`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `forum_forums`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `forum_posts`
---
-
-CREATE TABLE IF NOT EXISTS `forum_posts` (
+CREATE TABLE `forum_posts` (
   `fp_id` int(11) NOT NULL auto_increment,
   `fp_topic_id` int(11) NOT NULL default '0',
   `fp_forum_id` int(11) NOT NULL default '0',
@@ -424,26 +260,15 @@ CREATE TABLE IF NOT EXISTS `forum_posts` (
   `fp_poster_name` text NOT NULL,
   `fp_time` int(11) NOT NULL default '0',
   `fp_subject` varchar(255) NOT NULL default '',
-  `fp_text` text NOT NULL default '',
+  `fp_text` text NOT NULL,
   `fp_editor_id` int(11) NOT NULL default '0',
   `fp_editor_name` text NOT NULL,
   `fp_editor_time` int(11) NOT NULL default '0',
   `fp_edit_count` int(11) NOT NULL default '0',
   PRIMARY KEY  (`fp_id`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `forum_posts`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `forum_topics`
---
-
-CREATE TABLE IF NOT EXISTS `forum_topics` (
+CREATE TABLE `forum_topics` (
   `ft_id` int(11) NOT NULL auto_increment,
   `ft_forum_id` int(11) NOT NULL default '0',
   `ft_name` varchar(150) NOT NULL default '',
@@ -458,18 +283,7 @@ CREATE TABLE IF NOT EXISTS `forum_topics` (
   `ft_pinned` tinyint(4) NOT NULL default '0',
   `ft_locked` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`ft_id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `forum_topics`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `friendslist`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `friendslist` (
   `fl_ID` int(11) NOT NULL auto_increment,
@@ -477,18 +291,7 @@ CREATE TABLE `friendslist` (
   `fl_ADDED` int(11) NOT NULL default '0',
   `fl_COMMENT` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`fl_ID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `friendslist`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gangevents`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `gangevents` (
   `gevID` int(11) NOT NULL auto_increment,
@@ -496,18 +299,7 @@ CREATE TABLE `gangevents` (
   `gevTIME` int(11) NOT NULL default '0',
   `gevTEXT` text NOT NULL,
   PRIMARY KEY  (`gevID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `gangevents`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gangs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `gangs` (
   `gangID` int(11) NOT NULL auto_increment,
@@ -525,18 +317,7 @@ CREATE TABLE `gangs` (
   `gangCHOURS` int(11) NOT NULL default '0',
   `gangAMENT` longtext NOT NULL,
   PRIMARY KEY  (`gangID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `gangs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `gangwars`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `gangwars` (
   `warID` int(11) NOT NULL auto_increment,
@@ -544,18 +325,7 @@ CREATE TABLE `gangwars` (
   `warDECLARED` int(11) NOT NULL default '0',
   `warTIME` int(11) NOT NULL default '0',
   PRIMARY KEY  (`warID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `gangwars`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `houses`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `houses` (
   `hID` int(11) NOT NULL auto_increment,
@@ -563,20 +333,11 @@ CREATE TABLE `houses` (
   `hPRICE` int(11) NOT NULL default '0',
   `hWILL` int(11) NOT NULL default '0',
   PRIMARY KEY  (`hID`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `houses`
---
-
-INSERT INTO `houses` (`hID`, `hNAME`, `hPRICE`, `hWILL`) VALUES
-(1, 'Default House', 0, 100);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `imarketaddlogs`
---
+INSERT INTO `houses` (`hID`, `hNAME`, `hPRICE`, `hWILL`)
+  VALUES
+    (1, 'Default House', 0, 100);
 
 CREATE TABLE `imarketaddlogs` (
   `imaID` int(11) NOT NULL auto_increment,
@@ -587,18 +348,7 @@ CREATE TABLE `imarketaddlogs` (
   `imaTIME` int(11) NOT NULL default '0',
   `imaCONTENT` text NOT NULL,
   PRIMARY KEY  (`imaID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `imarketaddlogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `imbuylogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `imbuylogs` (
   `imbID` int(11) NOT NULL auto_increment,
@@ -611,18 +361,7 @@ CREATE TABLE `imbuylogs` (
   `imbTIME` int(11) NOT NULL default '0',
   `imbCONTENT` text NOT NULL,
   PRIMARY KEY  (`imbID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `imbuylogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `imremovelogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `imremovelogs` (
   `imrID` int(11) NOT NULL auto_increment,
@@ -634,18 +373,7 @@ CREATE TABLE `imremovelogs` (
   `imrTIME` int(11) NOT NULL default '0',
   `imrCONTENT` text NOT NULL,
   PRIMARY KEY  (`imrID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `imremovelogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inventory`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `inventory` (
   `inv_id` int(11) NOT NULL auto_increment,
@@ -653,18 +381,7 @@ CREATE TABLE `inventory` (
   `inv_userid` int(11) NOT NULL default '0',
   `inv_qty` int(11) NOT NULL default '0',
   PRIMARY KEY  (`inv_id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `inventory`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `itembuylogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `itembuylogs` (
   `ibID` int(11) NOT NULL auto_increment,
@@ -675,18 +392,7 @@ CREATE TABLE `itembuylogs` (
   `ibTIME` int(11) NOT NULL default '0',
   `ibCONTENT` text NOT NULL,
   PRIMARY KEY  (`ibID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `itembuylogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `itemmarket`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `itemmarket` (
   `imID` int(11) NOT NULL auto_increment,
@@ -696,18 +402,7 @@ CREATE TABLE `itemmarket` (
   `imCURRENCY` enum('money','crystals') NOT NULL default 'money',
   `imQTY` int(11) NOT NULL default '0',
   PRIMARY KEY  (`imID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `itemmarket`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `items`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `items` (
   `itmid` int(11) NOT NULL auto_increment,
@@ -726,18 +421,7 @@ CREATE TABLE `items` (
   `weapon` int(11) NOT NULL default '0',
   `armor` int(11) NOT NULL default '0',
   PRIMARY KEY  (`itmid`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `items`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `itemselllogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `itemselllogs` (
   `isID` int(11) NOT NULL auto_increment,
@@ -748,35 +432,13 @@ CREATE TABLE `itemselllogs` (
   `isTIME` int(11) NOT NULL default '0',
   `isCONTENT` text NOT NULL,
   PRIMARY KEY  (`isID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `itemselllogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `itemtypes`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `itemtypes` (
   `itmtypeid` int(11) NOT NULL auto_increment,
   `itmtypename` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`itmtypeid`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `itemtypes`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `itemxferlogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `itemxferlogs` (
   `ixID` int(11) NOT NULL auto_increment,
@@ -788,18 +450,7 @@ CREATE TABLE `itemxferlogs` (
   `ixFROMIP` varchar(255) NOT NULL default '',
   `ixTOIP` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`ixID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `itemxferlogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jaillogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `jaillogs` (
   `jaID` int(11) NOT NULL auto_increment,
@@ -809,18 +460,7 @@ CREATE TABLE `jaillogs` (
   `jaREASON` longtext NOT NULL,
   `jaTIME` int(11) NOT NULL default '0',
   PRIMARY KEY  (`jaID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `jaillogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jobranks`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `jobranks` (
   `jrID` int(11) NOT NULL auto_increment,
@@ -834,18 +474,7 @@ CREATE TABLE `jobranks` (
   `jrLABOURN` int(11) NOT NULL default '0',
   `jrSTRN` int(11) NOT NULL default '0',
   PRIMARY KEY  (`jrID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `jobranks`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `jobs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `jobs` (
   `jID` int(11) NOT NULL auto_increment,
@@ -854,18 +483,7 @@ CREATE TABLE `jobs` (
   `jDESC` varchar(255) NOT NULL default '',
   `jOWNER` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`jID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `jobs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `mail`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `mail` (
   `mail_id` int(11) NOT NULL auto_increment,
@@ -876,18 +494,7 @@ CREATE TABLE `mail` (
   `mail_subject` varchar(255) NOT NULL default '',
   `mail_text` text NOT NULL,
   PRIMARY KEY  (`mail_id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `mail`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oclogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `oclogs` (
   `oclID` int(11) NOT NULL auto_increment,
@@ -899,18 +506,7 @@ CREATE TABLE `oclogs` (
   `ocCRIMEN` varchar(255) NOT NULL default '',
   `ocTIME` int(11) NOT NULL default '0',
   PRIMARY KEY  (`oclID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `oclogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orgcrimes`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `orgcrimes` (
   `ocID` int(11) NOT NULL auto_increment,
@@ -922,31 +518,15 @@ CREATE TABLE `orgcrimes` (
   `ocMINMONEY` int(11) NOT NULL default '0',
   `ocMAXMONEY` int(11) NOT NULL default '0',
   PRIMARY KEY  (`ocID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `orgcrimes`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `papercontent`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `papercontent` (
   `content` longtext NOT NULL
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `papercontent` VALUES('Here you can put game news, or prehaps an update log.');
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `polls`
---
+INSERT INTO `papercontent`
+  VALUES
+    ('Here you can put game news, or prehaps an update log.');
 
 CREATE TABLE `polls` (
   `id` int(11) NOT NULL auto_increment,
@@ -976,18 +556,7 @@ CREATE TABLE `polls` (
   `winner` int(11) NOT NULL default '0',
   `hidden` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `polls`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `preports`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `preports` (
   `prID` int(11) NOT NULL auto_increment,
@@ -995,18 +564,7 @@ CREATE TABLE `preports` (
   `prREPORTED` int(11) NOT NULL default '0',
   `prTEXT` longtext NOT NULL,
   PRIMARY KEY  (`prID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `preports`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `referals`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `referals` (
   `refID` int(11) NOT NULL auto_increment,
@@ -1016,64 +574,40 @@ CREATE TABLE `referals` (
   `refREFERIP` varchar(15) NOT NULL default '127.0.0.1',
   `refREFEDIP` varchar(15) NOT NULL default '127.0.0.1',
   PRIMARY KEY  (`refID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `referals`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `settings`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `settings` (
   `conf_id` int(11) NOT NULL auto_increment,
   `conf_name` varchar(255) NOT NULL default '',
   `conf_value` text NOT NULL,
   PRIMARY KEY  (`conf_id`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `settings` VALUES (NULL, 'validate_period', '15');
-INSERT INTO `settings` VALUES (NULL, 'validate_on', '0');
-INSERT INTO `settings` VALUES (NULL, 'regcap_on', '0');
-INSERT INTO `settings` VALUES (NULL, 'hospital_count', '0');
-INSERT INTO `settings` VALUES (NULL, 'jail_count', '0');
-INSERT INTO `settings` VALUES (NULL, 'sendcrys_on', '1');
-INSERT INTO `settings` VALUES (NULL, 'sendbank_on', '1');
-INSERT INTO `settings` VALUES (NULL, 'ct_refillprice', '12');
-INSERT INTO `settings` VALUES (NULL, 'ct_iqpercrys', '5');
-INSERT INTO `settings` VALUES (NULL, 'ct_moneypercrys', '200');
-INSERT INTO `settings` VALUES (NULL, 'staff_pad', 'Here you can store notes for all staff to see.');
-INSERT INTO `settings` VALUES (NULL, 'willp_item', '0');
-INSERT INTO `settings` VALUES (NULL, 'jquery_location', 'js/jquery-1.7.1.min.js');
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `shopitems`
---
+INSERT INTO `settings`
+  VALUES
+    (NULL, 'validate_period', '15'),
+    (NULL, 'validate_on', '0'),
+    (NULL, 'regcap_on', '0'),
+    (NULL, 'hospital_count', '0'),
+    (NULL, 'jail_count', '0'),
+    (NULL, 'sendcrys_on', '1'),
+    (NULL, 'sendbank_on', '1'),
+    (NULL, 'ct_refillprice', '12'),
+    (NULL, 'ct_iqpercrys', '5'),
+    (NULL, 'ct_moneypercrys', '200'),
+    (NULL, 'staff_pad', 'Here you can store notes for all staff to see.'),
+    (NULL, 'willp_item', '0'),
+    (NULL, 'jquery_location', 'js/jquery-1.7.1.min.js'),
+    (NULL, 'game_name', 'Monolegacy'),
+    (NULL, 'game_description', 'Forked from davemacaulay/mccodesv2<br>Reset to v2.0.5b and reworked.'),
+    (NULL, 'game_owner', 'The Monolegacy Team');
 
 CREATE TABLE `shopitems` (
   `sitemID` int(11) NOT NULL auto_increment,
   `sitemSHOP` int(11) NOT NULL default '0',
   `sitemITEMID` int(11) NOT NULL default '0',
   PRIMARY KEY  (`sitemID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `shopitems`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `shops`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `shops` (
   `shopID` int(11) NOT NULL auto_increment,
@@ -1081,18 +615,7 @@ CREATE TABLE `shops` (
   `shopNAME` varchar(255) NOT NULL default '',
   `shopDESCRIPTION` text NOT NULL,
   PRIMARY KEY  (`shopID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `shops`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stafflog`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `stafflog` (
   `id` int(11) NOT NULL auto_increment,
@@ -1101,18 +624,7 @@ CREATE TABLE `stafflog` (
   `action` varchar(255) NOT NULL default '',
   `ip` varchar(15) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `stafflog`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staffnotelogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `staffnotelogs` (
   `snID` int(11) NOT NULL auto_increment,
@@ -1122,18 +634,7 @@ CREATE TABLE `staffnotelogs` (
   `snOLD` longtext NOT NULL,
   `snNEW` longtext NOT NULL,
   PRIMARY KEY  (`snID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `staffnotelogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `surrenders`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `surrenders` (
   `surID` int(11) NOT NULL auto_increment,
@@ -1142,18 +643,7 @@ CREATE TABLE `surrenders` (
   `surTO` int(11) NOT NULL default '0',
   `surMSG` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`surID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `surrenders`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `unjaillogs`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `unjaillogs` (
   `ujaID` int(11) NOT NULL auto_increment,
@@ -1161,20 +651,9 @@ CREATE TABLE `unjaillogs` (
   `ujaJAILED` int(11) NOT NULL default '0',
   `ujaTIME` int(11) NOT NULL default '0',
   PRIMARY KEY  (`ujaID`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `unjaillogs`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `userid` int(11) NOT NULL auto_increment,
   `username` varchar(255) NOT NULL default '',
   `userpass` varchar(255) NOT NULL default '',
@@ -1245,17 +724,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `force_logout` tinyint(4) NOT NULL default '0',
   `pass_salt` varchar(8) NOT NULL default '',
   PRIMARY KEY  (`userid`)
-) ENGINE=MyISAM ;
---
--- Dumping data for table `users`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `userstats`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `userstats` (
   `userid` int(11) NOT NULL default '0',
@@ -1265,34 +734,13 @@ CREATE TABLE `userstats` (
   `labour` float NOT NULL default '0',
   `IQ` float NOT NULL default '0',
   PRIMARY KEY  (`userid`)
-) ENGINE=MyISAM ;
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `userstats`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `votes`
---
 
 CREATE TABLE `votes` (
   `userid` int(11) NOT NULL default '0',
   `list` varchar(255) NOT NULL default ''
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `votes`
---
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `willps_accepted`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `willps_accepted` (
   `dpID` int(11) NOT NULL auto_increment,
@@ -1302,8 +750,4 @@ CREATE TABLE `willps_accepted` (
   `dpTIME` int(11) NOT NULL default '0',
   `dpTXN` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`dpID`)
-) ENGINE=MyISAM ;
-
---
--- Dumping data for table `willps_accepted`
---
+) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
