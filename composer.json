@@ -18,8 +18,11 @@
     },
 
     "require-dev": {
+        "phpstan/phpstan": "^1.12"
     },
 
     "scripts": {
+        "stan": "phpstan --memory-limit=1G analyse",
+        "anal": "@stan"
     }
 }
