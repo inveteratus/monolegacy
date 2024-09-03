@@ -65,7 +65,7 @@ default:
 
 function new_item_form()
 {
-    global $db, $ir, $c;
+    global $db, $ir, $c, $h;
     if ($ir['user_level'] != 2)
     {
         echo 'You cannot access this area.<br />
@@ -249,7 +249,7 @@ function new_item_submit()
 
 function give_item_form()
 {
-    global $db, $ir, $c;
+    global $db, $ir, $c, $h;
     if (!in_array($ir['user_level'], array(2, 3)))
     {
         echo 'You cannot access this area.<br />
@@ -396,8 +396,8 @@ function kill_item_submit()
     $db->query(
             "DELETE FROM `itemmarket`
      		 WHERE `imITEM` = {$_POST['item']}");
-    stafflog_add("Deleted item {$itemi['itmname']}");
-    echo 'The ' . $itemi['itmname']
+    stafflog_add("Deleted item {$itemname}");
+    echo 'The ' . $itemname
             . ' Item was removed from the game.<br />
             &gt; <a href="staff.php">Go Home</a>';
     die($h->endpage());
