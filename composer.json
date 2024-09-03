@@ -1,0 +1,25 @@
+{
+    "name": "inveteratus/monolegacy",
+    "type": "project",
+    "description": "Forked from davemacaulay/mccodesv2, reset to v2.0.5b and reworked",
+    "license": "MIT",
+
+    "config": {
+        "sort-packages": true
+    },
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+
+    "require": {
+    },
+
+    "require-dev": {
+    },
+
+    "scripts": {
+    }
+}
