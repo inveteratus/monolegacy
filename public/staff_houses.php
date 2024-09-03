@@ -178,7 +178,7 @@ function edithouse()
         $db->query(
                 "UPDATE `users`
                  SET `maxwill` = $will, `will` = LEAST(`will`, $will)
-                 WHERE `maxwill` = {$old['hWILL']}");
+                 WHERE `maxwill` = {$oldwill}");
         stafflog_add('Edited house ' . $name);
         echo 'House ' . $name
                 . ' was edited successfully.<br />
