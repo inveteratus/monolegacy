@@ -53,11 +53,11 @@ if (get_magic_quotes_gpc() == 0)
 }
 require "lib/basic_error_handler.php";
 set_error_handler('error_php');
-include "config.php";
-define("MONO_ON", 1);
-require "class/class_db_{$_CONFIG['driver']}.php";
 require_once('global_func.php');
-$db = new database;
+require __DIR__ . '/config.php';
+require __DIR__ . '/Database.php';
+global $_CONFIG;
+$db = new Database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
         $_CONFIG['password'], $_CONFIG['database'], $_CONFIG['persistent']);
 $db->connect();

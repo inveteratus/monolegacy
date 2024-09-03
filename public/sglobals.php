@@ -81,11 +81,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : 0;
 require "header.php";
 
-include "config.php";
+require __DIR__ . '/config.php';
+require __DIR__ . '/Database.php';
 global $_CONFIG;
-define("MONO_ON", 1);
-require "class/class_db_{$_CONFIG['driver']}.php";
-$db = new database;
+$db = new Database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
         $_CONFIG['password'], $_CONFIG['database'], $_CONFIG['persistent']);
 $db->connect();

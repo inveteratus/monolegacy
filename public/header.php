@@ -182,13 +182,7 @@ OUT;
 
     function endpage()
     {
-        global $db, $ir;
-        $query_extra = '';
-        if (isset($_GET['mysqldebug']) && $ir['user_level'] == 2)
-        {
-            $query_extra = '<br />' . implode('<br />', $db->queries);
-        }
-        print 
+        print
                 <<<OUT
 </center>
 </td>
@@ -208,7 +202,7 @@ OUT;
 </td>
 </tr>
 </table>
-                {$db->num_queries} queries{$query_extra}</body>
+</body>
 </html>
 OUT;
     }

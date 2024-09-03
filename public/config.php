@@ -1,6 +1,10 @@
 <?php
 
 $_CONFIG = array(
+    'db.dsn' => 'mysql:host=db;charset=utf8mb4;dbname=monolegacy',
+    'db.user' => 'monolegacy',
+    'db.password' => 'secret',
+
     'hostname' => 'db',
     'username' => 'monolegacy',
     'password' => 'secret',
