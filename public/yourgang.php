@@ -978,7 +978,7 @@ function gang_staff_apps()
 
 function gang_staff_vault()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     $_POST['who'] =
             (isset($_POST['who']) && is_numeric($_POST['who']))
                     ? abs(intval($_POST['who'])) : '';
@@ -1084,7 +1084,7 @@ function gang_staff_vault()
 
 function gang_staff_vicepres()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     if (isset($_POST['subm']))
     {
         csrf_stdverify('gang_staff_vicepres', 'staff&amp;act2=vicepres');
@@ -1134,7 +1134,7 @@ function gang_staff_vicepres()
 
 function gang_staff_wardeclare()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     if (isset($_POST['subm']))
     {
         csrf_stdverify('yourgang_staff_declare', 'staff&amp;act2=declare');
@@ -1209,7 +1209,7 @@ function gang_staff_wardeclare()
 
 function gang_staff_surrender()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     if (!isset($_POST['subm']))
     {
         $wq =
@@ -1329,7 +1329,7 @@ function gang_staff_surrender()
 
 function gang_staff_viewsurrenders()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     if (!isset($_POST['subm']))
     {
         $wq =
@@ -1403,7 +1403,7 @@ function gang_staff_viewsurrenders()
         $surr = $db->fetch_row($q);
         $db->free_result($q);
         $warID = $surr['warID'];
-        if ($gangdata['gangID'] == $r['warDECLARER'])
+        if ($gangdata['gangID'] == $surr['warDECLARER'])
         {
             $f = "warDECLARED";
         }
@@ -1422,7 +1422,7 @@ function gang_staff_viewsurrenders()
                 $db->query(
                         "SELECT `gangNAME`
          				 FROM `gangs`
-         				 WHERE `gangID` = {$r[$f]}");
+         				 WHERE `gangID` = {$surr[$f]}");
         $them = $db->fetch_single($ggq);
         $db->free_result($ggq);
         $event =
@@ -1430,20 +1430,20 @@ function gang_staff_viewsurrenders()
                         "<a href='gangs.php?action=view&amp;ID={$gangdata['gangID']}'>"
                                 . $gangdata['gangNAME']
                                 . '</a> have accepted the surrender from '
-                                . "<a href='gangs.php?action=view&amp;ID={$r[$f]}'>"
+                                . "<a href='gangs.php?action=view&amp;ID={$surr[$f]}'>"
                                 . $them . '</a>, the war is over!');
         $ev_time = time();
         $db->query(
                 "INSERT INTO `gangevents`
                  VALUES(NULL, {$gangdata['gangID']}, {$ev_time}, '$event'),
-                 (NULL, {$r[$f]}, {$ev_time}, '$event')");
+                 (NULL, {$surr[$f]}, {$ev_time}, '$event')");
         echo "You have accepted the surrender from {$them}, the war is over.";
     }
 }
 
 function gang_staff_orgcrimes()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     $_POST['crime'] =
             (isset($_POST['crime']) && is_numeric($_POST['crime']))
                     ? abs(intval($_POST['crime'])) : 0;
@@ -1521,7 +1521,7 @@ function gang_staff_orgcrimes()
 
 function gang_staff_pres()
 {
-    global $db, $ir, $c, $userid, $gangdata;
+    global $db, $ir, $c, $userid, $gangdata, $h;
     if ($gangdata['gangPRESIDENT'] == $userid)
     {
         if (isset($_POST['subm']))
