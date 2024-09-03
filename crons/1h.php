@@ -20,16 +20,9 @@
  * Date: Fri, 20 Apr 12 08:50:30 +0000
  */
 
-require_once('globals_nonauth.php');
-if($argc == 2) {
-    if($argv[1] != $_CONFIG['code']) {
-        exit;
-    }
-}
-else if (!isset($_GET['code']) || $_GET['code'] !== $_CONFIG['code'])
-{
-    exit;
-}
+require __DIR__ . '/../public/globals_nonauth.php';
+global $db, $c, $set;
+
 $db->query(
         "UPDATE `gangs` SET `gangCHOURS` = `gangCHOURS` - 1 WHERE `gangCRIME` > 0");
 $q =
