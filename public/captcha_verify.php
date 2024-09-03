@@ -22,9 +22,8 @@
 
 function parse_bgcolor()
 {
-    $hexdec = '0-9abcdef';
-    if (preg_match('`^[' . $hexdec . ']{6}$`ims', $_GET['bgcolor']) == 0
-            && preg_match('`^[' . $hexdec . ']+${3}`ims', $_GET['bgcolor'])
+    if (preg_match('`^[0-9a-f]{6}$`ims', $_GET['bgcolor']) == 0
+            && preg_match('`^[0-9a-f]{3}$`ims', $_GET['bgcolor'])
                     == 0)
     {
         return array(0, 0, 0);
