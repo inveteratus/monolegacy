@@ -50,4 +50,5 @@ In no particular order:
 * `[ ]` Add real position for high scores
 * `[ ]` Create better casino games (slots, roulette?)
 * `[ ]` Add an auction house
-
+* `[ ]` Remove macro system
+* `[ ]` Re-implement CSRF
