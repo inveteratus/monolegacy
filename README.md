@@ -37,10 +37,17 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 
 In no particular order:
 
-* Remove all crons
-* Change verified to make it per-user rather than global
-* Change all code to use PDO
-* Work up to static analysis at level 5
-* Convert pages to use templates (Twig)
-* Create a base set of crimes, cities, items and courses
-* Move non-page php files out to an includes folder
+* `[ ]` Remove all crons
+* `[ ]` Change verified to make it per-user rather than global
+* `[ ]` Change all code to use PDO
+* `[ ]` Work up to static analysis at level 5
+* `[ ]` Convert pages to use templates (Twig)
+* `[ ]` Create a base set of crimes, cities, items and courses
+* `[X]` Move non-page php files out to an includes folder
+* `[ ]` Change interest rate to 100% APR
+* `[ ]` Move user stats into users table
+* `[ ]` Remove federal jail (or make it a staff only feature)
+* `[ ]` Add real position for high scores
+* `[ ]` Create better casino games (slots, roulette?)
+* `[ ]` Add an auction house
+
