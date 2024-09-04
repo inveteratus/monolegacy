@@ -1,24 +1,4 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: header.php
- * Signature: 52c201ce2e8c549ae70d2936473022f0
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 class headers
 {
@@ -150,7 +130,7 @@ OUT;
     function menuarea()
     {
         define('jdsf45tji', true);
-        include 'mainmenu.php';
+        require __DIR__ . '/mainmenu.php';
         global $ir, $c;
         $bgcolor = 'FFFFFF';
         print 
@@ -171,7 +151,7 @@ OUT;
     function smenuarea()
     {
         define('jdsf45tji', true);
-        include 'smenu.php';
+        require __DIR__ . '/smenu.php';
         global $ir, $c;
         $bgcolor = 'FFFFFF';
         print 

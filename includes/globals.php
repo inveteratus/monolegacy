@@ -1,29 +1,5 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: globals.php
- * Signature: 7b716433581858a154d2ae09ab90f269
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-if (strpos($_SERVER['PHP_SELF'], "globals.php") !== false)
-{
-    exit;
-}
 session_name('MCCSID');
 session_start();
 if (!isset($_SESSION['started']))
@@ -32,28 +8,17 @@ if (!isset($_SESSION['started']))
     $_SESSION['started'] = true;
 }
 ob_start();
-if (function_exists("get_magic_quotes_gpc") == false)
+foreach ($_POST as $k => $v)
 {
-
-    function get_magic_quotes_gpc()
-    {
-        return 0;
-    }
+    $_POST[$k] = addslashes($v);
 }
-if (get_magic_quotes_gpc() == 0)
+foreach ($_GET as $k => $v)
 {
-    foreach ($_POST as $k => $v)
-    {
-        $_POST[$k] = addslashes($v);
-    }
-    foreach ($_GET as $k => $v)
-    {
-        $_GET[$k] = addslashes($v);
-    }
+    $_GET[$k] = addslashes($v);
 }
-require "lib/basic_error_handler.php";
+require __DIR__ . '/basic_error_handler.php';
 set_error_handler('error_php');
-require "global_func.php";
+require __DIR__ . '/global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
@@ -62,7 +27,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
     exit;
 }
 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : 0;
-require "header.php";
+require __DIR__ . '/header.php';
 
 require __DIR__ . '/config.php';
 require __DIR__ . '/Database.php';

@@ -1,24 +1,4 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: sglobals.php
- * Signature: 7fc1bfd8b3978ec7047b6f5d6867ee4f
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 function staff_csrf_error($goBackTo)
 {
@@ -45,10 +25,6 @@ function staff_csrf_stdverify($formid, $goBackTo)
         staff_csrf_error($goBackTo);
     }
 }
-if (strpos($_SERVER['PHP_SELF'], "sglobals.php") !== false)
-{
-    exit;
-}
 session_name('MCCSID');
 session_start();
 if (!isset($_SESSION['started']))
@@ -57,20 +33,17 @@ if (!isset($_SESSION['started']))
     $_SESSION['started'] = true;
 }
 ob_start();
-if (get_magic_quotes_gpc() == 0)
+foreach ($_POST as $k => $v)
 {
-    foreach ($_POST as $k => $v)
-    {
-        $_POST[$k] = addslashes($v);
-    }
-    foreach ($_GET as $k => $v)
-    {
-        $_GET[$k] = addslashes($v);
-    }
+    $_POST[$k] = addslashes($v);
 }
-require "lib/basic_error_handler.php";
+foreach ($_GET as $k => $v)
+{
+    $_GET[$k] = addslashes($v);
+}
+require __DIR__ . '/basic_error_handler.php';
 set_error_handler('error_php');
-require "global_func.php";
+require __DIR__ . '/global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
@@ -79,8 +52,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
     exit;
 }
 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : 0;
-require "header.php";
-
+require __DIR__ . '/header.php';
 require __DIR__ . '/config.php';
 require __DIR__ . '/Database.php';
 global $_CONFIG;

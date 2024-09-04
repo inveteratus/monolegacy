@@ -1,6 +1,6 @@
 <?php
 
-$_CONFIG = array(
+$_CONFIG = [
     'db.dsn' => 'mysql:host=db;charset=utf8mb4;dbname=monolegacy',
     'db.user' => 'monolegacy',
     'db.password' => 'secret',
@@ -12,4 +12,4 @@ $_CONFIG = array(
     'persistent' => false,
     'driver' => 'mysqli',
     'code' => random_bytes(32),
-);
+];

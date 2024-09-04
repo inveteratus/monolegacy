@@ -20,11 +20,6 @@
  * Date: Fri, 20 Apr 12 08:50:30 +0000
  */
 
-if (!defined('jdsf45tji'))
-{
-    echo 'This file cannot be accessed directly.';
-    die;
-}
 global $db, $c, $ir, $set;
 $hc = $set['hospital_count'];
 $jc = $set['jail_count'];
