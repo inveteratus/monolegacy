@@ -32,3 +32,15 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 * Static analysis used at level 0 to catch the most obvious bugs.
 * Docker setup with nginx, php-fpm and mysql
 * Added support for PDO_mysql database driver
+
+## Todo
+
+In no particular order:
+
+* Remove all crons
+* Change verified to make it per-user rather than global
+* Change all code to use PDO
+* Work up to static analysis at level 5
+* Convert pages to use templates (Twig)
+* Create a base set of crimes, cities, items and courses
+* Move non-page php files out to an includes folder
