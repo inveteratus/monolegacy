@@ -1,47 +1,27 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: cron_fivemins.php
- * Signature: 79887e7ca14a99487ded5a18e0b27e89
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require __DIR__ . '/../public/globals_nonauth.php';
-global $db, $set;
+require __DIR__ . '/../public/config.php';
+require __DIR__ . '/../public/Database.php';
 
-// do we need to reset verification?
-$ver_reset = false;
-if ($set['validate_period'] == 5 && $set['validate_on'])
-{
-    $ver_reset = true;
+global $_CONFIG;
+
+$db = new Database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
+
+$sql = <<<SQL
+    UPDATE users
+    SET brave = LEAST(maxbrave, brave + maxbrave / 10 + 0.5),
+        energy = LEAST(maxenergy, energy + maxenergy / IF(donatordays > 0, 6, 12.5)),
+        hp = LEAST(maxhp, hp + maxhp / 5),
+        will = LEAST(maxwill, will + 10)
+SQL;
+$db->execute($sql);
+
+$sql = <<<SQL
+    SELECT conf_name, conf_value
+    FROM settings
+SQL;
+$settings = $db->execute($sql)->fetchAll(PDO::FETCH_KEY_PAIR);
+
+if ($settings['validate_on'] && ($settings['validate_period'] == 5)) {
+    $db->execute('UPDATE users SET verified = 0');
 }
-if ($set['validate_period'] == 15 && $set['validate_on']
-        && in_array(date('i'), array("00", "15", "30", "45")))
-{
-    $ver_reset = true;
-}
-// update for all users
-$allusers_query =
-        "UPDATE `users`
-        SET `brave` = LEAST(`brave` + ((`maxbrave` / 10) + 0.5), `maxbrave`),
-        `hp` = LEAST(`hp` + (`maxhp` / 3), `maxhp`),
-        `will` = LEAST(`will` + 10, `maxwill`),
-        `energy` = IF(`donatordays` > 0,
-                   LEAST(`energy` + (`maxenergy` / 6), `maxenergy`),
-                   LEAST(`energy` + (`maxenergy` / 12.5), `maxenergy`))"
-                . ($ver_reset ? ', `verified` = 0' : '');
-$db->query($allusers_query);
