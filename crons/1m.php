@@ -1,7 +1,9 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Classes\Database;
 
 require __DIR__ . '/../public/config.php';
-require __DIR__ . '/../public/Database.php';
 
 global $_CONFIG;
 

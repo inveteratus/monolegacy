@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Classes;
+
+use mysqli;
+use mysqli_result;
+use PDO;
+use PDOStatement;
+
 class Database
 {
     /** @deprecated */
@@ -47,23 +54,20 @@ class Database
     /** @deprecated */
     public function connect(): mysqli
     {
-        if (!$this->host)
-        {
+        if (!$this->host) {
             $this->host = "localhost";
         }
-        if (!$this->user)
-        {
+        if (!$this->user) {
             $this->user = "root";
         }
         $conn =
-                mysqli_connect($this->host, $this->user, $this->pass,
-                        $this->database);
-        if (mysqli_connect_error())
-        {
+            mysqli_connect($this->host, $this->user, $this->pass,
+                $this->database);
+        if (mysqli_connect_error()) {
             error_critical('Database connection failed',
-                    mysqli_connect_errno() . ': ' . mysqli_connect_error(),
-                    'Attempted to connect to database on ' . $this->host,
-                    debug_backtrace(false));
+                mysqli_connect_errno() . ': ' . mysqli_connect_error(),
+                'Attempted to connect to database on ' . $this->host,
+                debug_backtrace(false));
         }
         // @overridecharset mysqli
         $this->connection_id = $conn;
@@ -74,13 +78,12 @@ class Database
     public function query(string $query): mysqli_result|bool
     {
         $this->result = mysqli_query($this->connection_id, $query);
-        if ($this->result === false)
-        {
+        if ($this->result === false) {
             error_critical('Query failed',
-                    mysqli_errno($this->connection_id) . ': '
-                            . mysqli_error($this->connection_id),
-                    'Attempted to execute query: ' . nl2br($query),
-                    debug_backtrace(false));
+                mysqli_errno($this->connection_id) . ': '
+                . mysqli_error($this->connection_id),
+                'Attempted to execute query: ' . nl2br($query),
+                debug_backtrace(false));
         }
         return $this->result;
     }

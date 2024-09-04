@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 
 require __DIR__ . '/../includes/globals_nonauth.php';
 

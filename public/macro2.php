@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
+
 $nohdr = 1;
 
 require __DIR__ . '/../includes/globals.php';

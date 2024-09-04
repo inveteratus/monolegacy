@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\Database;
+
 function staff_csrf_error($goBackTo)
 {
     global $h;
@@ -54,7 +56,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : 0;
 require __DIR__ . '/header.php';
 require __DIR__ . '/config.php';
-require __DIR__ . '/Database.php';
 global $_CONFIG;
 $db = new Database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],

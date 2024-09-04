@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/../vendor/autoload.php';
 
 $menuhide = 1;
 $atkpage = 1;

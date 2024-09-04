@@ -1,5 +1,7 @@
 <?php
 
+use App\Classes\Database;
+
 session_name('MCCSID');
 @session_start();
 if (!isset($_SESSION['started']))
@@ -20,7 +22,6 @@ require __DIR__ . '/basic_error_handler.php';
 set_error_handler('error_php');
 require __DIR__ . '/global_func.php';
 require __DIR__ . '/config.php';
-require __DIR__ . '/Database.php';
 global $_CONFIG;
 $db = new Database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
