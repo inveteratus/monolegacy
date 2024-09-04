@@ -16,7 +16,7 @@ docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql
 
 ## Crons
 
-Will be replaced iun due course, for now, add this to your crontab, updating the
+Will be replaced in due course, for now, add this to your crontab, updating the
 `/path/to/app` appropriately:
 
 ```
