@@ -26,7 +26,7 @@ class Database
         ]);
     }
 
-    public function execute(string $sql, array $context): PDOStatement
+    public function execute(string $sql, array $context = []): PDOStatement
     {
         $statement = $this->pdo->prepare($sql);
         $statement->execute($context);
