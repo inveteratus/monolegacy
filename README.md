@@ -20,10 +20,11 @@ Will be replaced iun due course, for now, add this to your crontab, updating the
 `/path/to/app` appropriately:
 
 ```
-*   *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1m.php
-*/5 *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/5m.php
-0   *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1h.php
-0   0    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1d.php
+*    *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1m.php
+*/5  *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/5m.php
+*/15 *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/15m.php
+0    *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1h.php
+0    0    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1d.php
 ```
 
 ## Changes from v2.0.5b
