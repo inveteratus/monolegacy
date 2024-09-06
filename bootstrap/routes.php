@@ -43,7 +43,8 @@ return new class
                     ->setName('bank');
                 $app->post('/bank', [BankController::class, 'post']);
 
-            })->add($ci->get(LastSeenMiddleware::class))
+            })->add($ci->get(\App\Middleware\RegenerateMiddleware::class))
+              ->add($ci->get(LastSeenMiddleware::class))
               ->add($ci->get(AuthMiddleware::class));
         })->add($ci->get(SessionMiddleware::class));
     }

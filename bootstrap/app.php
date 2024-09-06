@@ -4,6 +4,7 @@ use App\Classes\Database;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Middleware\LastSeenMiddleware;
+use App\Middleware\RegenerateMiddleware;
 use App\Middleware\SessionMiddleware;
 use App\Repositories\UserRepository;
 use DI\ContainerBuilder;
@@ -75,7 +76,11 @@ return new class {
 
             LastSeenMiddleware::class => function (ContainerInterface $ci) {
                 return new LastSeenMiddleware($ci->get(UserRepository::class));
-            }
+            },
+
+            RegenerateMiddleware::class => function (ContainerInterface $ci) {
+                return new RegenerateMiddleware($ci->get(UserRepository::class));
+            },
         ]);
 
         $container = $builder->build();

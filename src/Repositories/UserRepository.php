@@ -171,4 +171,9 @@ class UserRepository extends Repository
             'uid' => $uid,
         ]);
     }
+
+    public function regenerate(int $uid): void
+    {
+
+    }
 }
