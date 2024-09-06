@@ -8,7 +8,7 @@
         <div class="bg-slate-50 border border-slate-200 rounded shadow flex flex-col space-y-3 p-3">
             <div class="text-center">
                 <h3 class="text-xl font-light">Deposit</h3>
-                <p class="text-center text-sm text-slate-500">{{ user.money }} Cr. Available</p>
+                <p class="text-center text-sm text-slate-500">{{ number_format(user.money) }} Cr. Available</p>
             </div>
             <div class="flex justify-around text-sm">
                 {% for button in deposit %}
@@ -21,7 +21,7 @@
         <div class="bg-slate-50 border border-slate-200 rounded shadow flex flex-col space-y-3 p-3">
             <div class="text-center">
                 <h3 class="text-xl font-light">Withdraw</h3>
-                <p class="text-center text-sm text-slate-500">{{ user.bankmoney }} Cr. Available</p>
+                <p class="text-center text-sm text-slate-500">{{ number_format(user.bankmoney) }} Cr. Available</p>
             </div>
             <div class="flex justify-around text-sm">
                 {% for button in withdraw %}
