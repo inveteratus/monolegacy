@@ -1,0 +1,104 @@
+<div class="flex flex-col space-y-3 text-sm">
+    <div class="grid grid-cols-2">
+        <span>Name</span>
+        <span class="text-right">{{ user.username }}</span>
+
+        <span>Money</span>
+        <span class="text-right">{{ user.money }} Cr</span>
+
+        <span>Level</span>
+        <span class="text-right">{{ user.level }}</span>
+
+        <span>Diamonds</span>
+        <span class="text-right">{{ user.crystals }}</span>
+    </div>
+
+    <hr class="border-t border-b-0 border-slate-200 pb-0.5" />
+
+    <div class="flex flex-col space-y-1">
+        <div class="flex flex-col space-y-0.5">
+            <div class="bg-white h-3 flex shadow">
+                <span class="bg-red-500" style="width:{{ (user.energy*100)/user.maxenergy }}%"></span>
+            </div>
+            <p class="flex justify-between">
+                <span>Energy</span>
+                <span>{{ number_format((user.energy*100)/user.maxenergy,1) }} %</span>
+            </p>
+        </div>
+
+        <div class="flex flex-col space-y-0.5">
+            <div class="bg-white h-3 flex shadow">
+                <span class="bg-orange-500" style="width:{{ (user.brave*100)/user.maxbrave }}%"></span>
+            </div>
+            <p class="flex justify-between">
+                <span>Brave</span>
+                <span>{{ number_format(user.brave) }} / {{ number_format(user.maxbrave) }}</span>
+            </p>
+        </div>
+
+        <div class="flex flex-col space-y-0.5">
+            <div class="bg-white h-3 flex shadow">
+                <span class="bg-green-500" style="width:{{ (user.hp*100)/user.maxhp }}%"></span>
+            </div>
+            <p class="flex justify-between">
+                <span>Health</span>
+                <span>{{ number_format((user.hp*100)/user.maxhp,1) }} %</span>
+            </p>
+        </div>
+
+        <div class="flex flex-col space-y-0.5">
+            <div class="bg-white h-3 flex shadow">
+                <span class="bg-cyan-500" style="width:{{ (user.will*100)/user.maxwill }}%"></span>
+            </div>
+            <p class="flex justify-between">
+                <span>Capacity</span>
+                <span>{{ number_format(user.will) }} / {{ number_format(user.maxwill) }}</span>
+            </p>
+        </div>
+    </div>
+
+    <hr class="border-t border-b-0 border-slate-200" />
+
+    <div class="flex flex-col space-y-1.5 text-center">
+        <div>
+            <a href="/index.php" class="text-blue-500">Home</a><br />
+        </div>
+        <div>
+            <a href="/explore" class="text-blue-500">Explore</a><br />
+            <a href="/inventory.php" class="text-blue-500">Inventory</a><br />
+        </div>
+        <div>
+            <a href="/criminal.php" class="text-blue-500">Crimes</a><br />
+            <a href="/gym.php" class="text-blue-500">Gym</a><br />
+            <a href="/hospital.php" class="text-blue-500">Hospital</a><br />
+            <a href="/jail.php" class="text-blue-500">Jail</a><br />
+            <a href="/job.php" class="text-blue-500">Job</a><br />
+            <a href="/education.php" class="text-blue-500">School</a><br />
+        </div>
+        <div>
+            <a href="/announcements.php" class="text-blue-500">Announcements</a><br />
+            <a href="/events.php" class="text-blue-500">Events</a><br />
+            <a href="/forums.php" class="text-blue-500">Forums</a><br />
+            <a href="/mailbox.php" class="text-blue-500">Mail</a><br />
+            <a href="/newspaper.php" class="text-blue-500">Newspaper</a><br />
+        </div>
+    </div>
+
+    <hr class="border-t border-b-0 border-slate-200" />
+
+    <div class="flex flex-col space-y-1.5 text-center">
+        <div>
+            <a href="/preferences.php" class="text-blue-500">Preferences</a><br />
+            <a href="/preport.php" class="text-blue-500">Report a Player</a><br />
+            <a href="/helptutorial.php" class="text-blue-500">Tutorial</a><br />
+            <a href="/gamerules.php" class="text-blue-500">Rules</a><br />
+            <a href="/viewuser.php?u={{ user.userid }}" class="text-blue-500">Profile</a><br />
+        </div>
+        <div>
+            <form action="/logout.php" method="post">
+                <button type="submit" class="text-blue-500">Logout</button>
+            </form>
+        </div>
+    </div>
+
+</div>

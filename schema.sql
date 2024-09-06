@@ -133,7 +133,7 @@ CREATE TABLE `cities` (
 
 INSERT INTO `cities` (`cityid`, `cityname`, `citydesc`, `cityminlevel`)
   VALUES
-    (1, 'Default City', 'A standard city added to start you off', 1);
+    (1, 'London', 'A standard city added to start you off', 1);
 
 CREATE TABLE `contactlist` (
   `cl_ID` int(11) NOT NULL auto_increment,
@@ -660,7 +660,7 @@ CREATE TABLE `users` (
 
   `level` int(11) NOT NULL default '1',
   `exp` decimal(11,4) NOT NULL default '0.0000',
-  `money` int(11) NOT NULL default '0',
+  `money` int(11) NOT NULL default '100',
   `crystals` int(11) NOT NULL default '0',
   `laston` int(11) NOT NULL default '0',
   `lastip` varchar(255) NOT NULL default '',

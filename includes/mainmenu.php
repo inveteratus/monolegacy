@@ -57,7 +57,7 @@ if ($ir['jail'] and !$ir['hospital'])
 else if (!$ir['hospital'])
 {
     echo "
-	<a href='explore.php'>Explore</a><br />
+	<a href='/explore'>Explore</a><br />
 	<a href='gym.php'>Gym</a><br />
 	<a href='criminal.php'>Crimes</a><br />
 	<a href='job.php'>Your Job</a><br />

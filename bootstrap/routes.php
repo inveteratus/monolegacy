@@ -1,7 +1,9 @@
 <?php
 
+use App\Controllers\ExploreController;
 use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
+use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
@@ -23,6 +25,12 @@ return new class
                 $app->post('/register', [RegisterController::class, 'post']);
 
             })->add(new GuestMiddleware());
+            $app->group('', function (RouteCollectorProxyInterface $app) {
+
+                $app->get('/explore', ExploreController::class)
+                    ->setName('explore');
+
+            })->add(new AuthMiddleware());
         })->add(new SessionMiddleware());
     }
 };

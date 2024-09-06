@@ -62,4 +62,18 @@ class UserRepository extends Repository
 
         return $this->db->lastInsertId();
     }
+
+    public function getExtended(int $uid): object
+    {
+        $sql = <<<SQL
+            SELECT u.*, h.hID AS house_id, h.hNAME AS house_name, c.cityid AS cityid,
+                   c.cityname AS city_name
+            FROM users u
+            LEFT JOIN houses h ON h.hWILL = u.maxwill
+            LEFT JOIN cities c ON c.cityid = u.location
+            WHERE u.userid = :uid
+        SQL;
+
+        return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
+    }
 }

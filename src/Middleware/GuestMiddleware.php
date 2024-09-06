@@ -10,9 +10,9 @@ class GuestMiddleware
 {
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        $userId = array_key_exists('userid', $_SESSION) ? (int) $_SESSION['userid'] : 0;
+        $uid = array_key_exists('userid', $_SESSION) ? (int) $_SESSION['userid'] : 0;
 
-        if ($userId) {
+        if ($uid) {
             header('/index.php');
             exit;
         }

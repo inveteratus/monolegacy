@@ -61,7 +61,7 @@ Refactoring pages:
 * `[X]` Login
 * `[X]` Register
 * `[ ]` Home
-* `[ ]` Explore
+* `[X]` Explore
 * `[ ]` Inventory
 * `[ ]` Events
 * `[ ]` Mailbox

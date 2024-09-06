@@ -60,6 +60,12 @@ abstract class Controller
     public function view(string $template, array $context = []): Response
     {
         $this->environment->addExtension(new DebugExtension());
+
+        $this->environment->addFunction(new TwigFunction('min', 'min'));
+        $this->environment->addFunction(new TwigFunction('max', 'max'));
+        $this->environment->addFunction(new TwigFunction('number_format', 'number_format'));
+        $this->environment->addFunction(new TwigFunction('floor', 'floor'));
+
         $this->environment->addFunction(new TwigFunction('old', function (string $field) {
             return $_SESSION['form']['fields'][$field] ?? null;
         }));
