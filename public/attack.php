@@ -37,7 +37,6 @@ $odata_sql =
 	       `equip_primary`, `equip_secondary`, `gang`, `location`, `maxhp`,
 	       `guard`, `agility`, `strength`, `gender`
 	FROM `users` AS `u`
-	INNER JOIN `userstats` AS `us` ON `u`.`userid` = `us`.`userid`
 	WHERE `u`.`userid` = {$_GET['ID']}
 	LIMIT 1
 SQL;

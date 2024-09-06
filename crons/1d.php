@@ -57,33 +57,32 @@ while ($r = $db->fetch_row($q))
     $ev = "";
     if ($coud['crSTR'] > 0)
     {
-        $upd .= ", us.strength = us.strength + {$coud['crSTR']}";
+        $upd .= ", strength = strength + {$coud['crSTR']}";
         $ev .= ", {$coud['crSTR']} strength";
     }
     if ($coud['crGUARD'] > 0)
     {
-        $upd .= ", us.guard = us.guard + {$coud['crGUARD']}";
+        $upd .= ", guard = guard + {$coud['crGUARD']}";
         $ev .= ", {$coud['crGUARD']} guard";
     }
     if ($coud['crLABOUR'] > 0)
     {
-        $upd .= ", us.labour = us.labour + {$coud['crLABOUR']}";
+        $upd .= ", labour = labour + {$coud['crLABOUR']}";
         $ev .= ", {$coud['crLABOUR']} labour";
     }
     if ($coud['crAGIL'] > 0)
     {
-        $upd .= ", us.agility = us.agility + {$coud['crAGIL']}";
+        $upd .= ", agility = agility + {$coud['crAGIL']}";
         $ev .= ", {$coud['crAGIL']} agility";
     }
     if ($coud['crIQ'] > 0)
     {
-        $upd .= ", us.IQ = us.IQ + {$coud['crIQ']}";
+        $upd .= ", IQ = IQ + {$coud['crIQ']}";
         $ev .= ", {$coud['crIQ']} IQ";
     }
     $ev = substr($ev, 1);
     $db->query(
-            "UPDATE `users` AS `u`
-                INNER JOIN `userstats` AS `us` ON `u`.`userid` = `us`.`userid`
+            "UPDATE `users`
                 SET `u`.`course` = 0{$upd}
                 WHERE `u`.`userid` = {$userid}");
     event_add($userid,

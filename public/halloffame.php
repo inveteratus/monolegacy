@@ -48,8 +48,6 @@ if (in_array($_GET['action'], $hofqtwo))
                      `level`, `money`, `crystals`, `username`, `gangPREF`,
                      `strength`, `agility`, `guard`, `labour`, `IQ`
                      FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid` = `us`.`userid`
                      LEFT JOIN `gangs` AS `g`
                      ON `g`.`gangID` = `u`.`gang`
                      WHERE `u`.`user_level` != 0

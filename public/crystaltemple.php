@@ -89,7 +89,7 @@ else
                      SET `crystals` = `crystals` - {$_POST['crystals']}
                      WHERE `userid` = $userid");
             $db->query(
-                    "UPDATE `userstats`
+                    "UPDATE `users`
                     SET `IQ` = `IQ` + $iqgain
             		WHERE `userid` = $userid");
             echo "You traded {$_POST['crystals']} crystals for $iqgain IQ.";

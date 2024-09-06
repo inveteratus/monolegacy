@@ -86,7 +86,7 @@ else
                         array('strength', 'agility', 'guard', 'labour', 'IQ')))
                 {
                     $db->query(
-                            "UPDATE `userstats`
+                            "UPDATE `users`
                              SET `{$einfo['stat']}` = '{$upd}'
                              WHERE `userid` = {$userid}");
                 }

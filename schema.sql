@@ -657,6 +657,7 @@ CREATE TABLE `users` (
   `userid` int(11) NOT NULL auto_increment,
   `username` varchar(255) NOT NULL,
   `userpass` varchar(255) NOT NULL,
+
   `level` int(11) NOT NULL default '1',
   `exp` decimal(11,4) NOT NULL default '0.0000',
   `money` int(11) NOT NULL default '0',
@@ -664,14 +665,16 @@ CREATE TABLE `users` (
   `laston` int(11) NOT NULL default '0',
   `lastip` varchar(255) NOT NULL default '',
   `job` int(11) NOT NULL default '0',
+
   `energy` int(11) NOT NULL default '12',
+  `maxenergy` int(11) NOT NULL default '12',
   `will` int(11) NOT NULL default '100',
   `maxwill` int(11) NOT NULL default '100',
   `brave` int(11) NOT NULL default '5',
   `maxbrave` int(11) NOT NULL default '5',
-  `maxenergy` int(11) NOT NULL default '12',
   `hp` int(11) NOT NULL default '100',
   `maxhp` int(11) NOT NULL default '100',
+
   `location` int(11) NOT NULL default '1',
   `hospital` int(11) NOT NULL default '0',
   `jail` int(11) NOT NULL default '0',
@@ -721,19 +724,14 @@ CREATE TABLE `users` (
   `equip_armor` int(11) NOT NULL default '0',
   `force_logout` tinyint(4) NOT NULL default '0',
   `pass_salt` varchar(8) NOT NULL default '',
+
+  `strength` float NOT NULL default '10',
+  `agility` float NOT NULL default '10',
+  `guard` float NOT NULL default '10',
+  `labour` float NOT NULL default '10',
+  `IQ` float NOT NULL default '10',
   PRIMARY KEY  (`userid`)
 ) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE `userstats` (
-  `userid` int(11) NOT NULL default '0',
-  `strength` float NOT NULL default '0',
-  `agility` float NOT NULL default '0',
-  `guard` float NOT NULL default '0',
-  `labour` float NOT NULL default '0',
-  `IQ` float NOT NULL default '0',
-  PRIMARY KEY  (`userid`)
-) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 
 CREATE TABLE `votes` (
   `userid` int(11) NOT NULL default '0',

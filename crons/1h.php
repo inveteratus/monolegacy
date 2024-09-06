@@ -69,12 +69,11 @@ if (date('G') == 17)
     // Job stats update
     $db->query(
             "UPDATE `users` AS `u`
-    		    INNER JOIN `userstats` AS `us` ON `u`.`userid` = `us`.`userid`
     		    LEFT JOIN `jobranks` AS `jr` ON `jr`.`jrID` = `u`.`jobrank`
     		    SET `u`.`money` = `u`.`money` + `jr`.`jrPAY`, `u`.`exp` = `u`.`exp` + (`jr`.`jrPAY` / 20),
-    		    `us`.`strength` = (`us`.`strength` + 1) + `jr`.`jrSTRG` - 1,
-    		    `us`.`labour` = (`us`.`labour` + 1) + `jr`.`jrLABOURG` - 1,
-    		    `us`.`IQ` = (`us`.`IQ`+1) + `jr`.`jrIQG` - 1
+    		    `u`.`strength` = `u`.`strength` + `jr`.`jrSTRG`,
+    		    `u`.`labour` = `u`.`labour` + `jr`.`jrLABOURG`,
+    		    `u`.`IQ` = `u`.`IQ` + `jr`.`jrIQG`
     		    WHERE `u`.`job` > 0 AND `u`.`jobrank` > 0");
 }
 if ($set['validate_period'] == 60 && $set['validate_on'])

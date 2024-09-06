@@ -780,21 +780,15 @@ function check_level()
 /**
  * Get the "rank" a user has for a particular stat - if the return is n, then the user has the n'th highest value for that stat.
  * @param int $stat The value of the current user's stat.
- * @param string $mykey The stat to be ranked in. Must be a valid column name in the userstats table
+ * @param string $mykey The stat to be ranked in. Must be a valid column name in the users table
  * @return integer The user's rank in the stat
  */
 function get_rank($stat, $mykey)
 {
     global $db;
     global $ir, $userid, $c;
-    $q =
-            $db->query(
-                    "SELECT count(`u`.`userid`)
-                    FROM `userstats` AS `us`
-                    LEFT JOIN `users` AS `u`
-                    ON `us`.`userid` = `u`.`userid`
-                    WHERE {$mykey} > {$stat}
-                    AND `us`.`userid` != {$userid} AND `u`.`user_level` != 0");
+    $sql = "SELECT COUNT(*) FROM users WHERE {$mykey} > {$stat} AND userid != {$userid} AND user_level != 0";
+    $q = $db->query($sql);
     $result = $db->fetch_single($q) + 1;
     $db->free_result($q);
     return $result;

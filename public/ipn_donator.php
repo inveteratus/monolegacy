@@ -13,7 +13,7 @@ foreach ($_POST as $key => $value)
 }
 
 // post back to PayPal system to validate
-$header .= "POST /cgi-bin/webscr HTTP/1.0\r\n";
+$header  = "POST /cgi-bin/webscr HTTP/1.0\r\n";
 $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
 $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
 $fp = fsockopen('www.paypal.com', 80, $errno, $errstr, 30);
@@ -116,11 +116,9 @@ else
             {
                 $db->query(
                         "UPDATE `users` AS `u`
-                         LEFT JOIN `userstats` AS `us`
-                         ON `u`.`userid` = `us`.`userid`
                          SET `u`.`money` = `u`.`money` + 5000,
                          `u`.`crystals` = `u`.`crystals` + 50,
-                         `us`.`IQ` = `us`.`IQ` + 50,
+                         `u`.`IQ` = `u`.`IQ` + 50,
                          `u`.`donatordays` = `u`.`donatordays` + 30
                          WHERE `u`.`userid` = {$for}");
                 $d = 30;
@@ -140,9 +138,7 @@ else
             {
                 $db->query(
                         "UPDATE `users` AS `u`
-                         LEFT JOIN `userstats` AS `us`
-                         ON `u`.`userid` = `us`.`userid`
-                         SET `us`.`IQ` = `us`.`IQ` + 50,
+                         SET `u`.`IQ` = `u`.`IQ` + 50,
                          `u`.`donatordays` = `u`.`donatordays` + 30
                          WHERE `u`.`userid` = {$for}");
                 $d = 30;
@@ -152,11 +148,9 @@ else
             {
                 $db->query(
                         "UPDATE `users` AS `u`
-                         LEFT JOIN `userstats` AS `us`
-                         ON `u`.`userid` = `us`.`userid`
                          SET `u`.`money` = `u`.`money` + 15000,
                          `u`.`crystals` = `u`.`crystals` + 75,
-                         `us`.`IQ` = `us`.`IQ` + 80,
+                         `u`.`IQ` = `u`.`IQ` + 80,
                          `u`.`donatordays` = `u`.`donatordays` + 55
                          WHERE `u`.`userid` = {$for}");
                 $d = 55;
@@ -166,11 +160,9 @@ else
             {
                 $db->query(
                         "UPDATE `users` AS `u`
-                         LEFT JOIN `userstats` AS `us`
-                         ON `u`.`userid` = `us`.`userid`
                          SET `u`.`money` = `u`.`money` + 35000,
                          `u`.`crystals` = `u`.`crystals` + 160,
-                         `us`.`IQ` = `us`.`IQ` + 180,
+                         `u`.`IQ` = `u`.`IQ` + 180,
                          `u`.`donatordays` = `u`.`donatordays` + 115
                          WHERE `u`.`userid` = {$for}");
                 $d = 115;

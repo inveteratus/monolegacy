@@ -51,10 +51,8 @@ if (isset($jobquery) && $jobquery)
 {
     $is =
             $db->query(
-                    "SELECT `u`.*, `us`.*, `j`.*, `jr`.*
+                    "SELECT `u`.*, `j`.*, `jr`.*
                      FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
                      LEFT JOIN `jobs` AS `j` ON `j`.`jID` = `u`.`job`
                      LEFT JOIN `jobranks` AS `jr`
                      ON `jr`.`jrID` = `u`.`jobrank`
@@ -65,10 +63,8 @@ else if (isset($housequery) && $housequery)
 {
     $is =
             $db->query(
-                    "SELECT `u`.*, `us`.*, `h`.*
+                    "SELECT `u`.*, `h`.*
                      FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
                      LEFT JOIN `houses` AS `h` ON `h`.`hWILL` = `u`.`maxwill`
                      WHERE `u`.`userid` = {$userid}
                      LIMIT 1");
@@ -77,10 +73,8 @@ else
 {
     $is =
             $db->query(
-                    "SELECT `u`.*, `us`.*
+                    "SELECT `u`.*
                      FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
                      WHERE `u`.`userid` = {$userid}
                      LIMIT 1");
 }

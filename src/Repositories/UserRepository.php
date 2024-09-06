@@ -60,21 +60,6 @@ class UserRepository extends Repository
             'display_pic' => '',
         ]);
 
-        $id = $this->db->lastInsertId();
-
-        $sql = <<<SQL
-            INSERT INTO userstats (userid, strength, agility, guard, labour, IQ)
-            VALUE (:userid, :strength, :agility, :guard, :labour, :IQ)
-        SQL;
-        $this->db->execute($sql, [
-            'userid' => $id,
-            'strength' => 10,
-            'agility' => 10,
-            'guard' => 10,
-            'labour' => 10,
-            'IQ' => 10,
-        ]);
-
-        return $id;
+        return $this->db->lastInsertId();
     }
 }

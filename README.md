@@ -53,6 +53,8 @@ In no particular order:
 * `[ ]` Add an auction house
 * `[ ]` Remove macro system
 * `[ ]` Re-implement CSRF
+* `[ ]` Restore referral link to explore 
+* `[ ]` Refactor all staff pages
 
 Refactoring pages:
 

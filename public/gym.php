@@ -55,7 +55,7 @@ if (isset($_POST['stat']) && $_POST['amnt'])
             $gain /= 2;
         }
         $db->query(
-                "UPDATE `userstats`
+                "UPDATE `users`
         		 SET `{$stat}` = `{$stat}` + $gain
         		 WHERE `userid` = $userid");
         $db->query(
