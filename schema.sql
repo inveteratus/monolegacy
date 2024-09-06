@@ -660,8 +660,12 @@ CREATE TABLE `users` (
 
   `level` int(11) NOT NULL default '1',
   `exp` decimal(11,4) NOT NULL default '0.0000',
-  `money` int(11) NOT NULL default '100',
-  `crystals` int(11) NOT NULL default '0',
+
+  `money` bigint unsigned NOT NULL default 100,
+  `bankmoney` bigint unsigned NULL default 0,
+  `cybermoney` int(11) NOT NULL default '-1',
+  `crystals` int unsigned NOT NULL default '0',
+
   `laston` int(11) NOT NULL default '0',
   `lastip` varchar(255) NOT NULL default '',
   `job` int(11) NOT NULL default '0',
@@ -694,8 +698,6 @@ CREATE TABLE `users` (
   `login_name` varchar(255) NOT NULL default '',
   `display_pic` text NOT NULL,
   `duties` varchar(255) NOT NULL default '',
-  `bankmoney` int(11) NOT NULL default '0',
-  `cybermoney` int(11) NOT NULL default '-1',
   `staffnotes` longtext NOT NULL,
   `mailban` int(11) NOT NULL default '0',
   `mb_reason` varchar(255) NOT NULL default '',
