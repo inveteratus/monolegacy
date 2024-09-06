@@ -1,6 +1,7 @@
 parameters:
   level: 1
   paths:
+    - bootstrap
     - crons
     - includes
     - public

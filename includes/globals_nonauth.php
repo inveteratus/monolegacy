@@ -2,8 +2,10 @@
 
 use App\Classes\Database;
 
-session_name('MCCSID');
-@session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_name('MCCSID');
+    session_start();
+}
 if (!isset($_SESSION['started']))
 {
     session_regenerate_id();

@@ -1,0 +1,42 @@
+{% extends 'layouts/guest.twig' %}
+
+{% block content %}
+
+    <main class="flex flex-col flex-grow items-center justify-center">
+        <form method="post" class="bg-slate-100 max-w-lg w-full space-y-3 p-8 rounded shadow">
+
+            <div class="flex flex-col">
+                <label for="name" class="font-medium text-slate-600">Name</label>
+                <input id="name" type="text" name="name" value="{{ old('name') }}" autofocus required autocomplete="name" class="rounded" />
+                {% if error('name') %}
+                    <span class="text-sm text-red-500">{{ error('name') }}</span>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="email" class="font-medium text-slate-600">Email</label>
+                <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="email" class="rounded" />
+                {% if error('email') %}
+                    <span class="text-sm text-red-500">{{ error('email') }}</span>
+                {% endif %}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="password" class="font-medium text-slate-600">Password</label>
+                <input id="password" type="password" name="password" required autocomplete="current-password" class="rounded" />
+                {% if error('password') %}
+                    <span class="text-sm text-red-500">{{ error('password') }}</span>
+                {% endif %}
+            </div>
+
+            <div class="flex pt-6">
+                <button type="submit" class="bg-blue-500 text-white font-medium px-4 py-2 rounded">Register</button>
+            </div>
+
+        </form>
+        <p class="text-center pt-3">
+            <a href="/login">Already have an account ?</a>
+        </p>
+    </main>
+
+{% endblock %}

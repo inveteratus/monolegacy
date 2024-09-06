@@ -9,7 +9,7 @@ if (!isset($_SESSION['started']))
     $_SESSION['started'] = true;
 }
 
-require __DIR__ . '/../includes/globals_func.php';
+require __DIR__ . '/../includes/global_func.php';
 
 if (isset($_SESSION['userid']))
 {
@@ -28,11 +28,10 @@ if (isset($_SESSION['userid']))
         session_regenerate_id(true);
         session_unset();
         session_destroy();
-        die("<a href='login.php'>Continue to login...</a>");
+        die("<a href='/login'>Continue to login...</a>");
     }
 }
 session_regenerate_id(true);
 session_unset();
 session_destroy();
-$login_url = 'http://' . determine_game_urlbase() . '/login.php';
-header("Location: {$login_url}");
+header("Location: /login");

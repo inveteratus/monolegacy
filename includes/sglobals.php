@@ -27,8 +27,10 @@ function staff_csrf_stdverify($formid, $goBackTo)
         staff_csrf_error($goBackTo);
     }
 }
-session_name('MCCSID');
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_name('MCCSID');
+    session_start();
+}
 if (!isset($_SESSION['started']))
 {
     session_regenerate_id();
@@ -49,8 +51,7 @@ require __DIR__ . '/global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
-    $login_url = "http://{$domain}/login.php";
-    header("Location: {$login_url}");
+    header("Location: /login");
     exit;
 }
 $userid = isset($_SESSION['userid']) ? $_SESSION['userid'] : 0;
@@ -116,8 +117,7 @@ if ($ir['force_logout'] != '0')
     		 WHERE `userid` = {$userid}");
     session_unset();
     session_destroy();
-    $login_url = "http://{$domain}/login.php";
-    header("Location: {$login_url}");
+    header("Location: /login");
     exit;
 }
 if (!in_array($ir['user_level'], array(2, 3, 5)))

@@ -41,6 +41,11 @@ class Database
         return $statement;
     }
 
+    public function lastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
     /** @deprecated */
     public function configure($host, $user, $pass, $database)
     {

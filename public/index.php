@@ -1,8 +1,31 @@
 <?php
+
+use Slim\Exception\HttpNotFoundException;
+
 require __DIR__ . '/../vendor/autoload.php';
 
-$housequery = 1;
+$app = (require __DIR__ . '/../bootstrap/app.php')();
 
+$app->addBodyParsingMiddleware();
+$app->addRoutingMiddleware();
+
+(require __DIR__ . '/../bootstrap/routes.php')($app);
+
+$handle404 = false;
+try {
+    $app->run();
+}
+catch (HttpNotFoundException) {
+    $handle404 = true;
+}
+
+if (!$handle404) {
+    exit;
+}
+
+/////////////////////////////////////////////////////////////////////
+
+$housequery = 1;
 
 require __DIR__ . '/../includes/globals.php';
 

@@ -188,7 +188,7 @@ if (!empty($username))
                             . ", '{$e_rip}', '$IP')");
         }
         echo "You have signed up, enjoy the game.<br />
-		&gt; <a href='login.php'>Login</a>";
+		&gt; <a href='/login'>Login</a>";
     }
 }
 else
@@ -280,7 +280,7 @@ else
 			</tr>
 	</table>
 	</form><br />
-	&gt; <a href='login.php'>Go Back</a>";
+	&gt; <a href='/login'>Go Back</a>";
 }
 register_footer();
 
