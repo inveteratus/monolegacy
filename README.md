@@ -43,10 +43,10 @@ In no particular order:
 * `[ ]` Change all code to use PDO
 * `[ ]` Work up to static analysis at level 5
 * `[ ]` Convert pages to use templates (Twig) - See below
-* `[ ]` Create a base set of crimes, cities, items and courses
+* `[ ]` Create a base set of crimes, cities, items, houses and courses
 * `[X]` Move non-page php files out to an includes folder
 * `[ ]` Change interest rate to 100% APR
-* `[ ]` Move user stats into users table
+* `[X]` Move user stats into users table
 * `[ ]` Remove federal jail (or make it a staff only feature)
 * `[ ]` Add real position for high scores
 * `[ ]` Create better casino games (slots, roulette?)
