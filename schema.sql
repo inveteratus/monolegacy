@@ -670,14 +670,14 @@ CREATE TABLE `users` (
   `lastip` varchar(255) NOT NULL default '',
   `job` int(11) NOT NULL default '0',
 
-  `energy` int(11) NOT NULL default '12',
-  `maxenergy` int(11) NOT NULL default '12',
-  `will` int(11) NOT NULL default '100',
-  `maxwill` int(11) NOT NULL default '100',
-  `brave` int(11) NOT NULL default '5',
-  `maxbrave` int(11) NOT NULL default '5',
-  `hp` int(11) NOT NULL default '100',
-  `maxhp` int(11) NOT NULL default '100',
+  `energy`    double unsigned NOT NULL default 12,
+  `maxenergy` int    unsigned NOT NULL default 12,
+  `will`      double unsigned NOT NULL default 100,
+  `maxwill`   int    unsigned NOT NULL default 100,
+  `brave`     double unsigned NOT NULL default 5,
+  `maxbrave`  int    unsigned NOT NULL default 5,
+  `hp`        double unsigned NOT NULL default 100,
+  `maxhp`     int    unsigned NOT NULL default 100,
 
   `location` int(11) NOT NULL default '1',
   `hospital` int(11) NOT NULL default '0',
@@ -727,16 +727,16 @@ CREATE TABLE `users` (
   `force_logout` tinyint(4) NOT NULL default '0',
   `pass_salt` varchar(8) NOT NULL default '',
 
-  `strength` float NOT NULL default '10',
-  `agility` float NOT NULL default '10',
-  `guard` float NOT NULL default '10',
-  `labour` float NOT NULL default '10',
-  `IQ` float NOT NULL default '10',
+  `strength` double unsigned NOT NULL default 10,
+  `agility`  double unsigned NOT NULL default 10,
+  `guard`    double unsigned NOT NULL default 10,
+  `labour`   double unsigned NOT NULL default 10,
+  `IQ`       double unsigned NOT NULL default 10,
 
   `regenerated` datetime not null default '2020-01-01 00:00:00',
 
   PRIMARY KEY (`userid`),
-  UNIQUE  KEY ('email')
+  UNIQUE  KEY (`email`)
 )
 ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
