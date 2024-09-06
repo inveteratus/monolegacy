@@ -33,6 +33,7 @@
     "scripts": {
         "sa": "phpstan --memory-limit=1G analyse",
         "stan": "@sa",
-        "phpstan": "@sa"
+        "phpstan": "@sa",
+        "mysql": "docker compose exec -it db mysql -umonolegacy -psecret monolegacy"
     }
 }
