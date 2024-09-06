@@ -25,9 +25,8 @@ $user_update_query =
          `daysold` = `daysold` + 1, `boxes_opened` = 0,
          `mailban` = `mailban` - IF(`mailban` > 0, 1, 0),
          `donatordays` = `donatordays` - IF(`donatordays` > 0, 1, 0),
-         `cdays` = `cdays` - IF(`course` > 0, 1, 0),
-         `bankmoney` = `bankmoney` + IF(`bankmoney` > 0, `bankmoney` / 50, 0),
-         `cybermoney` = `cybermoney` + IF(`cybermoney` > 0, `cybermoney` / 100 * 7, 0)";
+         `cdays` = `cdays` - IF(`course` > 0, 1, 0)
+         ";
 $db->query($user_update_query);
 $q =
         $db->query(
