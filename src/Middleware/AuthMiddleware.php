@@ -13,7 +13,7 @@ class AuthMiddleware
         $uid = array_key_exists('userid', $_SESSION) ? (int) $_SESSION['userid'] : 0;
 
         if (!$uid) {
-            header('/login');
+            header('Location: /login');
             exit;
         }
 

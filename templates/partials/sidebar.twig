@@ -51,7 +51,7 @@
                 <span class="bg-cyan-500" style="width:{{ (user.will*100)/user.maxwill }}%"></span>
             </div>
             <p class="flex justify-between">
-                <span>Capacity</span>
+                <span>Power</span>
                 <span>{{ number_format(user.will) }} / {{ number_format(user.maxwill) }}</span>
             </p>
         </div>
@@ -70,8 +70,8 @@
         <div>
             <a href="/criminal.php" class="text-blue-500">Crimes</a><br />
             <a href="/gym.php" class="text-blue-500">Gym</a><br />
-            <a href="/hospital.php" class="text-blue-500">Hospital</a><br />
-            <a href="/jail.php" class="text-blue-500">Jail</a><br />
+            <a href="/hospital.php" class="text-blue-500">Hospital ({{ number_format(patients()) }})</a><br />
+            <a href="/jail.php" class="text-blue-500">Jail ({{ number_format(inmates()) }})</a><br />
             <a href="/job.php" class="text-blue-500">Job</a><br />
             <a href="/education.php" class="text-blue-500">School</a><br />
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
@@ -19,6 +20,9 @@ abstract class Controller
 {
     #[Inject]
     private Environment $environment;
+
+    #[Inject]
+    private UserRepository $playerRepository;
 
     public function redirect(string $url): Response
     {
@@ -67,6 +71,9 @@ abstract class Controller
         $this->environment->addFunction(new TwigFunction('max', 'max'));
         $this->environment->addFunction(new TwigFunction('number_format', 'number_format'));
         $this->environment->addFunction(new TwigFunction('floor', 'floor'));
+
+        $this->environment->addFunction(new TwigFunction('inmates', fn () => $this->playerRepository->inmates()));
+        $this->environment->addFunction(new TwigFunction('patients', fn () => $this->playerRepository->patients()));
 
         $this->environment->addFunction(new TwigFunction('old', function (string $field) {
             return $_SESSION['form']['fields'][$field] ?? null;

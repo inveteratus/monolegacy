@@ -13,7 +13,7 @@ class GuestMiddleware
         $uid = array_key_exists('userid', $_SESSION) ? (int) $_SESSION['userid'] : 0;
 
         if ($uid) {
-            header('/index.php');
+            header('Location: /index.php');
             exit;
         }
 

@@ -121,4 +121,22 @@ class UserRepository extends Repository
             'uid' => $uid,
         ]);
     }
+
+    public function inmates(): int
+    {
+        // TODO cache for ... 5? seconds
+
+        return $this->db
+            ->execute('SELECT COUNT(*) FROM users WHERE jail > :now', ['now' => time()])
+            ->fetch(PDO::FETCH_COLUMN);
+    }
+
+    public function patients(): int
+    {
+        // TODO cache for ... 5? seconds
+
+        return $this->db
+            ->execute('SELECT COUNT(*) FROM users WHERE hospital > :now', ['now' => time()])
+            ->fetch(PDO::FETCH_COLUMN);
+    }
 }
