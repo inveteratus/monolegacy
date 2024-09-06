@@ -76,4 +76,49 @@ class UserRepository extends Repository
 
         return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
     }
+
+    public function getBasic(int $uid): object
+    {
+        $sql = <<<SQL
+            SELECT u.*
+            FROM users u
+            WHERE u.userid = :uid
+        SQL;
+
+        return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function getPlayers(int $page = 1, int $limit = 15): array
+    {
+        $records = $this->db->execute('SELECT COUNT(*) FROM users')->fetch(PDO::FETCH_COLUMN);
+        $pages = ceil($records / $limit);
+        $page = max(1, min($page, $pages));
+        $sql = <<<SQL
+            SELECT u.username AS name,
+                   IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.cityname)) AS location,
+                   FROM_UNIXTIME(u.laston) AS last_seen
+            FROM users u
+            LEFT JOIN cities c ON c.cityid = u.location
+            ORDER BY u.laston DESC
+            LIMIT :offset, :limit
+        SQL;
+        return $this->db->execute($sql, [
+            'offset' => ($page - 1) * $limit,
+            'limit' => $limit,
+        ])->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function updateLastSeen(int $uid): void
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET laston = :now, lastip = :ip
+            WHERE userid = :uid
+        SQL;
+        $this->db->execute($sql, [
+            'now' => time(),
+            'ip' => $_SERVER['REMOTE_ADDR'],
+            'uid' => $uid,
+        ]);
+    }
 }

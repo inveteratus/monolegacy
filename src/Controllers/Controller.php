@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Carbon\Carbon;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -11,6 +12,7 @@ use Respect\Validation\Validator as v;
 use Slim\Psr7\Factory\ResponseFactory;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 abstract class Controller
@@ -71,6 +73,9 @@ abstract class Controller
         }));
         $this->environment->addFunction(new TwigFunction('error', function (string $field) {
             return $_SESSION['form']['errors'][$field] ?? null;
+        }));
+        $this->environment->addFilter(new TwigFilter('delta', function (string $dateTime) {
+            return Carbon::parse($dateTime)->diffForHumans(null, parts:2);
         }));
 
         $responseFactory = new ResponseFactory();

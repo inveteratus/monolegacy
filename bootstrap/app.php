@@ -1,6 +1,10 @@
 <?php
 
 use App\Classes\Database;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\GuestMiddleware;
+use App\Middleware\LastSeenMiddleware;
+use App\Middleware\SessionMiddleware;
 use App\Repositories\UserRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
@@ -48,8 +52,29 @@ return new class {
                     'charset' => 'utf-8',
                 ]);
             },
+
+            /* Repositories */
+
             UserRepository::class => function (ContainerInterface $container) {
                 return new UserRepository($container->get(Database::class));
+            },
+
+            /* Middleware */
+
+            SessionMiddleware::class => function () {
+                return new SessionMiddleware();
+            },
+
+            GuestMiddleware::class => function () {
+                return new GuestMiddleware();
+            },
+
+            AuthMiddleware::class => function () {
+                return new AuthMiddleware();
+            },
+
+            LastSeenMiddleware::class => function (ContainerInterface $ci) {
+                return new LastSeenMiddleware($ci->get(UserRepository::class));
             }
         ]);
 

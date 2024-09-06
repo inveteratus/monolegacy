@@ -87,11 +87,11 @@ Refactoring pages:
 * `[ ]` Shops 
 * `[ ]` Item Market
 * `[ ]` Crystal Market
-* `[ ]` User List
+* `[X]` User List -> (moved to Player List)
 * `[ ]` Staff List
 * `[ ]` Hall of Fame
 * `[ ]` Game Stats
-* `[ ]` Users Online
+* `[X]` Users Online (moved to Player List)
 * `[ ]` Travel Agency
 * `[ ]` Realtor
 * `[ ]` Bank

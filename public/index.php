@@ -11,15 +11,15 @@ $app->addRoutingMiddleware();
 
 (require __DIR__ . '/../bootstrap/routes.php')($app);
 
-$handle404 = false;
+$passThrough = false;
 try {
     $app->run();
 }
 catch (HttpNotFoundException) {
-    $handle404 = true;
+    $passThrough = true;
 }
 
-if (!$handle404) {
+if (!$passThrough) {
     exit;
 }
 

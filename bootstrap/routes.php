@@ -2,9 +2,11 @@
 
 use App\Controllers\ExploreController;
 use App\Controllers\LoginController;
+use App\Controllers\PlayerListController;
 use App\Controllers\RegisterController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
+use App\Middleware\LastSeenMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -13,8 +15,10 @@ return new class
 {
     public function __invoke(App $app): void
     {
-        $app->group('', function (RouteCollectorProxyInterface $app) {
-            $app->group('', function (RouteCollectorProxyInterface $app) {
+        $ci = $app->getContainer();
+
+        $app->group('', function (RouteCollectorProxyInterface $app) use ($ci) {
+            $app->group('', function (RouteCollectorProxyInterface $app) use ($ci) {
 
                 $app->get('/login', [LoginController::class, 'get'])
                     ->setName('login');
@@ -24,13 +28,17 @@ return new class
                     ->setName('register');
                 $app->post('/register', [RegisterController::class, 'post']);
 
-            })->add(new GuestMiddleware());
-            $app->group('', function (RouteCollectorProxyInterface $app) {
+            })->add($ci->get(GuestMiddleware::class));
+            $app->group('', function (RouteCollectorProxyInterface $app) use ($ci) {
 
                 $app->get('/explore', ExploreController::class)
                     ->setName('explore');
 
-            })->add(new AuthMiddleware());
-        })->add(new SessionMiddleware());
+                $app->get('/players', PlayerListController::class)
+                    ->setName('player-list');
+
+            })->add($ci->get(LastSeenMiddleware::class))
+              ->add($ci->get(AuthMiddleware::class));
+        })->add($ci->get(SessionMiddleware::class));
     }
 };
