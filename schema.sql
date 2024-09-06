@@ -732,8 +732,13 @@ CREATE TABLE `users` (
   `guard` float NOT NULL default '10',
   `labour` float NOT NULL default '10',
   `IQ` float NOT NULL default '10',
-  PRIMARY KEY  (`userid`)
-) ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+  `regenerated` datetime not null default '2020-01-01 00:00:00',
+
+  PRIMARY KEY (`userid`),
+  UNIQUE  KEY ('email')
+)
+ENGINE=InnoDB CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `votes` (
   `userid` int(11) NOT NULL default '0',
