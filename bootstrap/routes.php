@@ -1,5 +1,6 @@
 <?php
 
+use App\Controllers\BankController;
 use App\Controllers\ExploreController;
 use App\Controllers\LoginController;
 use App\Controllers\PlayerListController;
@@ -29,6 +30,7 @@ return new class
                 $app->post('/register', [RegisterController::class, 'post']);
 
             })->add($ci->get(GuestMiddleware::class));
+
             $app->group('', function (RouteCollectorProxyInterface $app) use ($ci) {
 
                 $app->get('/explore', ExploreController::class)
@@ -36,6 +38,10 @@ return new class
 
                 $app->get('/players', PlayerListController::class)
                     ->setName('player-list');
+
+                $app->get('/bank', [BankController::class, 'get'])
+                    ->setName('bank');
+                $app->post('/bank', [BankController::class, 'post']);
 
             })->add($ci->get(LastSeenMiddleware::class))
               ->add($ci->get(AuthMiddleware::class));

@@ -139,4 +139,36 @@ class UserRepository extends Repository
             ->execute('SELECT COUNT(*) FROM users WHERE hospital > :now', ['now' => time()])
             ->fetch(PDO::FETCH_COLUMN);
     }
+
+    public function deposit(int $uid, int $amount): void
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET money = money - :amount1, bankmoney = bankmoney + :amount2
+            WHERE userid = :uid AND money >= :amount3
+        SQL;
+
+        $this->db->execute($sql, [
+            'amount1' => $amount,
+            'amount2' => $amount,
+            'amount3' => $amount,
+            'uid' => $uid,
+        ]);
+    }
+
+    public function withdraw(int $uid, int $amount): void
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET bankmoney = bankmoney - :amount1, money = money + :amount2
+            WHERE userid = :uid AND bankmoney >= :amount3
+        SQL;
+
+        $this->db->execute($sql, [
+            'amount1' => $amount,
+            'amount2' => $amount,
+            'amount3' => $amount,
+            'uid' => $uid,
+        ]);
+    }
 }

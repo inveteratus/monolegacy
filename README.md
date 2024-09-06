@@ -44,7 +44,7 @@ In no particular order:
 * `[ ]` Convert pages to use templates (Twig) - See below
 * `[ ]` Create a base set of crimes, cities, items, houses and courses
 * `[X]` Move non-page php files out to an includes folder
-* `[ ]` Change interest rate to 100% APR
+* `[-]` ~~Change interest rate to 100% APR~~
 * `[X]` Move user stats into users table
 * `[ ]` Remove federal jail (or make it a staff only feature)
 * `[ ]` Add real position for high scores
@@ -93,7 +93,7 @@ Refactoring pages:
 * `[X]` Users Online (moved to Player List)
 * `[ ]` Travel Agency
 * `[ ]` Realtor
-* `[ ]` Bank
+* `[X]` Bank
 * `[ ]` Crystal Temple
 * `[ ]` Battle Tent
 * `[ ]` Polling Booth
