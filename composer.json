@@ -17,6 +17,7 @@
     "require": {
         "php": "^8.3",
         "ext-pdo": "*",
+        "league/commonmark": "^2.5",
         "nesbot/carbon": "^3.8",
         "php-di/php-di": "^7.0",
         "respect/validation": "^2.3",

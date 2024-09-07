@@ -6,6 +6,7 @@ use App\Repositories\PlayerRepository;
 use Carbon\Carbon;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
+use League\CommonMark\CommonMarkConverter;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Respect\Validation\Exceptions\NestedValidationException;
@@ -23,6 +24,8 @@ abstract class Controller
 
     #[Inject]
     private PlayerRepository $playerRepository;
+
+    private CommonMarkConverter $markdown;
 
     public function redirect(string $url): Response
     {
@@ -71,6 +74,9 @@ abstract class Controller
         $this->environment->addFunction(new TwigFunction('max', 'max'));
         $this->environment->addFunction(new TwigFunction('number_format', 'number_format'));
         $this->environment->addFunction(new TwigFunction('floor', 'floor'));
+        $this->environment->addFunction(new TwigFunction('ceil', 'ceil'));
+        $this->environment->addFunction(new TwigFunction('is_object', 'is_object'));
+        $this->environment->addFunction(new TwigFunction('sprintf', 'is_object'));
 
         $this->environment->addFunction(new TwigFunction('inmates', fn () => $this->playerRepository->numInmates()));
         $this->environment->addFunction(new TwigFunction('patients', fn () => $this->playerRepository->numPatients()));
@@ -83,6 +89,9 @@ abstract class Controller
         }));
         $this->environment->addFilter(new TwigFilter('delta', function (string $dateTime) {
             return Carbon::parse($dateTime)->diffForHumans(null, parts:2);
+        }));
+        $this->environment->addFilter(new TwigFilter('markdown', function (string $markup) {
+            return $this->markdown->convert($markup);
         }));
 
         $responseFactory = new ResponseFactory();

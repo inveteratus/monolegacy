@@ -1,0 +1,28 @@
+{% extends 'layouts/app.twig' %}
+
+{% block content %}
+
+    <h2 class="text-3xl font-light border-b border-slate-200 mb-3">{{ course.name }}</h2>
+    <p>{{ course.description }}</p>
+
+    {% if course.requirements %}
+        <p class="mt-3">
+            <span>Requirements:</span>
+            {% for requirement in course.requirements %}
+                {% if is_object(requirement) %}
+                    <span>completed the <a href="/university/{{ requirement.slug }}" class="text-blue-500">{{ requirement.name }}</a> course{% if not loop.last %},{% else %}.{% endif %}</span>
+                {% else %}
+                    <span>{{ requirement }}{% if not loop.last %},{% else %}.{% endif %}</span>
+                {% endif %}
+            {% endfor %}
+        </p>
+    {% endif %}
+
+    <p class="mt-3">
+        <span> Benefits:</span>
+        {% for benefit in course.benefits %}
+            ...
+        {% endfor %}
+    </p>
+
+{% endblock %}

@@ -2,53 +2,65 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
+use App\Repositories\CourseRepository;
 use App\Repositories\PlayerRepository;
 use DI\Attribute\Inject;
-use PDO;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpNotFoundException;
 
 class UniversityController extends Controller
 {
     #[Inject]
-    private PlayerRepository $userRepository;
+    private CourseRepository $courseRepository;
 
     #[Inject]
-    private Database $db;
+    private PlayerRepository $userRepository;
+
     public function get(Request $request, Response $response): Response
     {
         $uid = $request->getAttribute('uid');
         $user = $this->userRepository->getExtended($uid);
-        $page = $request->getQueryParams()['page'] ?? 1;
+        $query = $request->getQueryParams();
+        $page = array_key_exists('page', $query) && ctype_digit($query['page']) ? $query['page'] : 1;
 
         return $this->view('university.twig', [
             'user' => $user,
-            'courses' => $this->getCourseList($page),
+            'courses' => $this->courseRepository->getPaginatedCourseList($page),
         ]);
     }
 
-    private function getCourseList(int $page = 1): object
+    public function viewCourse(Request $request, Response $response, array $args): Response
     {
-        $records = $this->db->execute('SELECT COUNT(*) FROM courses')->fetch(PDO::FETCH_COLUMN);
-        $ipp = 10;
-        $pages = ceil($records / $ipp);
-        $page = max(1, min($page, $pages));
-        $offset = ($page - 1) * $ipp;
-        $courses = $this->db
-            ->execute('SELECT * FROM courses ORDER BY name LIMIT :offset, :ipp', ['offset' => $offset, 'ipp' => $ipp])
-            ->fetchAll(PDO::FETCH_UNIQUE);
+        $course = $this->courseRepository->getCourseBySlug($args['course']);
+        if (!$course) {
+            throw new HttpNotFoundException($request);
+        }
 
-        $buttons = [1, 2, $page - 2, $page - 1, $page, $page + 1, $page + 2, $pages - 1, $pages];
-        $buttons = array_unique($buttons);
-        $buttons = (array)array_filter($buttons, fn ($p) => $p >= 1 && $p <= $pages);
-        sort($buttons);
+        $uid = $request->getAttribute('uid');
+        $user = $this->userRepository->getExtended($uid);
 
-        return (object)[
-            'pages' => $buttons,
-            'page' => $page,
-            'ipp' => $ipp,
-            'items' => array_map(fn ($course) => (object) $course, $courses),
-        ];
+        $course->requirements = $this->expandRequirements($course);
+
+        return $this->view('course.twig', [
+            'user' => $user,
+            'course' => $course,
+        ]);
+    }
+
+    private function expandRequirements(object $course): array
+    {
+        $completed = [];
+        $result = [];
+
+        foreach (json_decode($course->requirements ?? '[]', true) as $key => $value) {
+            if ($key == 'completed') {
+                $completed[] = $this->courseRepository->getCourseById($value);
+            } else {
+                $result[] = number_format($value) . ' ' . $key;
+            }
+        }
+
+        return array_merge($completed, $result);
     }
 }
