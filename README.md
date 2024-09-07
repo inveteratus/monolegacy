@@ -35,15 +35,17 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 
 In no particular order:
 
+* `[X]` Move non-page php files out to an includes folder
+* `[X]` Remove bank interest
+* `[X]` Move user stats into users table
+* `[X]` Regenerate middleware
+* `[X]` Added better `laston` tracking
 * `[ ]` Remove all crons
 * `[ ]` Remove verification
 * `[ ]` Change all code to use repository classes with PDO rather than mysql(i).
 * `[ ]` Work up to static analysis at level 5
 * `[ ]` Convert pages to use templates (Twig) - See below
 * `[ ]` Create a base set of crimes, cities, items, houses, shops and courses
-* `[X]` Move non-page php files out to an includes folder
-* `[X]` Remove bank interest
-* `[X]` Move user stats into users table
 * `[ ]` Remove federal jail (or make it a staff only feature)
 * `[ ]` Add real position for high scores
 * `[ ]` Create better casino games (slots, roulette?)
@@ -52,7 +54,6 @@ In no particular order:
 * `[ ]` Re-implement CSRF
 * `[ ]` Restore referral link to explore 
 * `[ ]` Refactor all staff pages
-* `[X]` Regenerate middleware
 * `[ ]` Remove cyberbank
 
 Refactoring pages:
