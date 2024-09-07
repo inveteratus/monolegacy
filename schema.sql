@@ -1333,6 +1333,35 @@ LOCK TABLES `referals` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `seen`
+--
+
+DROP TABLE IF EXISTS `seen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `seen` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint unsigned NOT NULL,
+  `date` date NOT NULL,
+  `hour` tinyint unsigned NOT NULL,
+  `hits` int unsigned NOT NULL,
+  `last_seen` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
+  CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seen`
+--
+
+LOCK TABLES `seen` WRITE;
+/*!40000 ALTER TABLE `seen` DISABLE KEYS */;
+/*!40000 ALTER TABLE `seen` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `settings`
 --
 
@@ -1606,7 +1635,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 19:58:46','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725641743,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 19:54:12');
+INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 21:51:25','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725641743,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 21:50:36');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1668,4 +1697,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-07 19:59:18
+-- Dump completed on 2024-09-07 23:02:58

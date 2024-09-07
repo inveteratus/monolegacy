@@ -3,12 +3,13 @@
 use App\Classes\Database;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
-use App\Middleware\LastSeenMiddleware;
+use App\Middleware\SeenMiddleware;
 use App\Middleware\RegenerateMiddleware;
 use App\Middleware\SessionMiddleware;
 use App\Repositories\CityRepository;
 use App\Repositories\CourseRepository;
 use App\Repositories\PlayerRepository;
+use App\Repositories\SeenRepository;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\ArrayAdapter;
 use Dotenv\Repository\RepositoryBuilder;
@@ -52,10 +53,11 @@ return [
     CityRepository::class => fn (ContainerInterface $ci) => new CityRepository($ci->get('db')),
     CourseRepository::class => fn (ContainerInterface $ci) => new CourseRepository($ci->get('db')),
     PlayerRepository::class => fn (ContainerInterface $ci) => new PlayerRepository($ci->get('db')),
+    SeenRepository::class => fn (ContainerInterface $ci) => new SeenRepository($ci->get('db')),
 
     AuthMiddleware::class => fn() => new AuthMiddleware(),
     GuestMiddleware::class => fn() => new GuestMiddleware(),
-    LastSeenMiddleware::class => fn(ContainerInterface $ci) => new LastSeenMiddleware($ci->get(PlayerRepository::class)),
+    SeenMiddleware::class => fn(ContainerInterface $ci) => new SeenMiddleware($ci->get(SeenRepository::class)),
     RegenerateMiddleware::class => fn(ContainerInterface $ci) => new RegenerateMiddleware($ci->get(PlayerRepository::class)),
     SessionMiddleware::class => fn() => new SessionMiddleware(),
 ];

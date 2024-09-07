@@ -7,6 +7,7 @@ use App\Controllers\StaffController;
 use App\Controllers\TravelAgentController;
 use App\Controllers\UniversityController;
 use App\Middleware\AuthMiddleware;
+use App\Middleware\SeenMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -30,6 +31,7 @@ return function (App $app) {
         $app->get('/university/{course}', [UniversityController::class, 'viewCourse'])->setName('university.course');
 
     })
+        ->add($ci->get(SeenMiddleware::class))
         ->add($ci->get(AuthMiddleware::class))
         ->add($ci->get(SessionMiddleware::class));
 };
