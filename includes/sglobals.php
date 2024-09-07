@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Database;
+use Carbon\CarbonImmutable;
 
 function staff_csrf_error($goBackTo)
 {
@@ -124,7 +125,7 @@ $h = new headers;
 $h->startheaders();
 $fm = money_formatter($ir['money']);
 $cm = money_formatter($ir['crystals'], '');
-$lv = date('F j, Y, g:i a', $ir['laston']);
+$lv = CarbonImmutable::parse($ir['last_seen'])->timestamp;
 global $atkpage;
 $staffpage = 1;
 if ($atkpage)

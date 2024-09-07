@@ -71,7 +71,7 @@ Most hated: [";
    ';
     $q =
             $db->query(
-                    "SELECT `fl_COMMENT`, `fl_ID`, `laston`, `donatordays`,
+                    "SELECT `fl_COMMENT`, `fl_ID`, `donatordays`,
                      `username`, `userid`
                      FROM `friendslist` AS `fl`
                      LEFT JOIN `users` AS `u` ON `fl`.`fl_ADDED` = `u`.`userid`
@@ -79,10 +79,7 @@ Most hated: [";
                      ORDER BY `u`.`username` ASC");
     while ($r = $db->fetch_row($q))
     {
-        $on =
-                ($r['laston'] >= (($_SERVER['REQUEST_TIME'] - 15) * 60))
-                        ? '<span style="color: green; font-weight: bold;">Online</font>'
-                        : '<span style="color: red; font-weight: bold;">Offline</font>';
+        $on = false;
         $d = "";
         if ($r['donatordays'] > 0)
         {

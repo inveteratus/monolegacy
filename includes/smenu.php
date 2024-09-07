@@ -153,22 +153,6 @@ if ($ir['user_level'] == 2)
     &gt; <a href='staff_special.php?action=userlevelform'>Adjust User Level</a><br />
     &gt; <a href='staff_special.php?action=givedpform'>Give User Donator Pack</a><br />";
 }
-echo "<hr />";
-echo "<b>Staff Online:</b><br />";
-$online_cutoff = time() - 900;
-$q =
-        $db->query(
-                "SELECT `userid`, `username`, `laston`
-                 FROM `users`
-                 WHERE `laston` > ({$online_cutoff})
-                 AND `user_level` > 1
-                 ORDER BY `userid` ASC");
-while ($r = $db->fetch_row($q))
-{
-    echo '<a href="viewuser.php?u=' . $r['userid'] . '">' . $r['username']
-            . '</a> (' . DateTime_Parse($r['laston']) . ')<br />';
-}
-$db->free_result($q);
 echo "<hr />
 &gt; <a href='logout.php'>Logout</a><br /><br />
 Time is now<br />

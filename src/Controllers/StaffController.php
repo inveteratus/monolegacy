@@ -7,7 +7,7 @@ use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class PlayerListController extends Controller
+class StaffController extends Controller
 {
     #[Inject]
     private PlayerRepository $playerRepository;
@@ -16,11 +16,9 @@ class PlayerListController extends Controller
     {
         $uid = $request->getAttribute('uid');
         $user = $this->playerRepository->getBasic($uid);
-        $players = $this->playerRepository->list();
 
-        return $this->view('player-list.twig', [
+        return $this->view('staff.twig', [
             'user' => $user,
-            'players' => $players,
         ]);
     }
 }

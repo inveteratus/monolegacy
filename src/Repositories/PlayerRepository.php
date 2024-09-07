@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use PDO;
 
@@ -97,10 +98,10 @@ class PlayerRepository extends Repository
         $sql = <<<SQL
             SELECT u.username AS name,
                    IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.name)) AS location,
-                   FROM_UNIXTIME(u.laston) AS last_seen
+                   u.last_seen
             FROM users u
             LEFT JOIN cities c ON c.id = u.city_id
-            ORDER BY u.laston DESC
+            ORDER BY u.last_seen DESC
             LIMIT :offset, :limit
         SQL;
         return $this->db->execute($sql, [
@@ -111,14 +112,9 @@ class PlayerRepository extends Repository
 
     public function updateLastSeen(int $uid): void
     {
-        $sql = <<<SQL
-            UPDATE users
-            SET laston = :now, lastip = :ip
-            WHERE userid = :uid
-        SQL;
+        $sql = 'UPDATE users SET last_seen = :now WHERE userid = :uid';
         $this->db->execute($sql, [
-            'now' => time(),
-            'ip' => $_SERVER['REMOTE_ADDR'],
+            'now' => Carbon::now()->format('Y-m-d H:i:s'),
             'uid' => $uid,
         ]);
     }
@@ -132,8 +128,6 @@ class PlayerRepository extends Repository
 
     public function numPatients(): int
     {
-        // TODO cache for ... 5? seconds
-
         return $this->db
             ->execute('SELECT COUNT(*) FROM users WHERE hospital > :now', ['now' => time()])
             ->fetch(PDO::FETCH_COLUMN);

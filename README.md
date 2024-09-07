@@ -64,6 +64,7 @@ Refactoring pages:
 * `[X]` Users Online (moved to Player List)
 * `[X]` Travel Agent
 * `[X]` Bank
+* `[X]` Staff List
 * `[ ]` Home
 * `[ ]` Inventory
 * `[ ]` Events
@@ -90,7 +91,6 @@ Refactoring pages:
 * `[ ]` Shops 
 * `[ ]` Item Market
 * `[ ]` Crystal Market
-* `[ ]` Staff List
 * `[ ]` Hall of Fame
 * `[ ]` Game Stats
 * `[ ]` Realtor

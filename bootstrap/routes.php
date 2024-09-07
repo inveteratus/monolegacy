@@ -5,6 +5,7 @@ use App\Controllers\ExploreController;
 use App\Controllers\LoginController;
 use App\Controllers\PlayerListController;
 use App\Controllers\RegisterController;
+use App\Controllers\StaffController;
 use App\Controllers\TravelAgentController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
@@ -40,6 +41,9 @@ return new class
 
                 $app->get('/players', PlayerListController::class)
                     ->setName('player-list');
+
+                $app->get('/staff', StaffController::class)
+                    ->setName('staff');
 
                 $app->get('/bank', [BankController::class, 'get'])
                     ->setName('bank');

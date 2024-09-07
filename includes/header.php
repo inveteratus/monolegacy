@@ -27,16 +27,6 @@ EOF;
     {
         global $db, $c, $userid, $set;
         $IP = $db->escape($_SERVER['REMOTE_ADDR']);
-        $db->query(
-                "UPDATE `users`
-                 SET `laston` = {$_SERVER['REQUEST_TIME']}, `lastip` = '$IP'
-                 WHERE `userid` = $userid");
-        if (!$ir['email'])
-        {
-            global $domain;
-            die(
-                    "<body>Your account may be broken. Please mail help@{$domain} stating your username and player ID.");
-        }
         if (!isset($_SESSION['attacking']))
         {
             $_SESSION['attacking'] = 0;

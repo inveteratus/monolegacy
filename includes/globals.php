@@ -1,6 +1,7 @@
 <?php
 
 use App\Classes\Database;
+use Carbon\CarbonImmutable;
 
 if (session_status() == PHP_SESSION_NONE) {
     session_name('MCCSID');
@@ -104,7 +105,7 @@ if (isset($nohdr) == false || !$nohdr)
     $h->startheaders();
     $fm = money_formatter($ir['money']);
     $cm = money_formatter($ir['crystals'], '');
-    $lv = date('F j, Y, g:i a', $ir['laston']);
+    $lv = CarbonImmutable::parse($ir['last_seen'])->timestamp;
     global $atkpage;
     if ($atkpage)
     {

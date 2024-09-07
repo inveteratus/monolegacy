@@ -14,23 +14,19 @@ else
 {
     $q =
             $db->query(
-                    "SELECT `userid`, `user_level`, `laston`, `last_login`,
+                    "SELECT `userid`, `user_level`, `last_login`,
                     `signedup`, `duties`, `donatordays`, `username`, `gender`,
                     `daysold`, `money`, `crystals`, `level`, `friend_count`,
                     `enemy_count`, `display_pic`, `hp`, `maxhp`, `gang`,
                     `fedjail`, `hospital`, `hospreason`, `jail`, `jail_reason`,
                     `bankmoney`, `cybermoney`, `lastip`, `lastip`,
-                    `lastip_login`, `lastip_signup`, `staffnotes`, `cityname`,
+                    `lastip_login`, `lastip_signup`, `staffnotes`, `c`.`name` AS `cityname`,
                     `hNAME`, `gangNAME`, `fed_days`, `fed_reason`
                     FROM `users` `u`
-                    INNER JOIN `cities` AS `c`
-                    ON `u`.`location` = `c`.`cityid`
-                    INNER JOIN `houses` AS `h`
-                    ON `u`.`maxwill` = h.`hWILL`
-                    LEFT JOIN `gangs` AS `g`
-                    ON `g`.`gangID` = `u`.`gang`
-                    LEFT JOIN `fedjail` AS `f`
-                    ON `f`.`fed_userid` = `u`.`userid`
+                    INNER JOIN `cities` AS `c` ON `u`.`city_id` = `c`.`id`
+                    INNER JOIN `houses` AS `h` ON `u`.`maxwill` = h.`hWILL`
+                    LEFT JOIN `gangs` AS `g` ON `g`.`gangID` = `u`.`gang`
+                    LEFT JOIN `fedjail` AS `f` ON `f`.`fed_userid` = `u`.`userid`
                     WHERE `u`.`userid` = {$_GET['u']}");
     if ($db->num_rows($q) == 0)
     {
@@ -45,10 +41,8 @@ else
                 array(0 => 'NPC', 1 => 'Member', 2 => 'Owner',
                         3 => 'Secretary', 5 => 'Assistant');
         $userl = $checkulevel[$r['user_level']];
-        $lon =
-                ($r['laston'] > 0) ? date('F j, Y g:i:s a', $r['laston'])
-                        : "Never";
-        $ula = ($r['laston'] == 0) ? 'Never' : DateTime_Parse($r['laston']);
+        $lon = 'Todo';
+        $ula = 'Todo';
         $ull =
                 ($r['last_login'] == 0) ? 'Never'
                         : DateTime_Parse($r['last_login']);
@@ -66,9 +60,7 @@ else
                                 . $r['donatordays'] . ' Days Left" />'
                         : $r['username'] . ' [' . $r['userid'] . ']';
         $on =
-                ($r['laston'] >= $_SERVER['REQUEST_TIME'] - 15 * 60)
-                        ? '<font color="green"><b>Online</b></font>'
-                        : '<font color="red"><b>Offline</b></font>';
+                'Todo';
         $ref_q =
                 $db->query(
                         "SELECT COUNT(`refID`)

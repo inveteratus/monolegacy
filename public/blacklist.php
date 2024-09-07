@@ -69,18 +69,14 @@ Most hated: [";
     $q =
             $db->query(
                     "SELECT `bl`.`bl_COMMENT`, `bl_ID`,
-                    `u`.`laston`, `donatordays`, `username`, `userid`
+                    `u`.`last_seen`, `donatordays`, `username`, `userid`
                     FROM `blacklist` AS `bl`
                     LEFT JOIN `users` AS `u` ON `bl`.`bl_ADDED` = `u`.`userid`
                     WHERE `bl`.`bl_ADDER` = $userid
                     ORDER BY `u`.`username` ASC");
     while ($r = $db->fetch_row($q))
     {
-        $on =
-                ($r['laston'] >= (($_SERVER['REQUEST_TIME'] - 15) * 60))
-                        ? '<font color="green"><b>Online</b></font>'
-                        : '<font color="red"><b>Offline</b></font>';
-        $d = "";
+        $on = false;
         if ($r['donatordays'])
         {
             $r['username'] = "<font color=red>{$r['username']}</font>";

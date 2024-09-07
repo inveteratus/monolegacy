@@ -21,7 +21,7 @@ if (in_array($_GET['action'], $hofqone))
 {
     $q =
             $db->query(
-                    "SELECT `userid`, `laston`, `gender`, `donatordays`,
+                    "SELECT `userid`, `last_seen`, `gender`, `donatordays`,
                      `username`, `level`, `money`, `crystals`, `gangPREF`
                      FROM `users` AS `u`
                      LEFT JOIN `gangs` AS `g`
@@ -44,7 +44,7 @@ if (in_array($_GET['action'], $hofqtwo))
     }
     $q =
             $db->query(
-                    "SELECT u.`userid`, `laston`, `gender`, `donatordays`,
+                    "SELECT u.`userid`, `last_seen`, `gender`, `donatordays`,
                      `level`, `money`, `crystals`, `username`, `gangPREF`,
                      `strength`, `agility`, `guard`, `labour`, `IQ`
                      FROM `users` AS `u`
