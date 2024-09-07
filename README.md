@@ -21,8 +21,8 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 `/path/to/app` appropriately:
 
 ```
-0    *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1h.php
-0    0    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1d.php
+0  *  *  *  *  cd /path/to/app && docker compose exec -T php php crons/1h.php
+0  0  *  *  *  cd /path/to/app && docker compose exec -T php php crons/1d.php
 ```
 
 ## Changes from v2.0.5b
@@ -36,13 +36,13 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 In no particular order:
 
 * `[ ]` Remove all crons
-* `[ ]` Change verified to make it per-user rather than global
-* `[ ]` Change all code to use PDO
+* `[ ]` Remove verification
+* `[ ]` Change all code to use repository classes with PDO rather than mysql(i).
 * `[ ]` Work up to static analysis at level 5
 * `[ ]` Convert pages to use templates (Twig) - See below
-* `[ ]` Create a base set of crimes, cities, items, houses and courses
+* `[ ]` Create a base set of crimes, cities, items, houses, shops and courses
 * `[X]` Move non-page php files out to an includes folder
-* `[-]` ~~Change interest rate to 100% APR~~
+* `[X]` Remove bank interest
 * `[X]` Move user stats into users table
 * `[ ]` Remove federal jail (or make it a staff only feature)
 * `[ ]` Add real position for high scores
@@ -53,13 +53,18 @@ In no particular order:
 * `[ ]` Restore referral link to explore 
 * `[ ]` Refactor all staff pages
 * `[X]` Regenerate middleware
+* `[ ]` Remove cyberbank
 
 Refactoring pages:
 
 * `[X]` Login
 * `[X]` Register
+* `[X]` Explore 
+* `[X]` User List (moved to Player List)
+* `[X]` Users Online (moved to Player List)
+* `[X]` Travel Agent
+* `[X]` Bank
 * `[ ]` Home
-* `[X]` Explore
 * `[ ]` Inventory
 * `[ ]` Events
 * `[ ]` Mailbox
@@ -85,14 +90,10 @@ Refactoring pages:
 * `[ ]` Shops 
 * `[ ]` Item Market
 * `[ ]` Crystal Market
-* `[X]` User List -> (moved to Player List)
 * `[ ]` Staff List
 * `[ ]` Hall of Fame
 * `[ ]` Game Stats
-* `[X]` Users Online (moved to Player List)
-* `[ ]` Travel Agency
 * `[ ]` Realtor
-* `[X]` Bank
 * `[ ]` Crystal Temple
 * `[ ]` Battle Tent
 * `[ ]` Polling Booth

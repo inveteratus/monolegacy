@@ -5,9 +5,11 @@ use App\Controllers\ExploreController;
 use App\Controllers\LoginController;
 use App\Controllers\PlayerListController;
 use App\Controllers\RegisterController;
+use App\Controllers\TravelAgentController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Middleware\LastSeenMiddleware;
+use App\Middleware\RegenerateMiddleware;
 use App\Middleware\SessionMiddleware;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface;
@@ -43,7 +45,11 @@ return new class
                     ->setName('bank');
                 $app->post('/bank', [BankController::class, 'post']);
 
-            })->add($ci->get(\App\Middleware\RegenerateMiddleware::class))
+                $app->get('/travel', [TravelAgentController::class, 'get'])
+                    ->setName('travel');
+                $app->post('/travel', [TravelAgentController::class, 'post']);
+
+            })->add($ci->get(RegenerateMiddleware::class))
               ->add($ci->get(LastSeenMiddleware::class))
               ->add($ci->get(AuthMiddleware::class));
         })->add($ci->get(SessionMiddleware::class));

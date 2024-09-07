@@ -6,6 +6,7 @@ use App\Middleware\GuestMiddleware;
 use App\Middleware\LastSeenMiddleware;
 use App\Middleware\RegenerateMiddleware;
 use App\Middleware\SessionMiddleware;
+use App\Repositories\CityRepository;
 use App\Repositories\PlayerRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
@@ -55,6 +56,10 @@ return new class {
             },
 
             /* Repositories */
+
+            CityRepository::class => function (ContainerInterface $container) {
+                return new CityRepository($container->get(Database::class));
+            },
 
             PlayerRepository::class => function (ContainerInterface $container) {
                 return new PlayerRepository($container->get(Database::class));

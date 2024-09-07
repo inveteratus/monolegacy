@@ -4,13 +4,13 @@
         <span class="text-right">{{ user.username }}</span>
 
         <span>Money</span>
-        <span class="text-right">{{ user.money }} Cr</span>
+        <span class="text-right">{{ number_format(user.money) }} Cr</span>
 
         <span>Level</span>
         <span class="text-right">{{ user.level }}</span>
 
         <span>Diamonds</span>
-        <span class="text-right">{{ user.crystals }}</span>
+    <span class="text-right">{{ number_format(user.crystals) }}</span>
     </div>
 
     <hr class="border-t border-b-0 border-slate-200 pb-0.5" />

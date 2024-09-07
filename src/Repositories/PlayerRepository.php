@@ -68,11 +68,10 @@ class PlayerRepository extends Repository
     public function getExtended(int $uid): object
     {
         $sql = <<<SQL
-            SELECT u.*, h.hID AS house_id, h.hNAME AS house_name, c.cityid AS cityid,
-                   c.cityname AS city_name
+            SELECT u.*, c.name AS city_name
             FROM users u
             LEFT JOIN houses h ON h.hWILL = u.maxwill
-            LEFT JOIN cities c ON c.cityid = u.location
+            LEFT JOIN cities c ON c.id = u.city_id
             WHERE u.userid = :uid
         SQL;
 
@@ -97,10 +96,10 @@ class PlayerRepository extends Repository
         $page = max(1, min($page, $pages));
         $sql = <<<SQL
             SELECT u.username AS name,
-                   IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.cityname)) AS location,
+                   IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.name)) AS location,
                    FROM_UNIXTIME(u.laston) AS last_seen
             FROM users u
-            LEFT JOIN cities c ON c.cityid = u.location
+            LEFT JOIN cities c ON c.id = u.city_id
             ORDER BY u.laston DESC
             LIMIT :offset, :limit
         SQL;
@@ -218,5 +217,17 @@ class PlayerRepository extends Repository
             'now' => $now->format('Y-m-d H:i:s'),
             'uid' => $uid,
         ]);
+    }
+
+    public function travel(int $uid, int $city_id, int $cost): bool
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET city_id = :city_id, money = money - :cost
+            WHERE money >= :price AND userid = :uid
+        SQL;
+        $statement = $this->db->execute($sql, ['city_id' => $city_id, 'cost' => $cost, 'price' => $cost, 'uid' => $uid]);
+
+        return $statement->rowCount() > 0;
     }
 }

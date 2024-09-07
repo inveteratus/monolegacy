@@ -35,6 +35,7 @@
         "stan": "@sa",
         "phpstan": "@sa",
         "mysql": "docker compose exec -it db mysql -umonolegacy -psecret monolegacy",
-        "schema": "docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql"
+        "import": "docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql",
+        "dump": "docker compose exec -T db mysqldump --no-tablespaces -umonolegacy -psecret monolegacy > schema.sql"
     }
 }
