@@ -21,8 +21,6 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 `/path/to/app` appropriately:
 
 ```
-*/5  *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/5m.php
-*/15 *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/15m.php
 0    *    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1h.php
 0    0    *    *    *    cd /path/to/app && docker compose exec -T php php crons/1d.php
 ```
@@ -54,6 +52,7 @@ In no particular order:
 * `[ ]` Re-implement CSRF
 * `[ ]` Restore referral link to explore 
 * `[ ]` Refactor all staff pages
+* `[X]` Regenerate middleware
 
 Refactoring pages:
 

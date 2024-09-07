@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class ExploreController extends Controller
 {
     #[Inject]
-    private UserRepository $userRepository;
+    private PlayerRepository $userRepository;
 
     public function __invoke(Request $request, Response $response): Response
     {

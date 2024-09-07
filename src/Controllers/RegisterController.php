@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Classes\Database;
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,7 +15,7 @@ class RegisterController extends Controller
     private Database $db;
 
     #[Inject]
-    private UserRepository $repo;
+    private PlayerRepository $repo;
 
     public function get(Request $request, Response $response): Response
     {
@@ -43,7 +43,7 @@ class RegisterController extends Controller
         $email = trim($validated['email']);
         $password = trim($validated['password']);
 
-        $this->repo->createUser($name, $email, $password);
+        $this->repo->create($name, $email, $password);
 
         return $this->redirect('/login');
     }

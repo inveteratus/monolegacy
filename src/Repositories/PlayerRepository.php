@@ -2,11 +2,13 @@
 
 namespace App\Repositories;
 
+use Carbon\CarbonImmutable;
 use PDO;
-use Psr\Http\Message\ServerRequestInterface as Request;
 
-class UserRepository extends Repository
+class PlayerRepository extends Repository
 {
+    private const int REGENERATION_INTERVAL = 300;  // seconds
+
     public function getForEmail(string $email): ?object
     {
         $sql = <<<SQL
@@ -22,7 +24,7 @@ class UserRepository extends Repository
         return $user ? $user : null;
     }
 
-    public function updateLastLogin(int $uid): void
+    public function login(int $uid): void
     {
         $sql = <<<SQL
             UPDATE users
@@ -36,7 +38,7 @@ class UserRepository extends Repository
         ]);
     }
 
-    public function createUser(string $name, string $email, string $password): int
+    public function create(string $name, string $email, string $password): int
     {
         $salt = base64_encode(random_bytes(6));
 
@@ -88,7 +90,7 @@ class UserRepository extends Repository
         return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
     }
 
-    public function getPlayers(int $page = 1, int $limit = 15): array
+    public function list(int $page = 1, int $limit = 15): array
     {
         $records = $this->db->execute('SELECT COUNT(*) FROM users')->fetch(PDO::FETCH_COLUMN);
         $pages = ceil($records / $limit);
@@ -122,16 +124,14 @@ class UserRepository extends Repository
         ]);
     }
 
-    public function inmates(): int
+    public function numInmates(): int
     {
-        // TODO cache for ... 5? seconds
-
         return $this->db
             ->execute('SELECT COUNT(*) FROM users WHERE jail > :now', ['now' => time()])
             ->fetch(PDO::FETCH_COLUMN);
     }
 
-    public function patients(): int
+    public function numPatients(): int
     {
         // TODO cache for ... 5? seconds
 
@@ -174,6 +174,49 @@ class UserRepository extends Repository
 
     public function regenerate(int $uid): void
     {
+        $sql = <<<SQL
+            SELECT energy, maxenergy, brave, maxbrave, hp, maxhp, will, maxwill, regenerated,
+                   donatordays
+            FROM users
+            WHERE userid = :uid
+        SQL;
+        $data = $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
 
+        $regenerated = CarbonImmutable::parse($data->regenerated);
+        $now = CarbonImmutable::now();
+        $seconds = $regenerated->diffInSeconds($now);
+        $premium = $data->donatordays > 0;
+
+        if ($seconds < self::REGENERATION_INTERVAL) {
+            return;     // Don't update IF the interval is less than 5 minutes
+        }
+
+        // energy refills at  1 every 5 minutes (1.5 for donators)
+        // nerve  refills at  1 every 5 minutes
+        // health refills at 20 every 3 minutes
+        // power  refills at 10 every 5 minutes
+
+        $sql = <<<SQL
+            UPDATE users
+            SET energy = LEAST(maxenergy, energy + (:increment * :seconds1) / :interval1),
+                brave = LEAST(maxbrave, brave + (1 * :seconds2) / :interval2),
+                hp = LEAST(maxhp, hp + (100 * :seconds3) / (3 * :interval3)),
+                will = LEAST(maxwill, will + (10 * :seconds4) / :interval4),
+                regenerated = :now
+            WHERE userid = :uid
+        SQL;
+        $this->db->execute($sql, [
+            'increment' => $premium ? 1.5 : 1,
+            'seconds1' => $seconds,
+            'seconds2' => $seconds,
+            'seconds3' => $seconds,
+            'seconds4' => $seconds,
+            'interval1' => self::REGENERATION_INTERVAL,
+            'interval2' => self::REGENERATION_INTERVAL,
+            'interval3' => self::REGENERATION_INTERVAL,
+            'interval4' => self::REGENERATION_INTERVAL,
+            'now' => $now->format('Y-m-d H:i:s'),
+            'uid' => $uid,
+        ]);
     }
 }

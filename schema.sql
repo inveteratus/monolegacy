@@ -133,7 +133,7 @@ CREATE TABLE `cities` (
 
 INSERT INTO `cities` (`cityid`, `cityname`, `citydesc`, `cityminlevel`)
   VALUES
-    (1, 'London', 'A standard city added to start you off', 1);
+    (1, 'London', 'London, the capital of England and the United Kingdom, is a 21st-century city with history stretching back to Roman times. At its centre stand the imposing Houses of Parliament, the iconic ‘Big Ben’ clock tower and Westminster Abbey, site of British monarch coronations. Across the Thames River, the London Eye observation wheel provides panoramic views of the South Bank cultural complex, and the entire city.', 1);
 
 CREATE TABLE `contactlist` (
   `cl_ID` int(11) NOT NULL auto_increment,

@@ -2,14 +2,14 @@
 
 namespace App\Middleware;
 
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class LastSeenMiddleware
 {
-    public function __construct(private UserRepository $userRepository)
+    public function __construct(private PlayerRepository $userRepository)
     {
     }
 

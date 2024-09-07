@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -11,7 +11,7 @@ use Respect\Validation\Validator as V;
 class LoginController extends Controller
 {
     #[Inject]
-    private UserRepository $repo;
+    private PlayerRepository $repo;
 
     public function get(): Response
     {
@@ -44,7 +44,7 @@ class LoginController extends Controller
             return $this->redirect('/login');
         }
 
-        $this->repo->updateLastLogin($user->id);
+        $this->repo->login($user->id);
 
         $_SESSION = [
             'userid' => (int)$user->id,

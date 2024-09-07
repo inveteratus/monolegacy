@@ -31,8 +31,8 @@
                 <span class="bg-orange-500" style="width:{{ (user.brave*100)/user.maxbrave }}%"></span>
             </div>
             <p class="flex justify-between">
-                <span>Brave</span>
-                <span>{{ number_format(user.brave) }} / {{ number_format(user.maxbrave) }}</span>
+                <span>Nerve</span>
+                <span>{{ number_format(floor(user.brave)) }} / {{ number_format(user.maxbrave) }}</span>
             </p>
         </div>
 

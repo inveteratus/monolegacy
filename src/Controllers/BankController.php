@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -10,7 +10,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class BankController extends Controller
 {
     #[Inject]
-    private UserRepository $playerRepository;
+    private PlayerRepository $playerRepository;
 
     public function get(Request $request): Response
     {

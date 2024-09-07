@@ -6,7 +6,7 @@ use App\Middleware\GuestMiddleware;
 use App\Middleware\LastSeenMiddleware;
 use App\Middleware\RegenerateMiddleware;
 use App\Middleware\SessionMiddleware;
-use App\Repositories\UserRepository;
+use App\Repositories\PlayerRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\ArrayAdapter;
@@ -56,8 +56,8 @@ return new class {
 
             /* Repositories */
 
-            UserRepository::class => function (ContainerInterface $container) {
-                return new UserRepository($container->get(Database::class));
+            PlayerRepository::class => function (ContainerInterface $container) {
+                return new PlayerRepository($container->get(Database::class));
             },
 
             /* Middleware */
@@ -75,11 +75,11 @@ return new class {
             },
 
             LastSeenMiddleware::class => function (ContainerInterface $ci) {
-                return new LastSeenMiddleware($ci->get(UserRepository::class));
+                return new LastSeenMiddleware($ci->get(PlayerRepository::class));
             },
 
             RegenerateMiddleware::class => function (ContainerInterface $ci) {
-                return new RegenerateMiddleware($ci->get(UserRepository::class));
+                return new RegenerateMiddleware($ci->get(PlayerRepository::class));
             },
         ]);
 
