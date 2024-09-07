@@ -1,8 +1,5 @@
 parameters:
-  level: 1
+  level: 5
   paths:
-    - bootstrap
-    - crons
-    - includes
-    - public
-    - src
+    - config/
+    - src/

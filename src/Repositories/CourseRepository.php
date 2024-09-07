@@ -9,7 +9,7 @@ class CourseRepository extends Repository
     public function getPaginatedCourseList(int $page = 1, int $ipp = 10): object
     {
         $records = $this->db->execute('SELECT COUNT(*) FROM courses')->fetch(PDO::FETCH_COLUMN);
-        $pages = ceil($records / $ipp);
+        $pages = (int) ceil($records / $ipp);
         $page = max(1, min($page, $pages));
         $offset = ($page - 1) * $ipp;
         $courses = $this->db

@@ -54,7 +54,7 @@ class BankController extends Controller
             if (count($result) > 5) {
                 array_shift($result);
             }
-            $button *= str_starts_with($button, '1') ? 5 : 2;
+            $button *= str_starts_with((string) $button, '1') ? 5 : 2;
         }
 
         return $result;
