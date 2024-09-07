@@ -61,7 +61,6 @@ else if (!$ir['hospital'])
 	<a href='gym.php'>Gym</a><br />
 	<a href='criminal.php'>Crimes</a><br />
 	<a href='job.php'>Your Job</a><br />
-	<a href='education.php'>Local School</a><br />
 	<a href='hospital.php'>Hospital ($hc)</a><br />
 	<a href='jail.php'>Jail ($jc)</a><br />
    	";

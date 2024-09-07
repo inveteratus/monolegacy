@@ -1,0 +1,17 @@
+<nav class="flex items-center justify-between mt-3 text-sm">
+    <span>Showing page {{ page }} of {{ max(pages) }}</span>
+    <div class="border border-slate-200 bg-slate-50 rounded overflow-hidden flex">
+        {% set expected = 1 %}
+        {% for p in pages %}
+            {% if p != expected %}
+                <span class="border-l border-slate-200 px-2 py-1 text-slate-400">&hellip;</span>
+            {% endif %}
+            {% if p == page %}
+                <span class="{% if not loop.first %}border-l border-slate-200{% endif %} px-2 py-1 font-medium">{{ p }}</span>
+            {% else %}
+                <a href="?page={{ p }}" class="{% if not loop.first %}border-l border-slate-200{% endif %} px-2 py-1 hover:bg-blue-100">{{ p }}</a>
+            {% endif %}
+            {% set expected = p + 1 %}
+        {% endfor %}
+    </div>
+</nav>

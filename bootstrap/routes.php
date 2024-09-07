@@ -7,6 +7,7 @@ use App\Controllers\PlayerListController;
 use App\Controllers\RegisterController;
 use App\Controllers\StaffController;
 use App\Controllers\TravelAgentController;
+use App\Controllers\UniversityController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\GuestMiddleware;
 use App\Middleware\LastSeenMiddleware;
@@ -52,6 +53,9 @@ return new class
                 $app->get('/travel', [TravelAgentController::class, 'get'])
                     ->setName('travel');
                 $app->post('/travel', [TravelAgentController::class, 'post']);
+
+                $app->get('/university', [UniversityController::class, 'get'])
+                    ->setName('university');
 
             })->add($ci->get(RegenerateMiddleware::class))
               ->add($ci->get(LastSeenMiddleware::class))

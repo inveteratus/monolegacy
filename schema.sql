@@ -226,7 +226,7 @@ DROP TABLE IF EXISTS `cities`;
 CREATE TABLE `cities` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `slug` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
@@ -243,23 +243,7 @@ CREATE TABLE `cities` (
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities`
-  VALUES
-    (1,'London','london','London is the capital of the United Kingdom and one of the world’s most influential cities. It is a major financial center, renowned for its history, architecture, and cultural landmarks such as the British Museum and the Tower of London.',51.5074,-0.1278,1),
-    (2,'Istanbul','istanbul','Istanbul is a transcontinental city, straddling Europe and Asia. Historically known as Byzantium and later Constantinople, it has a rich cultural history and is one of the world’s most important historical cities, blending both eastern and western influences.',41.0082,28.9784,2),
-    (3,'Cairo','cairo','Cairo, the capital of Egypt, is the largest city in Africa and the Middle East. Famous for its proximity to the Pyramids of Giza, Cairo is a historical city with a rich Islamic heritage and a bustling, dense urban environment.',30.0444,31.2357,3),
-    (4,'Kinshasa','kinshasa','Kinshasa is the capital and largest city of the Democratic Republic of the Congo. Located on the Congo River, it’s a rapidly growing city with a youthful population, and it serves as a major cultural and economic hub in Central Africa.',-4.4419,15.2663,6),
-    (5,'Lagos','lagos','Lagos is the largest city in Nigeria and Africa’s most populous urban center. Known for its rapid urbanization, it’s a major financial hub for Africa, with a vibrant music and entertainment industry, and one of the fastest-growing cities in the world.',6.5244,15.2663,9),
-    (6,'Karachi','karachi','Karachi is Pakistan\'s largest city and its main port. It’s the country\'s economic hub, famous for its diverse population, beaches, and vibrant commercial activity. Karachi also plays a significant role in global shipping and trade.',24.8607,67.0011,14),
-    (7,'Delhi','delhi','Delhi, the capital of India, is one of the oldest cities in the world, with a rich history dating back thousands of years. It’s a bustling metropolis known for its historical monuments, vibrant street markets, and being the political center of the country.',28.7041,77.1025,19),
-    (8,'Dhaka','dhaka','Dhaka, the capital of Bangladesh, is one of the most densely populated cities in the world. It’s a bustling, fast-growing city known for its textile industry, historical sites, and vibrant street life.',23.8103,90.4125,26),
-    (9,'Jakarta','jakarta','Jakarta is the capital of Indonesia and the largest city in Southeast Asia. It is an economic powerhouse in the region, with a mixture of modern skyscrapers and traditional neighborhoods, reflecting the country\'s diverse culture.',-6.2088,106.8456, 33),
-    (10,'Shanghai','shanghai','Shanghai is China’s largest city and a global financial hub. Located on the central coast, it’s renowned for its modern skyline, the historic Bund waterfront, and as a vital center of commerce and trade in East Asia.',31.2304,121.4737,41),
-    (11,'Tokyo','tokyo','Tokyo is the most populous city in the world and the capital of Japan. It’s a global financial hub known for its mix of ultramodern skyscrapers and historic temples. The Tokyo metropolitan area spans a vast urban sprawl, integrating several smaller cities.',35.6762,139.6503,51),
-    (12,'Mexico City','mexico-city','Mexico City, the capital of Mexico, is one of the oldest cities in the Americas. It’s a vibrant cultural and political center known for its Aztec heritage, colonial architecture, and status as one of the most important economic hubs in Latin America.',19.4326,-99.1332,62),
-    (13,'New York City','new-york-city','New York City is the largest city in the United States and a global center for finance, media, and culture. Known for landmarks like Times Square, the Statue of Liberty, and Central Park, it is also one of the world’s most diverse cities.',40.7128,-74.0060,73),
-    (14,'São Paulo','sao-paulo','São Paulo is the largest city in Brazil and the Southern Hemisphere. Known for its cultural diversity and economic influence, it’s a key financial center in Latin America with a vibrant arts scene and vast urban landscape.',-23.5505,-46.6333,86),
-    (15,'Buenos Aires','buenos-aires','Buenos Aires, the capital of Argentina, is the largest city in the country and one of the most important cultural hubs in South America. Known for its European-style architecture, tango music, and vibrant arts scene, it’s also a key financial center in the region.',-34.6037,-58.3816,100);
+INSERT INTO `cities` VALUES (1,'London','london','London is the capital of the United Kingdom and one of the world’s most influential cities. It is a major financial center, renowned for its history, architecture, and cultural landmarks such as the British Museum and the Tower of London.',51.5074,-0.1278,1),(2,'Istanbul','istanbul','Istanbul is a transcontinental city, straddling Europe and Asia. Historically known as Byzantium and later Constantinople, it has a rich cultural history and is one of the world’s most important historical cities, blending both eastern and western influences.',41.0082,28.9784,2),(3,'Cairo','cairo','Cairo, the capital of Egypt, is the largest city in Africa and the Middle East. Famous for its proximity to the Pyramids of Giza, Cairo is a historical city with a rich Islamic heritage and a bustling, dense urban environment.',30.0444,31.2357,3),(4,'Kinshasa','kinshasa','Kinshasa is the capital and largest city of the Democratic Republic of the Congo. Located on the Congo River, it’s a rapidly growing city with a youthful population, and it serves as a major cultural and economic hub in Central Africa.',-4.4419,15.2663,6),(5,'Lagos','lagos','Lagos is the largest city in Nigeria and Africa’s most populous urban center. Known for its rapid urbanization, it’s a major financial hub for Africa, with a vibrant music and entertainment industry, and one of the fastest-growing cities in the world.',6.5244,15.2663,9),(6,'Karachi','karachi','Karachi is Pakistan\'s largest city and its main port. It’s the country\'s economic hub, famous for its diverse population, beaches, and vibrant commercial activity. Karachi also plays a significant role in global shipping and trade.',24.8607,67.0011,14),(7,'Delhi','delhi','Delhi, the capital of India, is one of the oldest cities in the world, with a rich history dating back thousands of years. It’s a bustling metropolis known for its historical monuments, vibrant street markets, and being the political center of the country.',28.7041,77.1025,19),(8,'Dhaka','dhaka','Dhaka, the capital of Bangladesh, is one of the most densely populated cities in the world. It’s a bustling, fast-growing city known for its textile industry, historical sites, and vibrant street life.',23.8103,90.4125,26),(9,'Jakarta','jakarta','Jakarta is the capital of Indonesia and the largest city in Southeast Asia. It is an economic powerhouse in the region, with a mixture of modern skyscrapers and traditional neighborhoods, reflecting the country\'s diverse culture.',-6.2088,106.8456,33),(10,'Shanghai','shanghai','Shanghai is China’s largest city and a global financial hub. Located on the central coast, it’s renowned for its modern skyline, the historic Bund waterfront, and as a vital center of commerce and trade in East Asia.',31.2304,121.4737,41),(11,'Tokyo','tokyo','Tokyo is the most populous city in the world and the capital of Japan. It’s a global financial hub known for its mix of ultramodern skyscrapers and historic temples. The Tokyo metropolitan area spans a vast urban sprawl, integrating several smaller cities.',35.6762,139.6503,51),(12,'Mexico City','mexico-city','Mexico City, the capital of Mexico, is one of the oldest cities in the Americas. It’s a vibrant cultural and political center known for its Aztec heritage, colonial architecture, and status as one of the most important economic hubs in Latin America.',19.4326,-99.1332,62),(13,'New York City','new-york-city','New York City is the largest city in the United States and a global center for finance, media, and culture. Known for landmarks like Times Square, the Statue of Liberty, and Central Park, it is also one of the world’s most diverse cities.',40.7128,-74.006,73),(14,'São Paulo','sao-paulo','São Paulo is the largest city in Brazil and the Southern Hemisphere. Known for its cultural diversity and economic influence, it’s a key financial center in Latin America with a vibrant arts scene and vast urban landscape.',-23.5505,-46.6333,86),(15,'Buenos Aires','buenos-aires','Buenos Aires, the capital of Argentina, is the largest city in the country and one of the most important cultural hubs in South America. Known for its European-style architecture, tango music, and vibrant arts scene, it’s also a key financial center in the region.',-34.6037,-58.3816,100);
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -295,19 +279,18 @@ DROP TABLE IF EXISTS `courses`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `courses` (
-  `crID` int NOT NULL AUTO_INCREMENT,
-  `crNAME` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `crDESC` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `crCOST` int NOT NULL DEFAULT '0',
-  `crENERGY` int NOT NULL DEFAULT '0',
-  `crDAYS` int NOT NULL DEFAULT '0',
-  `crSTR` int NOT NULL DEFAULT '0',
-  `crGUARD` int NOT NULL DEFAULT '0',
-  `crLABOUR` int NOT NULL DEFAULT '0',
-  `crAGIL` int NOT NULL DEFAULT '0',
-  `crIQ` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`crID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `slug` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `cost` int unsigned NOT NULL,
+  `requirements` json DEFAULT NULL,
+  `benefits` json NOT NULL,
+  `duration` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -316,29 +299,34 @@ CREATE TABLE `courses` (
 
 LOCK TABLES `courses` WRITE;
 /*!40000 ALTER TABLE `courses` DISABLE KEYS */;
+INSERT INTO `courses` VALUES (1,'Introduction to Combat Training','Introduction-to-Combat-Training','A foundational course in basic combat skills, focusing on close-quarters techniques and weapon handling.',200,NULL,'{\"agility\": 300, \"strength\": 500, \"endurance\": 200}',10),(2,'Advanced Swordsmanship','Advanced-Swordsmanship','In-depth study of sword techniques, focusing on precision, speed, and power in combat scenarios.',400,'{\"agility\": 1500, \"strength\": 2000, \"completed\": 1}','{\"agility\": 1500, \"strength\": 2000}',15),(3,'Endurance Conditioning','Endurance-Conditioning','A course designed to improve stamina and physical endurance through a combination of high-intensity interval training and long-distance challenges.',150,NULL,'{\"endurance\": 2500}',8),(4,'Basic Archery','Basic-Archery','Learn the fundamentals of archery, including posture, aim, and accuracy.',250,'{\"agility\": 1500, \"intelligence\": 1000}','{\"agility\": 1000, \"intelligence\": 800}',12),(5,'Tactical Strategy','Tactical-Strategy','An in-depth look at battlefield tactics, strategic planning, and how to outmaneuver opponents.',300,'{\"intelligence\": 4000}','{\"intelligence\": 3000}',14),(6,'Shield Defense Mastery','Shield-Defense-Mastery','This course focuses on shield techniques, including deflection, block timing, and defensive stances.',350,'{\"defense\": 3500, \"strength\": 4000}','{\"defense\": 3500, \"strength\": 2000}',12),(7,'Agility and Acrobatics','Agility-and-Acrobatics','A course focusing on agility, flexibility, and acrobatic techniques useful in combat and traversal.',280,'{\"agility\": 1500, \"endurance\": 1200}','{\"agility\": 2500, \"endurance\": 1500}',10),(8,'Elemental Magic Basics','Elemental-Magic-Basics','Introduction to the fundamental principles of fire, water, earth, and air magic.',500,'{\"intelligence\": 5000}','{\"endurance\": 1000, \"intelligence\": 4000}',20),(9,'Battlefield Communication','Battlefield-Communication','Teaches leadership communication, coordination, and how to give and follow orders during battle.',220,NULL,'{\"defense\": 800, \"intelligence\": 1000}',8),(10,'Stealth and Evasion Techniques','Stealth-and-Evasion-Techniques','Learn how to move silently, hide effectively, and avoid detection in both urban and natural environments.',320,'{\"agility\": 3000, \"intelligence\": 2000}','{\"agility\": 2000, \"intelligence\": 1500}',14),(11,'Heavy Armor Mastery','Heavy-Armor-Mastery','Learn how to move efficiently in heavy armor and how to use it to your advantage in combat.',350,'{\"defense\": 3000, \"strength\": 3500}','{\"defense\": 5000, \"strength\": 2500}',12),(12,'First Aid and Healing Techniques','First-Aid-and-Healing-Techniques','Provides essential knowledge of battlefield first aid and basic magical healing techniques.',180,'{\"intelligence\": 800}','{\"endurance\": 200, \"intelligence\": 500}',6),(13,'Mounted Combat Training','Mounted-Combat-Training','Learn to fight effectively while on horseback, focusing on mobility and mounted tactics.',450,'{\"agility\": 2500, \"strength\": 2000}','{\"agility\": 1500, \"strength\": 1500}',18),(14,'Mental Fortitude Training','Mental-Fortitude-Training','A mental conditioning course to help resist fatigue, stress, and fear in high-pressure situations.',280,'{\"intelligence\": 1200}','{\"endurance\": 1500, \"intelligence\": 2000}',10),(15,'Dual-Wielding Combat','Dual-Wielding-Combat','Master the art of fighting with two weapons simultaneously, enhancing speed and coordination.',500,'{\"agility\": 3500, \"strength\": 3000}','{\"agility\": 3000, \"strength\": 2000}',20),(16,'Explosives and Traps','Explosives-and-Traps','Learn the basics of setting traps, handling explosives, and using them effectively in battle or sabotage.',350,'{\"agility\": 2000, \"intelligence\": 4000}','{\"agility\": 1000, \"intelligence\": 3000}',12),(17,'Master\'s Course in Intelligence Gathering','Master-s-Course-in-Intelligence-Gathering','A course focused on gathering and analyzing enemy information, stealth reconnaissance, and counterintelligence tactics.',600,'{\"completed\": 10, \"intelligence\": 7000}','{\"agility\": 2000, \"intelligence\": 5000}',20),(18,'Siege Warfare Tactics','Siege-Warfare-Tactics','Learn the fundamentals of siege warfare, including the use of siege weapons, fortifications, and long-term strategies.',700,'{\"strength\": 5000, \"intelligence\": 7000}','{\"strength\": 2500, \"intelligence\": 5000}',22),(19,'Survival Training','Survival-Training','Learn essential survival skills, including foraging, shelter building, and navigation in harsh environments.',200,'{\"endurance\": 1200}','{\"endurance\": 1500, \"intelligence\": 800}',8),(20,'Weapon Crafting and Repair','Weapon-Crafting-and-Repair','Teaches how to craft, repair, and maintain weapons for battle.',300,'{\"strength\": 2500, \"intelligence\": 3000}','{\"strength\": 2000, \"intelligence\": 2000}',14),(21,'Advanced Defensive Tactics','Advanced-Defensive-Tactics','A course focused on advanced defensive techniques and how to effectively block or parry incoming attacks.',400,'{\"defense\": 8000, \"strength\": 5000}','{\"defense\": 5000, \"strength\": 2000}',16),(22,'Alchemy and Potions','Alchemy-and-Potions','An introduction to brewing potions and creating helpful substances for healing or boosting performance in battle.',380,'{\"intelligence\": 5000}','{\"endurance\": 1200, \"intelligence\": 3000}',12),(23,'Combat Endurance Training','Combat-Endurance-Training','Focuses on improving the ability to withstand long, drawn-out battles without tiring.',250,'{\"endurance\": 4000}','{\"strength\": 1500, \"endurance\": 3000}',10),(24,'Magic Defense Techniques','Magic-Defense-Techniques','Learn techniques to defend against magical attacks and counteract enemy spells.',550,'{\"defense\": 5000, \"intelligence\": 6000}','{\"defense\": 2000, \"intelligence\": 3500}',18),(25,'Group Tactics and Team Coordination','Group-Tactics-and-Team-Coordination','Learn how to effectively operate within a group, focusing on coordination, support, and communication.',300,'{\"defense\": 2000, \"intelligence\": 3000}','{\"defense\": 1500, \"intelligence\": 2000}',12);
 /*!40000 ALTER TABLE `courses` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `coursesdone`
+-- Table structure for table `courses_completed`
 --
 
-DROP TABLE IF EXISTS `coursesdone`;
+DROP TABLE IF EXISTS `courses_completed`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `coursesdone` (
-  `userid` int NOT NULL DEFAULT '0',
-  `courseid` int NOT NULL DEFAULT '0'
+CREATE TABLE `courses_completed` (
+  `user_id` bigint unsigned NOT NULL,
+  `course_id` bigint unsigned NOT NULL,
+  PRIMARY KEY (`user_id`,`course_id`),
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `courses_completed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE,
+  CONSTRAINT `courses_completed_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `coursesdone`
+-- Dumping data for table `courses_completed`
 --
 
-LOCK TABLES `coursesdone` WRITE;
-/*!40000 ALTER TABLE `coursesdone` DISABLE KEYS */;
-/*!40000 ALTER TABLE `coursesdone` ENABLE KEYS */;
+LOCK TABLES `courses_completed` WRITE;
+/*!40000 ALTER TABLE `courses_completed` DISABLE KEYS */;
+/*!40000 ALTER TABLE `courses_completed` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1530,7 +1518,7 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
-  `userid` int NOT NULL AUTO_INCREMENT,
+  `userid` bigint unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `userpass` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `level` int NOT NULL DEFAULT '1',
@@ -1539,7 +1527,7 @@ CREATE TABLE `users` (
   `bankmoney` bigint unsigned DEFAULT '0',
   `cybermoney` int NOT NULL DEFAULT '-1',
   `crystals` int unsigned NOT NULL DEFAULT '0',
-  `last_seen` DateTime,
+  `last_seen` datetime DEFAULT NULL,
   `lastip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `job` int NOT NULL DEFAULT '0',
   `energy` double unsigned NOT NULL DEFAULT '12',
@@ -1561,8 +1549,8 @@ CREATE TABLE `users` (
   `signedup` int NOT NULL,
   `gang` int NOT NULL DEFAULT '0',
   `daysingang` int NOT NULL DEFAULT '0',
-  `course` int NOT NULL DEFAULT '0',
-  `cdays` int NOT NULL DEFAULT '0',
+  `course_id` bigint unsigned DEFAULT NULL,
+  `course_completed` datetime DEFAULT NULL,
   `jobrank` int NOT NULL DEFAULT '0',
   `donatordays` int NOT NULL DEFAULT '0',
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -1606,7 +1594,9 @@ CREATE TABLE `users` (
   PRIMARY KEY (`userid`),
   UNIQUE KEY `email` (`email`),
   KEY `city_id` (`city_id`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE RESTRICT
+  KEY `course_id` (`course_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE RESTRICT,
+  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1616,7 +1606,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,1725696320,'172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,0,0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725641743,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 08:03:25');
+INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 13:22:14','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725641743,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 13:21:32');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1678,4 +1668,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-07  8:15:25
+-- Dump completed on 2024-09-07 13:22:36
