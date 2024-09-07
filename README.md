@@ -30,10 +30,17 @@ Will be replaced in due course, for now, add this to your crontab, updating the
 * Static analysis used to catch the most obvious bugs.
 * Docker setup with nginx, php-fpm and mysql
 * Added support for PDO_mysql database driver
+* Better `laston` tracking with daily breakdown
+* Extensive starter selection of cities and courses
+* Framework (Slim) based
+* Conforms to latest PHP standards
+* Built-in support for development docker containers
+* Repository patterns pushing database queries away from the controllers
+* Composer scripts for development helpers
 
 ## Todo
 
-In no particular order:
+Lots of things, in no particular order:
 
 * `[X]` Move non-page php files out to an includes folder
 * `[X]` Remove bank interest
