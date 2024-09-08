@@ -34,6 +34,12 @@ class View
         // TODO Move to the DataExtension
         $this->twig->addFunction(new TwigFunction('inmates', fn () => 123));
         $this->twig->addFunction(new TwigFunction('patients', fn () => 456));
+        $this->twig->addFunction(new TwigFunction('old', function (string $field) {
+            return $_SESSION['form']['fields'][$field] ?? null;
+        }));
+        $this->twig->addFunction(new TwigFunction('error', function (string $field) {
+            return $_SESSION['form']['errors'][$field] ?? null;
+        }));
     }
 
     public function addExtension(ExtensionInterface $extension): self
