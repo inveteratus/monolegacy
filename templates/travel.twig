@@ -15,19 +15,11 @@
                 <div class="border border-slate-300 bg-slate-50 rounded shadow h-32 z-10 overflow-hidden relative group">
                     <img src="/assets/cities/{{ city.slug }}.jpeg" class="object-contain" />
                     <span class="bg-white bg-opacity-75 group-hover:bg-opacity-100 text-slate-700 absolute bottom-0 left-0 right-0 z-10 -rotate-45w text-center">{{ city.name }}</span>
-                    {#
-                    <span class="font-medium text-slate-500">{{ city.name }}</span>
-                    <span class="text-sm text-slate-500">Current location</span>
-                    #}
                 </div>
             {% else %}
                 <button type="submit" name="destination" value="{{ id }}" class="border border-slate-300 bg-slate-50 rounded shadow h-32 z-10 overflow-hidden relative group">
                     <img src="/assets/cities/{{ city.slug }}.jpeg" class="object-contain" />
                     <span class="bg-white bg-opacity-75 group-hover:bg-opacity-100 text-slate-700 absolute bottom-0 left-0 right-0 z-10 -rotate-45w text-center">{{ city.name }}</span>
-                    {#
-                    <span class="font-medium">{{ city.name }}</span>
-                    <span class="text-sm">{{ number_format(city.cost) }} Cr</span>
-                    #}
                 </button>
             {% endif %}
         {% endfor %}
