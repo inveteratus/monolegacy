@@ -27,7 +27,7 @@ class View
         // Filters
 
         // Functions
-        foreach (['ceil', 'floor', 'number_format'] as $function) {
+        foreach (['ceil', 'floor', 'is_object'] as $function) {
             $this->twig->addFunction(new TwigFunction($function, $function));
         }
 

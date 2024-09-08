@@ -4,13 +4,13 @@
         <span class="text-right">{{ user.username }}</span>
 
         <span>Money</span>
-        <span class="text-right">{{ number_format(user.money) }} Cr</span>
+        <span class="text-right">{{ user.money|currency }}</span>
 
         <span>Level</span>
-        <span class="text-right">{{ user.level }}</span>
+        <span class="text-right">{{ user.level|number }}</span>
 
         <span>Diamonds</span>
-    <span class="text-right">{{ number_format(user.crystals) }}</span>
+    <span class="text-right">{{ user.crystals|number }}</span>
     </div>
 
     <hr class="border-t border-b-0 border-slate-200 pb-0.5" />
@@ -22,7 +22,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Energy</span>
-                <span>{{ number_format((user.energy*100)/user.maxenergy,1) }} %</span>
+                <span>{{ ((user.energy*100)/user.maxenergy)|number(1) }} %</span>
             </p>
         </div>
 
@@ -32,7 +32,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Nerve</span>
-                <span>{{ number_format(floor(user.brave)) }} / {{ number_format(user.maxbrave) }}</span>
+                <span>{{ user.brave|number }} / {{ user.maxbrave|number }}</span>
             </p>
         </div>
 
@@ -42,7 +42,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Health</span>
-                <span>{{ number_format((user.hp*100)/user.maxhp,1) }} %</span>
+                <span>{{ ((user.hp*100)/user.maxhp)|number(1) }} %</span>
             </p>
         </div>
 
@@ -52,7 +52,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Power</span>
-                <span>{{ number_format(user.will) }} / {{ number_format(user.maxwill) }}</span>
+                <span>{{ user.will|number }} / {{ user.maxwill|number }}</span>
             </p>
         </div>
     </div>
@@ -70,8 +70,8 @@
         <div>
             <a href="/criminal.php" class="text-slate-500">Crimes</a><br />
             <a href="/gym.php" class="text-slate-500">Gym</a><br />
-            <a href="/hospital.php" class="text-slate-500">Hospital ({{ number_format(patients()) }})</a><br />
-            <a href="/jail.php" class="text-slate-500">Jail ({{ number_format(inmates()) }})</a><br />
+            <a href="/hospital.php" class="text-slate-500">Hospital ({{ patients()|number }})</a><br />
+            <a href="/jail.php" class="text-slate-500">Jail ({{ inmates()|number }})</a><br />
             <a href="/job.php" class="text-slate-500">Job</a><br />
         </div>
         <div>

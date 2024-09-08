@@ -2,10 +2,15 @@
 
 {% block content %}
 
-    <h2 class="text-3xl font-light border-b border-slate-200 mb-3">City University</h2>
+    {% include 'partials/title.twig' with {
+        title: 'City University',
+        links: {
+            'Explore': url('explore')
+        }
+    } %}
 
     {% if user.course_id %}
-        <p>You are currently studying &ldquo;<span class="font-medium">{{ courses.items[user.course_id].name }}</span>&rdquo;. It will be complete in approximately {{ user.course_completed|delta }}.</p>
+        <p>You are currently studying &ldquo;<span class="font-medium">{{ courses.items[user.course_id].name }}</span>&rdquo;. It will be complete in approximately {{ time(user.course_completed) }}.</p>
     {% else %}
         <div class="grid grid-cols-2 gap-3">
             {% for id, course in courses.items %}
@@ -15,9 +20,7 @@
                 </a>
             {% endfor %}
         </div>
-        {% if courses.pages > 1 %}
-            {% include 'partials/pagination.twig' with {'page': courses.page, 'pages': courses.pages} %}
-        {% endif %}
+        {% include 'partials/pagination.twig' with {'page': courses.page, 'pages': courses.pages} %}
     {% endif %}
 
 {% endblock %}

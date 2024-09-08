@@ -5,6 +5,9 @@
         <div>
             {% for label, href in links %}
                 <a href="{{ href }}" class="text-blue-500">{{ label }}</a>
+                {% if not loop.last %}
+                    <span>&raquo;</span>
+                {% endif %}
             {% endfor %}
         </div>
     {% endif %}

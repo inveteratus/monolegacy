@@ -2,35 +2,39 @@
 
 namespace App\Controllers;
 
+use App\Classes\View;
 use App\Repositories\CourseRepository;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Exception\HttpNotFoundException;
+use Slim\Psr7\Request;
 
-class UniversityController extends Controller
+class UniversityController
 {
     #[Inject]
-    private CourseRepository $courseRepository;
+    protected CourseRepository $courseRepository;
 
     #[Inject]
-    private UserRepository $userRepository;
+    protected UserRepository $userRepository;
 
-    public function get(Request $request, Response $response): Response
+    #[Inject]
+    protected View $view;
+
+    public function get(Request $request): ResponseInterface
     {
         $uid = $request->getAttribute('uid');
         $user = $this->userRepository->getExtended($uid);
         $query = $request->getQueryParams();
         $page = array_key_exists('page', $query) && ctype_digit($query['page']) ? $query['page'] : 1;
 
-        return $this->view('university.twig', [
+        return $this->view->render('university.twig', [
             'user' => $user,
             'courses' => $this->courseRepository->getPaginatedCourseList($page),
         ]);
     }
 
-    public function viewCourse(Request $request, Response $response, array $args): Response
+    public function viewCourse(Request $request, ResponseInterface $response, array $args): ResponseInterface
     {
         $course = $this->courseRepository->getCourseBySlug($args['course']);
         if (!$course) {
@@ -42,7 +46,7 @@ class UniversityController extends Controller
 
         $course->requirements = $this->expandRequirements($course);
 
-        return $this->view('course.twig', [
+        return $this->view->render('course.twig', [
             'user' => $user,
             'course' => $course,
         ]);
