@@ -313,6 +313,7 @@ DROP TABLE IF EXISTS `courses_completed`;
 CREATE TABLE `courses_completed` (
   `user_id` bigint unsigned NOT NULL,
   `course_id` bigint unsigned NOT NULL,
+  `date_completed` datetime NOT NULL,
   PRIMARY KEY (`user_id`,`course_id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `courses_completed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE,
@@ -1349,7 +1350,7 @@ CREATE TABLE `seen` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
   CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=313 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=330 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1358,7 +1359,7 @@ CREATE TABLE `seen` (
 
 LOCK TABLES `seen` WRITE;
 /*!40000 ALTER TABLE `seen` DISABLE KEYS */;
-INSERT INTO `seen` VALUES (1,1,'2024-09-07',23,10,'2024-09-07 23:06:14'),(11,1,'2024-09-08',5,1,'2024-09-08 05:33:48'),(12,1,'2024-09-08',6,6,'2024-09-08 06:43:06'),(18,1,'2024-09-08',7,29,'2024-09-08 07:59:16'),(47,1,'2024-09-08',8,50,'2024-09-08 08:59:45'),(97,1,'2024-09-08',9,109,'2024-09-08 09:57:04'),(206,1,'2024-09-08',10,15,'2024-09-08 10:34:02'),(221,1,'2024-09-08',13,24,'2024-09-08 13:55:54'),(245,1,'2024-09-08',14,38,'2024-09-08 14:52:16'),(283,1,'2024-09-08',17,14,'2024-09-08 17:54:51'),(297,1,'2024-09-08',18,16,'2024-09-08 18:12:37');
+INSERT INTO `seen` VALUES (1,1,'2024-09-07',23,10,'2024-09-07 23:06:14'),(11,1,'2024-09-08',5,1,'2024-09-08 05:33:48'),(12,1,'2024-09-08',6,6,'2024-09-08 06:43:06'),(18,1,'2024-09-08',7,29,'2024-09-08 07:59:16'),(47,1,'2024-09-08',8,50,'2024-09-08 08:59:45'),(97,1,'2024-09-08',9,109,'2024-09-08 09:57:04'),(206,1,'2024-09-08',10,15,'2024-09-08 10:34:02'),(221,1,'2024-09-08',13,24,'2024-09-08 13:55:54'),(245,1,'2024-09-08',14,38,'2024-09-08 14:52:16'),(283,1,'2024-09-08',17,14,'2024-09-08 17:54:51'),(297,1,'2024-09-08',18,24,'2024-09-08 18:30:58'),(318,2,'2024-09-08',18,9,'2024-09-08 18:30:46');
 /*!40000 ALTER TABLE `seen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1627,7 +1628,7 @@ CREATE TABLE `users` (
   KEY `course_id` (`course_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1636,7 +1637,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 21:51:25','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725641743,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 21:50:36');
+INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 21:51:25','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725820252,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 21:50:36'),(2,'Suhana','d2f7a331ee01642de2c38fcdf47b4aaa',1,0.0000,0,100,-1,0,NULL,'',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725820221,0,0,NULL,NULL,0,0,'susan.vash@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725820221,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'6g7t9WOG',10,10,10,10,10,'2020-01-01 00:00:00');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1698,4 +1699,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-08 18:13:25
+-- Dump completed on 2024-09-08 19:10:03
