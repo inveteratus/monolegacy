@@ -10,7 +10,6 @@ use Twig\Extension\DebugExtension;
 use Twig\Extension\ExtensionInterface;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class View

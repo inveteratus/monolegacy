@@ -27,17 +27,6 @@ abstract class Controller
 
     private CommonMarkConverter $markdown;
 
-    public function redirect(string $url): Response
-    {
-        session_write_close();
-
-        $responseFactory = new ResponseFactory();
-
-        return $responseFactory->createResponse()
-            ->withStatus(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', $url);
-    }
-
     public function validate(Request $request, array $rules): array
     {
         $errors = [];

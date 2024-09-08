@@ -47,10 +47,10 @@ Lots of things, in no particular order:
 * `[X]` Move user stats into users table
 * `[X]` Regenerate middleware
 * `[X]` Added better `laston` tracking
+* `[X]` Work up to static analysis at level 5
 * `[ ]` Remove all crons
 * `[ ]` Remove verification
 * `[ ]` Change all code to use repository classes with PDO rather than mysql(i).
-* `[ ]` Work up to static analysis at level 5
 * `[ ]` Convert pages to use templates (Twig) - See below
 * `[ ]` Create a base set of crimes, cities, items, houses, shops and courses
 * `[ ]` Remove federal jail (or make it a staff only feature)

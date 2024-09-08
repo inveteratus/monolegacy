@@ -2,20 +2,24 @@
 
 namespace App\Controllers;
 
+use App\Classes\View;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Respect\Validation\Validator as V;
 
-class LoginController extends Controller
+class LoginController
 {
     #[Inject]
-    private UserRepository $repo;
+    protected UserRepository $repo;
+
+    #[Inject]
+    protected View $view;
 
     public function get(): Response
     {
-        return $this->view('login.twig');
+        return $this->view->render('login.twig');
     }
 
     public function post(Request $request, Response $response): Response
@@ -24,14 +28,15 @@ class LoginController extends Controller
             'email' => V::stringType()->notBlank()->email(),
             'password' => V::stringType()->notBlank(),
         ];
-        [$validated, $errors] = $this->validate($request, $rules);
+        [$validated, $errors] = validate($request, $rules);
 
         if (count($errors)) {
             $_SESSION['form'] = [
                 'errors' => $errors,
                 'fields' => $validated,
             ];
-            return $this->redirect('/login');
+
+            return redirect('/login');
         }
 
         $user = $this->repo->getForEmail($validated['email']);
@@ -41,7 +46,7 @@ class LoginController extends Controller
                 'fields' => $validated,
             ];
 
-            return $this->redirect('/login');
+            return redirect('/login');
         }
 
         $this->repo->login($user->id);
@@ -52,6 +57,6 @@ class LoginController extends Controller
         ];
         session_regenerate_id();
 
-        return $this->redirect('/');
+        return redirect('/home');
     }
 }

@@ -6,8 +6,9 @@ use App\Classes\View;
 use App\Repositories\CityRepository;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Psr7\Request;
+use Slim\Routing\RouteContext;
 
 class TravelController
 {
@@ -20,7 +21,7 @@ class TravelController
     #[Inject]
     protected View $view;
 
-    public function get(Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $user = $this->userRepository->getBasic($request->getAttribute("uid"));
         $cities = $this->cityRepository->getAll();
@@ -33,24 +34,27 @@ class TravelController
 
     public function post(Request $request): Response
     {
-        $uid = $request->getAttribute("uid");
-        $user = $this->userRepository->getBasic($uid);
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
+        $userId = $request->getAttribute("uid");
+        $user = $this->userRepository->getBasic($userId);
+
         $cities = $this->cityRepository->getAll();
         $cities = $this->sortByDistanceFrom($cities, $cities[$user->city_id]);
 
         $params = (array)$request->getParsedBody();
         if (!array_key_exists('destination', $params) || !ctype_digit($params['destination'])) {
-            return $this->redirect('/travel');
+            return redirect($routeParser->urlFor('travel'));
         }
 
         $destination = (int)$params['destination'];
         if (!array_key_exists($destination, $cities) || ($destination == $user->city_id)) {
-            return $this->redirect('/travel');
+            return redirect($routeParser->urlFor('travel'));
         }
 
-        $this->userRepository->travel($uid, $destination, $cities[$destination]->cost);
+        $this->userRepository->travel($userId, $destination, $cities[$destination]->cost);
 
-        return $this->redirect('/travel');
+        return redirect($routeParser->urlFor('travel'));
     }
 
     private function sortByDistanceFrom(array $cities, object $from): array

@@ -6,8 +6,8 @@ use App\Classes\View;
 use App\Repositories\CityRepository;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
+use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
-use Slim\Psr7\Response;
 
 class ExploreController
 {
@@ -20,7 +20,7 @@ class ExploreController
     #[Inject]
     protected View $view;
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request): ResponseInterface
     {
         $user = $this->userRepository->get($request->getAttribute('uid'));
 

@@ -5,8 +5,9 @@ namespace App\Controllers;
 use App\Classes\View;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Psr7\Request;
+use Slim\Routing\RouteContext;
 
 class BankController
 {
@@ -16,7 +17,7 @@ class BankController
     #[Inject]
     protected View $view;
 
-    public function get(Request $request): Response
+    public function __invoke(Request $request): ResponseInterface
     {
         $user = $this->userRepository->getBasic($request->getAttribute('uid'));
 
@@ -27,8 +28,10 @@ class BankController
         ]);
     }
 
-    public function post(Request $request): Response
+    public function transfer(Request $request): ResponseInterface
     {
+        $routeParser = RouteContext::fromRequest($request)->getRouteParser();
+
         $uid = $request->getAttribute("uid");
         $user = $this->userRepository->getBasic($uid);
         $deposit = $this->buttons($user->money, $user->level);
@@ -42,7 +45,7 @@ class BankController
             $this->userRepository->withdraw($uid, $params['withdraw']);
         }
 
-        return $this->redirect('/bank');
+        return redirect($routeParser->urlFor('bank'));
     }
 
     private function buttons(int $amount, int $level): array

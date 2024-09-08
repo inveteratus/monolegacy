@@ -23,10 +23,10 @@ return function (App $app) {
         $app->get('/players', PlayersController::class)->setName('players');
         $app->get('/staff', StaffController::class)->setName('staff');
 
-        $app->get('/bank', [BankController::class, 'get'])->setName('bank');
-        $app->post('/bank', [BankController::class, 'post']);
+        $app->get('/bank', BankController::class)->setName('bank');
+        $app->post('/bank', [BankController::class, 'transfer']);
 
-        $app->get('/travel', [TravelController::class, 'get'])->setName('travel');
+        $app->get('/travel', TravelController::class)->setName('travel');
         $app->post('/travel', [TravelController::class, 'post']);
 
         $app->get('/university', [UniversityController::class, 'get'])->setName('university');
