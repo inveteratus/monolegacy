@@ -2,17 +2,22 @@
 
 {% block content %}
 
-    <h2 class="text-3xl font-light border-b border-slate-200 mb-3">National Bank</h2>
+    {% include 'partials/title.twig' with {
+        title: 'National Bank',
+        links: {
+            'Explore': url('explore')
+        }
+    } %}
 
     <form method="post" class="grid grid-cols-2 gap-3">
         <div class="bg-slate-50 border border-slate-200 rounded shadow flex flex-col space-y-3 p-3">
             <div class="text-center">
                 <h3 class="text-xl font-light">Deposit</h3>
-                <p class="text-center text-sm text-slate-500">{{ number_format(user.money) }} Cr. Available</p>
+                <p class="text-center text-sm text-slate-500">{{ user.money|currency }} Available</p>
             </div>
             <div class="flex justify-around text-sm">
                 {% for button in deposit %}
-                    <button name="deposit" value="{{ button }}" class="bg-slate-100 border border-slate-200 px-2 py-1 rounded">{{ number_format(button) }} Cr</button>
+                    <button name="deposit" value="{{ button }}" class="bg-slate-100 border border-slate-200 px-2 py-1 rounded">{{ button|currency }}</button>
                 {% else %}
                     <span class="bg-slate-100 border border-slate-200 px-2 py-1 rounded text-slate-400">Insufficient funds</span>
                 {% endfor %}
@@ -21,11 +26,11 @@
         <div class="bg-slate-50 border border-slate-200 rounded shadow flex flex-col space-y-3 p-3">
             <div class="text-center">
                 <h3 class="text-xl font-light">Withdraw</h3>
-                <p class="text-center text-sm text-slate-500">{{ number_format(user.bankmoney) }} Cr. Available</p>
+                <p class="text-center text-sm text-slate-500">{{ user.bankmoney|currency }} Available</p>
             </div>
             <div class="flex justify-around text-sm">
                 {% for button in withdraw %}
-                    <button name="withdraw" value="{{ button }}" class="bg-slate-100 border border-slate-200 px-2 py-1 rounded">{{ number_format(button) }} Cr</button>
+                    <button name="withdraw" value="{{ button }}" class="bg-slate-100 border border-slate-200 px-2 py-1 rounded">{{ button|currency }}</button>
                 {% else %}
                     <span class="bg-slate-100 border border-slate-200 px-2 py-1 rounded text-slate-400">Insufficient funds</span>
                 {% endfor %}

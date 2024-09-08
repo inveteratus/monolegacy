@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Repositories\PlayerRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -11,7 +11,7 @@ use Respect\Validation\Validator as V;
 class LoginController extends Controller
 {
     #[Inject]
-    private PlayerRepository $repo;
+    private UserRepository $repo;
 
     public function get(): Response
     {

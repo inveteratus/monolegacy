@@ -17,6 +17,9 @@ class AuthMiddleware
             exit;
         }
 
-        return $handler->handle($request->withAttribute('uid', $uid));
+        return $handler->handle(
+            $request->withAttribute('uid', $uid)
+                    ->withAttribute('user_id', $uid)
+        );
     }
 }

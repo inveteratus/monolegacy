@@ -2,14 +2,14 @@
 
 namespace App\Middleware;
 
-use App\Repositories\PlayerRepository;
+use App\Repositories\UserRepository;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 use Psr\Http\Message\ResponseInterface as Response;
 
 class RegenerateMiddleware
 {
-    public function __construct(private PlayerRepository $repository)
+    public function __construct(private UserRepository $repository)
     {
     }
 

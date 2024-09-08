@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use PDO;
 
-class PlayerRepository extends Repository
+class UserRepository extends Repository
 {
     private const int REGENERATION_INTERVAL = 300;  // seconds
 
@@ -223,5 +223,45 @@ class PlayerRepository extends Repository
         $statement = $this->db->execute($sql, ['city_id' => $city_id, 'cost' => $cost, 'price' => $cost, 'uid' => $uid]);
 
         return $statement->rowCount() > 0;
+    }
+
+    public function get(int $id): ?object
+    {
+        $sql = <<<SQL
+            SELECT *, FROM_UNIXTIME(signedup) AS created_at, money AS cash, bankmoney AS bank, crystals AS diamonds,
+                   guard AS defense, labour AS endurance, IQ AS intelligence
+            FROM `users`
+            WHERE `userid` = :userId
+        SQL;
+
+        return $this->objectOrNull($this->db->execute($sql, ['userId' => $id])->fetch(PDO::FETCH_OBJ));
+    }
+
+    public function getPaginatedList(int $page, int $ipp = 10): object
+    {
+        $records = $this->db->execute('SELECT COUNT(*) FROM users')->fetch(PDO::FETCH_COLUMN);
+        $pages = (int) ceil($records / $ipp);
+        $page = max(1, min($page, $pages));
+        $offset = ($page - 1) * $ipp;
+        $sql = <<<SQL
+            SELECT u.userid AS id, u.username AS name, c.name AS city, MAX(s.last_seen) AS last_seen
+            FROM seen s             
+            LEFT JOIN users u ON u.userid = s.user_id     
+            LEFT JOIN cities c ON c.id = u.city_id        
+            GROUP BY u.userid             
+            ORDER BY last_seen DESC
+            LIMIT :offset, :ipp
+        SQL;
+        $items = $this->db
+            ->execute($sql, ['offset' => $offset, 'ipp' => $ipp])
+            ->fetchAll(PDO::FETCH_UNIQUE);
+
+        return (object)[
+            'records' => $records,
+            'pages' => $this->paginationButtons($page, $pages),
+            'page' => $page,
+            'ipp' => $ipp,
+            'items' => $this->arrayOfObjects($items),
+        ];
     }
 }

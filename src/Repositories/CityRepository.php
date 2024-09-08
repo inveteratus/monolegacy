@@ -13,4 +13,11 @@ class CityRepository extends Repository
 
         return array_map(fn ($city) => (object) $city, $cities);
     }
+
+    public function get(int $id): ?object
+    {
+        $sql = 'SELECT * FROM cities WHERE id = :id';
+
+        return $this->objectOrNull($this->db->execute($sql, ['id' => $id])->fetch(PDO::FETCH_OBJ));
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Classes\Database;
-use App\Repositories\PlayerRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,7 +15,7 @@ class RegisterController extends Controller
     private Database $db;
 
     #[Inject]
-    private PlayerRepository $repo;
+    private UserRepository $repo;
 
     public function get(Request $request, Response $response): Response
     {

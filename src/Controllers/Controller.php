@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Repositories\PlayerRepository;
+use App\Repositories\UserRepository;
 use Carbon\Carbon;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
@@ -23,7 +23,7 @@ abstract class Controller
     private Environment $environment;
 
     #[Inject]
-    private PlayerRepository $playerRepository;
+    private UserRepository $playerRepository;
 
     private CommonMarkConverter $markdown;
 

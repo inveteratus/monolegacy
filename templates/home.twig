@@ -1,0 +1,73 @@
+{% extends 'layouts/app.twig' %}
+
+{% block content %}
+
+    {% include 'partials/title.twig' with {
+        title: 'Home'
+    } %}
+
+    <div class="grid grid-cols-2 gap-3">
+        <div>
+            <div class="grid grid-cols-2 gap-x-3 gap-y-1">
+                <div class="text-right">Name</div>
+                <div>{{ user.username }}</div>
+                <div class="text-right">Age</div>
+                <div>{{ time(user.created_at) }}</div>
+                <div class="text-right">Gender</div>
+                <div>{{ user.gender }}</div>
+                <div class="text-right">Location</div>
+                <div>...</div>
+                <div class="text-right">Cash</div>
+                <div>{{ user.cash|currency }}</div>
+                <div class="text-right">Diamonds</div>
+                <div>{{ user.diamonds|number }}</div>
+            </div>
+        </div>
+        <div>
+            <div class="grid grid-cols-2 gap-x-3 gap-y-1">
+                <div class="text-right">Property</div>
+                <div>...</div>
+                <div class="text-right">Employment</div>
+                <div>...</div>
+                <div class="text-right">Guild</div>
+                <div>...</div>
+                <div class="text-right">Studying</div>
+                <div>...</div>
+                <div class="text-right">key</div>
+                <div>value</div>
+            </div>
+        </div>
+    </div>
+
+    <table class="overflow-hidden rounded shadow w-full">
+        <thead class="bg-slate-200">
+            <tr>
+                <th class="font-medium p-2 text-left">Attribute</th>
+                <th class="font-medium p-2 text-right">Experience</th>
+            </tr>
+        </thead>
+        <tbody class="bg-slate-50">
+            <tr>
+                <td class="px-2 py-1 text-left">Strength</td>
+                <td class="px-2 py-1 text-right">{{ user.strength|number(3) }}</td>
+            </tr>
+            <tr>
+                <td class="px-2 py-1 text-left">Agility</td>
+                <td class="px-2 py-1 text-right">{{ user.agility|number(3) }}</td>
+            </tr>
+            <tr>
+                <td class="px-2 py-1 text-left">Defense</td>
+                <td class="px-2 py-1 text-right">{{ user.defense|number(3) }}</td>
+            </tr>
+            <tr>
+                <td class="px-2 py-1 text-left">Intelligence</td>
+                <td class="px-2 py-1 text-right">{{ user.intelligence|number(3) }}</td>
+            </tr>
+            <tr>
+                <td class="px-2 py-1 text-left">Endurance</td>
+                <td class="px-2 py-1 text-right">{{ user.endurance|number(3) }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

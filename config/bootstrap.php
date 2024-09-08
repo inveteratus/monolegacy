@@ -1,5 +1,6 @@
 <?php
 
+use App\Extensions\SlimMiddleware;
 use DI\ContainerBuilder;
 use Slim\App;
 
@@ -10,4 +11,7 @@ $container = (new ContainerBuilder())
     ->addDefinitions(__DIR__ . '/dependencies.php')
     ->build();
 
-return $container->get(App::class);
+$app = $container->get(App::class);
+$app->add(new SlimMiddleware($app));
+
+return $app;

@@ -2,9 +2,10 @@
 
 use App\Controllers\BankController;
 use App\Controllers\ExploreController;
-use App\Controllers\PlayerListController;
+use App\Controllers\HomeController;
+use App\Controllers\PlayersController;
 use App\Controllers\StaffController;
-use App\Controllers\TravelAgentController;
+use App\Controllers\TravelController;
 use App\Controllers\UniversityController;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\SeenMiddleware;
@@ -17,15 +18,16 @@ return function (App $app) {
 
     $app->group('', function (RouteCollectorProxyInterface $app) {
 
+        $app->get('/home', HomeController::class)->setName('home');
         $app->get('/explore', ExploreController::class)->setName('explore');
-        $app->get('/players', PlayerListController::class)->setName('players');
+        $app->get('/players', PlayersController::class)->setName('players');
         $app->get('/staff', StaffController::class)->setName('staff');
 
         $app->get('/bank', [BankController::class, 'get'])->setName('bank');
         $app->post('/bank', [BankController::class, 'post']);
 
-        $app->get('/travel', [TravelAgentController::class, 'get'])->setName('travel');
-        $app->post('/travel', [TravelAgentController::class, 'post']);
+        $app->get('/travel', [TravelController::class, 'get'])->setName('travel');
+        $app->post('/travel', [TravelController::class, 'post']);
 
         $app->get('/university', [UniversityController::class, 'get'])->setName('university');
         $app->get('/university/{course}', [UniversityController::class, 'viewCourse'])->setName('university.course');

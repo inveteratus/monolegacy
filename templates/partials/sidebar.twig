@@ -61,25 +61,25 @@
 
     <div class="flex flex-col space-y-1.5 text-center">
         <div>
-            <a href="/index.php" class="text-blue-500">Home</a><br />
+            <a href="{{ url('home') }}" class="text-blue-500">Home</a><br />
         </div>
         <div>
-            <a href="/explore" class="text-blue-500">Explore</a><br />
-            <a href="/inventory.php" class="text-blue-500">Inventory</a><br />
+            <a href="{{ url('explore') }}" class="text-blue-500">Explore</a><br />
+            <a href="/inventory.php" class="text-slate-500">Inventory</a><br />
         </div>
         <div>
-            <a href="/criminal.php" class="text-blue-500">Crimes</a><br />
-            <a href="/gym.php" class="text-blue-500">Gym</a><br />
-            <a href="/hospital.php" class="text-blue-500">Hospital ({{ number_format(patients()) }})</a><br />
-            <a href="/jail.php" class="text-blue-500">Jail ({{ number_format(inmates()) }})</a><br />
-            <a href="/job.php" class="text-blue-500">Job</a><br />
+            <a href="/criminal.php" class="text-slate-500">Crimes</a><br />
+            <a href="/gym.php" class="text-slate-500">Gym</a><br />
+            <a href="/hospital.php" class="text-slate-500">Hospital ({{ number_format(patients()) }})</a><br />
+            <a href="/jail.php" class="text-slate-500">Jail ({{ number_format(inmates()) }})</a><br />
+            <a href="/job.php" class="text-slate-500">Job</a><br />
         </div>
         <div>
-            <a href="/announcements.php" class="text-blue-500">Announcements</a><br />
-            <a href="/events.php" class="text-blue-500">Events</a><br />
-            <a href="/forums.php" class="text-blue-500">Forums</a><br />
-            <a href="/mailbox.php" class="text-blue-500">Mail</a><br />
-            <a href="/newspaper.php" class="text-blue-500">Newspaper</a><br />
+            <a href="/announcements.php" class="text-slate-500">Announcements</a><br />
+            <a href="/events.php" class="text-slate-500">Events</a><br />
+            <a href="/forums.php" class="text-slate-500">Forums</a><br />
+            <a href="/mailbox.php" class="text-slate-500">Mail</a><br />
+            <a href="/newspaper.php" class="text-slate-500">Newspaper</a><br />
         </div>
     </div>
 
@@ -87,15 +87,15 @@
 
     <div class="flex flex-col space-y-1.5 text-center">
         <div>
-            <a href="/preferences.php" class="text-blue-500">Preferences</a><br />
-            <a href="/preport.php" class="text-blue-500">Report a Player</a><br />
-            <a href="/helptutorial.php" class="text-blue-500">Tutorial</a><br />
-            <a href="/gamerules.php" class="text-blue-500">Rules</a><br />
-            <a href="/viewuser.php?u={{ user.userid }}" class="text-blue-500">Profile</a><br />
+            <a href="/preferences.php" class="text-slate-500">Preferences</a><br />
+            <a href="/preport.php" class="text-slate-500">Report a Player</a><br />
+            <a href="/helptutorial.php" class="text-slate-500">Tutorial</a><br />
+            <a href="/gamerules.php" class="text-slate-500">Rules</a><br />
+            <a href="/viewuser.php?u={{ user.userid }}" class="text-slate-500">Profile</a><br />
         </div>
         <div>
             <form action="/logout.php" method="post">
-                <button type="submit" class="text-blue-500">Logout</button>
+                <button type="submit" class="text-slate-500">Logout</button>
             </form>
         </div>
     </div>

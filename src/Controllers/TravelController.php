@@ -2,27 +2,30 @@
 
 namespace App\Controllers;
 
+use App\Classes\View;
 use App\Repositories\CityRepository;
-use App\Repositories\PlayerRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
-class TravelAgentController extends Controller
+class TravelController
 {
     #[Inject]
-    private CityRepository $cityRepository;
+    protected CityRepository $cityRepository;
 
     #[Inject]
-    private PlayerRepository $playerRepository;
+    protected UserRepository $userRepository;
+
+    #[Inject]
+    protected View $view;
 
     public function get(Request $request): Response
     {
-        $uid = $request->getAttribute("uid");
-        $user = $this->playerRepository->getBasic($uid);
+        $user = $this->userRepository->getBasic($request->getAttribute("uid"));
         $cities = $this->cityRepository->getAll();
 
-        return $this->view('travel.twig', [
+        return $this->view->render('travel.twig', [
             'user' => $user,
             'cities' => $this->sortByDistanceFrom($cities, $cities[$user->city_id]),
         ]);
@@ -31,7 +34,7 @@ class TravelAgentController extends Controller
     public function post(Request $request): Response
     {
         $uid = $request->getAttribute("uid");
-        $user = $this->playerRepository->getBasic($uid);
+        $user = $this->userRepository->getBasic($uid);
         $cities = $this->cityRepository->getAll();
         $cities = $this->sortByDistanceFrom($cities, $cities[$user->city_id]);
 
@@ -40,12 +43,12 @@ class TravelAgentController extends Controller
             return $this->redirect('/travel');
         }
 
-        $destination = (int) $params['destination'];
+        $destination = (int)$params['destination'];
         if (!array_key_exists($destination, $cities) || ($destination == $user->city_id)) {
             return $this->redirect('/travel');
         }
 
-        $this->playerRepository->travel($uid, $destination, $cities[$destination]->cost);
+        $this->userRepository->travel($uid, $destination, $cities[$destination]->cost);
 
         return $this->redirect('/travel');
     }
@@ -56,7 +59,7 @@ class TravelAgentController extends Controller
             $city->distance = $this->distance($city, $from);
             $city->cost = floor($city->distance / 50) * 50;
         }
-        uasort($cities, fn ($a, $b) => $a->distance - $b->distance);
+        uasort($cities, fn($a, $b) => $a->distance - $b->distance);
 
         return $cities;
     }
