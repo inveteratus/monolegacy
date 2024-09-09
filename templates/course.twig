@@ -5,8 +5,8 @@
     {% include 'partials/title.twig' with {
         title: course.name,
         links: {
-            'City University': url('university'),
-            'Explore': url('explore')
+            'City University': urlFor('university'),
+            'Explore': urlFor('explore')
         }
     } %}
 

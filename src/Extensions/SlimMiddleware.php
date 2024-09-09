@@ -22,7 +22,7 @@ class SlimMiddleware
 
     public function __invoke(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->view->addRuntimeLoader(new SlimRuntimeLoader($this->routeParser));
+        $this->view->addRuntimeLoader(new SlimRuntimeLoader($this->routeParser, $request->getUri()));
 
         return $handler->handle($request);
     }

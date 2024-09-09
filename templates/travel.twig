@@ -5,7 +5,7 @@
     {% include 'partials/title.twig' with {
         title: cities[user.city_id].name ~ ' Travel',
         links: {
-            'Explore': url('explore')
+            'Explore': urlFor('explore')
         }
     } %}
 

@@ -21,7 +21,10 @@ class SlimExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('url', [SlimRuntimeExtension::class, 'url']),
+            new TwigFunction('currentUrl', [SlimRuntimeExtension::class, 'getCurrentUrl']),
+            new TwigFunction('fullUrlFor', [SlimRuntimeExtension::class, 'fullUrlFor']),
+            new TwigFunction('isCurrentUrl', [SlimRuntimeExtension::class, 'isCurrentUrl']),
+            new TwigFunction('urlFor', [SlimRuntimeExtension::class, 'urlFor']),
 
             new TwigFunction('time', [$this, 'time']),
         ];
