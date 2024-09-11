@@ -1323,7 +1323,7 @@ CREATE TABLE `seen` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
   CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=400 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=404 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1332,7 +1332,7 @@ CREATE TABLE `seen` (
 
 LOCK TABLES `seen` WRITE;
 /*!40000 ALTER TABLE `seen` DISABLE KEYS */;
-INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28'),(383,3,'2024-09-11',18,17,'2024-09-11 18:35:22');
+INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28'),(383,3,'2024-09-11',18,17,'2024-09-11 18:35:22'),(400,3,'2024-09-11',19,4,'2024-09-11 19:13:44');
 /*!40000 ALTER TABLE `seen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1526,6 +1526,7 @@ CREATE TABLE `users` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `born` datetime NOT NULL,
   `cash` bigint unsigned NOT NULL DEFAULT '100',
   `bank` bigint unsigned NOT NULL DEFAULT '0',
   `diamonds` int unsigned NOT NULL DEFAULT '0',
@@ -1534,13 +1535,12 @@ CREATE TABLE `users` (
   `exp` decimal(11,4) NOT NULL DEFAULT '0.0000',
   `job` int NOT NULL DEFAULT '0',
   `energy` double unsigned NOT NULL DEFAULT '12',
+  `nerve` double unsigned NOT NULL DEFAULT '5',
+  `health` double unsigned NOT NULL DEFAULT '100',
+  `power` double unsigned NOT NULL DEFAULT '100',
   `maxenergy` int unsigned NOT NULL DEFAULT '12',
-  `will` double unsigned NOT NULL DEFAULT '100',
-  `maxwill` int unsigned NOT NULL DEFAULT '100',
-  `brave` double unsigned NOT NULL DEFAULT '5',
-  `maxbrave` int unsigned NOT NULL DEFAULT '5',
-  `hp` double unsigned NOT NULL DEFAULT '100',
-  `maxhp` int unsigned NOT NULL DEFAULT '100',
+  `maxnerve` int unsigned NOT NULL DEFAULT '5',
+  `maxhealth` int unsigned NOT NULL DEFAULT '100',
   `city_id` bigint unsigned NOT NULL DEFAULT '1',
   `hospital` int NOT NULL DEFAULT '0',
   `jail` int NOT NULL DEFAULT '0',
@@ -1549,7 +1549,6 @@ CREATE TABLE `users` (
   `user_level` int NOT NULL DEFAULT '1',
   `gender` enum('Male','Female') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `daysold` int NOT NULL DEFAULT '0',
-  `signedup` int NOT NULL,
   `gang` int NOT NULL DEFAULT '0',
   `daysingang` int NOT NULL DEFAULT '0',
   `course_id` bigint unsigned DEFAULT NULL,
@@ -1607,7 +1606,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c',0,100,0,NULL,1,0.0000,0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Female',0,1726076766,0,0,NULL,NULL,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
+INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c','2024-09-11 17:46:06',0,100,0,NULL,1,0.0000,0,12,5,100,100,12,5,100,1,0,0,'',0,1,'Female',0,0,0,NULL,NULL,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1669,4 +1668,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-11 18:35:34
+-- Dump completed on 2024-09-11 20:54:46

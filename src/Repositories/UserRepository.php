@@ -44,16 +44,16 @@ class UserRepository extends Repository
         $salt = base64_encode(random_bytes(6));
 
         $sql = <<<SQL
-            INSERT INTO users (name, password, gender, signedup, email, staffnotes, lastip_signup, voted,
+            INSERT INTO users (name, password, gender, born, email, staffnotes, lastip_signup, voted,
                                user_notepad, pass_salt, display_pic)
-            VALUES (:name, :password, :gender, :signedup, :email, :staffnotes, :lastip_signup, :voted,
+            VALUES (:name, :password, :gender, :born, :email, :staffnotes, :lastip_signup, :voted,
                     :user_notepad, :pass_salt, :display_pic)
         SQL;
         $this->db->execute($sql, [
             'name' => $name,
             'password' => md5($salt . md5($password)),
             'gender' => ['Male', 'Female'][mt_rand(0, 1)],
-            'signedup' => time(),
+            'born' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
             'email' => $email,
             'staffnotes' => '',
             'lastip_signup' => $_SERVER['REMOTE_ADDR'],
@@ -74,25 +74,18 @@ class UserRepository extends Repository
         $sql = <<<SQL
             SELECT u.name,
                    IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.name)) AS location,
-                   u.last_seen
-            FROM users u
+                   MAX(s.last_seen) AS last_seen
+            FROM seen s
+            LEFT JOIN users u ON u.id = s.user_id
             LEFT JOIN cities c ON c.id = u.city_id
-            ORDER BY u.last_seen DESC
+            GROUP BY u.id
+            ORDER BY last_seen DESC
             LIMIT :offset, :limit
         SQL;
         return $this->db->execute($sql, [
             'offset' => ($page - 1) * $limit,
             'limit' => $limit,
         ])->fetchAll(PDO::FETCH_OBJ);
-    }
-
-    public function updateLastSeen(int $uid): void
-    {
-        $sql = 'UPDATE users SET last_seen = :now WHERE id = :uid';
-        $this->db->execute($sql, [
-            'now' => Carbon::now()->format('Y-m-d H:i:s'),
-            'uid' => $uid,
-        ]);
     }
 
     public function numInmates(): int
@@ -144,7 +137,7 @@ class UserRepository extends Repository
     public function regenerate(int $uid): void
     {
         $sql = <<<SQL
-            SELECT u.energy, u.maxenergy, u.brave, u.maxbrave, u.hp, u.maxhp, u.will, h.power AS maxwill,
+            SELECT u.energy, u.maxenergy, u.nerve, u.maxnerve, u.health, u.maxhealth, u.power, h.power AS maxwill,
                    u.regenerated, COALESCE(u.premium, '2000-01-01 00:00:00') AS premium
             FROM users u
             LEFT JOIN houses h ON u.house_id = h.id
@@ -169,9 +162,9 @@ class UserRepository extends Repository
         $sql = <<<SQL
             UPDATE users
             SET energy = LEAST(maxenergy, energy + (:increment * :seconds1) / :interval1),
-                brave = LEAST(maxbrave, brave + (1 * :seconds2) / :interval2),
-                hp = LEAST(maxhp, hp + (100 * :seconds3) / (3 * :interval3)),
-                will = LEAST(:maxwill, will + (10 * :seconds4) / :interval4),
+                nerve = LEAST(maxnerve, nerve + (1 * :seconds2) / :interval2),
+                health = LEAST(maxhealth, health + (100 * :seconds3) / (3 * :interval3)),
+                power = LEAST(:maxpower, power + (10 * :seconds4) / :interval4),
                 regenerated = :now
             WHERE id = :uid
         SQL;
@@ -187,7 +180,7 @@ class UserRepository extends Repository
             'interval4' => self::REGENERATION_INTERVAL,
             'now' => $now->format('Y-m-d H:i:s'),
             'uid' => $uid,
-            'maxwill' => $data->maxwill,
+            'maxpower' => $data->maxpower,
         ]);
     }
 
@@ -211,10 +204,9 @@ class UserRepository extends Repository
     public function get(int $id): ?object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.cash, u.bank, u.id,
-                   u.diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
-                   u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
-                   u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
+            SELECT u.born, u.cash, u.bank, u.id, u.diamonds, u.guard AS defense, u.labour AS endurance,
+                   u.IQ AS intelligence, u.energy, u.maxenergy, u.nerve, u.maxnerve, u.health, u.maxhealth,
+                   u.power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender
             FROM users u
             LEFT JOIN houses h ON h.id = u.house_id
@@ -227,10 +219,9 @@ class UserRepository extends Repository
     public function getExtended(int $uid): object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.cash, u.bank, u.id,
-                   u.diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
-                   u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
-                   u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
+            SELECT u.born, u.cash, u.bank, u.id, u.diamonds, u.guard AS defense, u.labour AS endurance,
+                   u.IQ AS intelligence, u.energy, u.maxenergy, u.nerve, u.maxnerve, u.health, u.maxhealth,
+                   u.power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender,
                    h.name AS house_name, c.name AS city_name
             FROM users u
