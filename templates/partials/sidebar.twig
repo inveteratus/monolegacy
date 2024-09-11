@@ -1,7 +1,7 @@
 <div class="flex flex-col space-y-3 text-sm">
     <div class="grid grid-cols-2">
         <span>Name</span>
-        <span class="text-right">{{ user.username }}</span>
+        <span class="text-right">{{ user.name }}</span>
 
         <span>Money</span>
         <span class="text-right">{{ user.cash|currency }}</span>
@@ -10,7 +10,7 @@
         <span class="text-right">{{ user.level|number }}</span>
 
         <span>Diamonds</span>
-    <span class="text-right">{{ user.diamonds|number }}</span>
+        <span class="text-right">{{ user.diamonds|number }}</span>
     </div>
 
     <hr class="border-t border-b-0 border-slate-200 pb-0.5" />
@@ -28,7 +28,7 @@
 
         <div class="flex flex-col space-y-0.5">
             <div class="bg-white h-3 flex shadow">
-                <span class="bg-orange-500" style="width:{{ (user.brave*100)/user.maxbrave }}%"></span>
+                <span class="bg-orange-500" style="width:{{ (user.nerve*100)/user.maxnerve }}%"></span>
             </div>
             <p class="flex justify-between">
                 <span>Nerve</span>
@@ -38,7 +38,7 @@
 
         <div class="flex flex-col space-y-0.5">
             <div class="bg-white h-3 flex shadow">
-                <span class="bg-green-500" style="width:{{ (user.hp*100)/user.maxhp }}%"></span>
+                <span class="bg-green-500" style="width:{{ (user.health*100)/user.maxhealth }}%"></span>
             </div>
             <p class="flex justify-between">
                 <span>Health</span>
@@ -48,7 +48,7 @@
 
         <div class="flex flex-col space-y-0.5">
             <div class="bg-white h-3 flex shadow">
-                <span class="bg-cyan-500" style="width:{{ (user.will*100)/user.maxwill }}%"></span>
+                <span class="bg-cyan-500" style="width:{{ (user.power*100)/user.maxpower }}%"></span>
             </div>
             <p class="flex justify-between">
                 <span>Power</span>
@@ -91,7 +91,7 @@
             <a href="/preport.php" class="text-slate-500">Report a Player</a><br />
             <a href="/helptutorial.php" class="text-slate-500">Tutorial</a><br />
             <a href="/gamerules.php" class="text-slate-500">Rules</a><br />
-            <a href="/viewuser.php?u={{ user.userid }}" class="text-slate-500">Profile</a><br />
+            <a href="/viewuser.php?u={{ user.id }}" class="text-slate-500">Profile</a><br />
         </div>
         <div>
             <form action="/logout.php" method="post">

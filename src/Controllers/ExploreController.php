@@ -24,6 +24,8 @@ class ExploreController
     {
         $user = $this->userRepository->get($request->getAttribute('uid'));
 
+        //echo '<pre>' . print_r($user, true) . '</pre>'; exit;
+
         return $this->view->render('explore.twig', [
             'city' => $this->cityRepository->get($user->city_id),
             'user' => $user,

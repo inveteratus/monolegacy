@@ -211,10 +211,11 @@ class UserRepository extends Repository
     public function get(int $id): ?object
     {
         $sql = <<<SQL
-            SELECT *, FROM_UNIXTIME(signedup) AS created_at, u.money AS cash, u.bankmoney AS bank,
-                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy, 
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.userid AS id,
+                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
                    u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
-                   u.will AS power, h.power AS maxpower
+                   u.will AS power, h.power AS maxpower, u.username AS name, u.city_id, u.level, u.exp AS experience,
+                   u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender
             FROM users u
             LEFT JOIN houses h ON h.id = u.house_id
             WHERE `userid` = :userId
@@ -226,13 +227,15 @@ class UserRepository extends Repository
     public function getExtended(int $uid): object
     {
         $sql = <<<SQL
-            SELECT *, FROM_UNIXTIME(signedup) AS created_at, money AS cash, bankmoney AS bank, crystals AS diamonds,
-                   guard AS defense, labour AS endurance, IQ AS intelligence, c.name AS city_name,
-                   h.name AS house_name, u.energy, u.maxenergy, brave AS nerve, maxbrave AS maxnerve, hp AS health,
-                   maxhp AS maxhealth, u.will AS power, h.power AS maxpower
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.userid AS id,
+                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
+                   u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
+                   u.will AS power, h.power AS maxpower, u.username AS name, u.city_id, u.level, u.exp AS experience,
+                   u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender,
+                   h.name AS house_name, c.name AS city_name
             FROM users u
-            LEFT JOIN houses h ON h.id = u.house_id
             LEFT JOIN cities c ON c.id = u.city_id
+            LEFT JOIN houses h ON h.id = u.house_id
             WHERE u.userid = :uid
         SQL;
 
