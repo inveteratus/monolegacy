@@ -1323,7 +1323,7 @@ CREATE TABLE `seen` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
   CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=400 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1332,7 +1332,7 @@ CREATE TABLE `seen` (
 
 LOCK TABLES `seen` WRITE;
 /*!40000 ALTER TABLE `seen` DISABLE KEYS */;
-INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28');
+INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28'),(383,3,'2024-09-11',18,17,'2024-09-11 18:35:22');
 /*!40000 ALTER TABLE `seen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1526,14 +1526,12 @@ CREATE TABLE `users` (
   `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `cash` bigint unsigned NOT NULL DEFAULT '100',
+  `bank` bigint unsigned NOT NULL DEFAULT '0',
+  `diamonds` int unsigned NOT NULL DEFAULT '0',
+  `premium` datetime DEFAULT NULL,
   `level` int NOT NULL DEFAULT '1',
   `exp` decimal(11,4) NOT NULL DEFAULT '0.0000',
-  `money` bigint unsigned NOT NULL DEFAULT '100',
-  `bankmoney` bigint unsigned DEFAULT '0',
-  `cybermoney` int NOT NULL DEFAULT '-1',
-  `crystals` int unsigned NOT NULL DEFAULT '0',
-  `last_seen` datetime DEFAULT NULL,
-  `lastip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `job` int NOT NULL DEFAULT '0',
   `energy` double unsigned NOT NULL DEFAULT '12',
   `maxenergy` int unsigned NOT NULL DEFAULT '12',
@@ -1557,7 +1555,6 @@ CREATE TABLE `users` (
   `course_id` bigint unsigned DEFAULT NULL,
   `course_completed` datetime DEFAULT NULL,
   `jobrank` int NOT NULL DEFAULT '0',
-  `donatordays` int NOT NULL DEFAULT '0',
   `display_pic` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `duties` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `staffnotes` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -1610,7 +1607,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c',1,0.0000,100,0,-1,0,NULL,'',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Female',0,1726076766,0,0,NULL,NULL,0,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
+INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c',0,100,0,NULL,1,0.0000,0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Female',0,1726076766,0,0,NULL,NULL,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1672,4 +1669,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-11 17:47:00
+-- Dump completed on 2024-09-11 18:35:34

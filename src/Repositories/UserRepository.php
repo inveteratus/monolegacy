@@ -113,8 +113,8 @@ class UserRepository extends Repository
     {
         $sql = <<<SQL
             UPDATE users
-            SET money = money - :amount1, bankmoney = bankmoney + :amount2
-            WHERE id = :uid AND money >= :amount3
+            SET cash = cash - :amount1, bank = bank + :amount2
+            WHERE id = :uid AND cash >= :amount3
         SQL;
 
         $this->db->execute($sql, [
@@ -129,8 +129,8 @@ class UserRepository extends Repository
     {
         $sql = <<<SQL
             UPDATE users
-            SET bankmoney = bankmoney - :amount1, money = money + :amount2
-            WHERE id = :uid AND bankmoney >= :amount3
+            SET bank = bank - :amount1, cash = cash + :amount2
+            WHERE id = :uid AND bank >= :amount3
         SQL;
 
         $this->db->execute($sql, [
@@ -145,7 +145,7 @@ class UserRepository extends Repository
     {
         $sql = <<<SQL
             SELECT u.energy, u.maxenergy, u.brave, u.maxbrave, u.hp, u.maxhp, u.will, h.power AS maxwill,
-                   u.regenerated, u.donatordays
+                   u.regenerated, COALESCE(u.premium, '2000-01-01 00:00:00') AS premium
             FROM users u
             LEFT JOIN houses h ON u.house_id = h.id
             WHERE u.id = :uid
@@ -155,7 +155,7 @@ class UserRepository extends Repository
         $regenerated = CarbonImmutable::parse($data->regenerated);
         $now = CarbonImmutable::now();
         $seconds = $regenerated->diffInSeconds($now);
-        $premium = $data->donatordays > 0;
+        $premium = CarbonImmutable::parse($data->premium) > CarbonImmutable::now();
 
         if ($seconds < self::REGENERATION_INTERVAL) {
             return;     // Don't update IF the interval is less than 5 minutes
@@ -195,8 +195,8 @@ class UserRepository extends Repository
     {
         $sql = <<<SQL
             UPDATE users
-            SET city_id = :city_id, money = money - :cost
-            WHERE money >= :price AND id = :uid
+            SET city_id = :city_id, cash = cash - :cost
+            WHERE cash >= :price AND id = :uid
         SQL;
         $statement = $this->db->execute($sql, [
             'city_id' => $city_id,
@@ -211,8 +211,8 @@ class UserRepository extends Repository
     public function get(int $id): ?object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.id,
-                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.cash, u.bank, u.id,
+                   u.diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
                    u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
                    u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender
@@ -227,8 +227,8 @@ class UserRepository extends Repository
     public function getExtended(int $uid): object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.id,
-                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.cash, u.bank, u.id,
+                   u.diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
                    u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
                    u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender,
