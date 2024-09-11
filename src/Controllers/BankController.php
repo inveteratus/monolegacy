@@ -38,10 +38,17 @@ class BankController
         $withdraw = $this->buttons($user->bank, $user->level);
         $params = (array)$request->getParsedBody();
 
-        if (array_key_exists('deposit', $params) && ctype_digit($params['deposit']) && in_array($params['deposit'], $deposit)) {
+        if (
+            array_key_exists('deposit', $params)
+            && ctype_digit($params['deposit'])
+            && in_array($params['deposit'], $deposit)
+        ) {
             $this->userRepository->deposit($uid, $params['deposit']);
-        }
-        elseif (array_key_exists('withdraw', $params) && ctype_digit($params['withdraw']) && in_array($params['withdraw'], $withdraw)) {
+        } elseif (
+            array_key_exists('withdraw', $params)
+            && ctype_digit($params['withdraw'])
+            && in_array($params['withdraw'], $withdraw)
+        ) {
             $this->userRepository->withdraw($uid, $params['withdraw']);
         }
 

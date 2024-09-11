@@ -8,7 +8,6 @@ use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Request;
 
-
 class HomeController
 {
     #[Inject]

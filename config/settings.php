@@ -7,5 +7,4 @@ use Dotenv\Repository\RepositoryBuilder;
 return Dotenv::create(RepositoryBuilder::createWithNoAdapters()
     ->addWriter(ArrayAdapter::class)
     ->immutable()
-    ->make(), dirname(__DIR__)
-)->load();
+    ->make(), dirname(__DIR__))->load();

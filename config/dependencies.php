@@ -55,6 +55,7 @@ return [
     AuthMiddleware::class => fn() => new AuthMiddleware(),
     GuestMiddleware::class => fn() => new GuestMiddleware(),
     SeenMiddleware::class => fn(ContainerInterface $ci) => new SeenMiddleware($ci->get(SeenRepository::class)),
-    RegenerateMiddleware::class => fn(ContainerInterface $ci) => new RegenerateMiddleware($ci->get(UserRepository::class)),
+    RegenerateMiddleware::class => fn(ContainerInterface $ci) =>
+        new RegenerateMiddleware($ci->get(UserRepository::class)),
     SessionMiddleware::class => fn() => new SessionMiddleware(),
 ];

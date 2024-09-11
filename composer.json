@@ -41,6 +41,10 @@
         "phpstan": "@sa",
         "mysql": "docker compose exec -it db mysql -umonolegacy -psecret monolegacy",
         "import": "docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql",
-        "dump": "docker compose exec -T db mysqldump --no-tablespaces -umonolegacy -psecret monolegacy > schema.sql"
+        "dump": "docker compose exec -T db mysqldump --no-tablespaces -umonolegacy -psecret monolegacy > schema.sql",
+        "sniff": "phpcs",
+        "cs": "@sniff",
+        "fix": "phpcbf",
+        "cbf": "@fix"
     }
 }

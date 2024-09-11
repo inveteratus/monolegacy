@@ -198,7 +198,12 @@ class UserRepository extends Repository
             SET city_id = :city_id, money = money - :cost
             WHERE money >= :price AND userid = :uid
         SQL;
-        $statement = $this->db->execute($sql, ['city_id' => $city_id, 'cost' => $cost, 'price' => $cost, 'uid' => $uid]);
+        $statement = $this->db->execute($sql, [
+            'city_id' => $city_id,
+            'cost' => $cost,
+            'price' => $cost,
+            'uid' => $uid
+        ]);
 
         return $statement->rowCount() > 0;
     }

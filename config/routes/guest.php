@@ -17,7 +17,6 @@ return function (App $app) {
 
         $app->get('/register', [RegisterController::class, 'get'])->setName('register');
         $app->post('/register', [RegisterController::class, 'post']);
-
     })
         ->add($ci->get(GuestMiddleware::class))
         ->add($ci->get(SessionMiddleware::class));

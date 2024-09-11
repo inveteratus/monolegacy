@@ -10,10 +10,9 @@ final class IsUnique extends AbstractRule
 {
     public function __construct(
         private readonly Database $db,
-        private readonly string   $table,
-        private readonly string   $field,
-    )
-    {
+        private readonly string $table,
+        private readonly string $field,
+    ) {
     }
 
     public function validate($input): bool

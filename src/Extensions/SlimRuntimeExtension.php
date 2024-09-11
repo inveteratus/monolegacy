@@ -9,10 +9,9 @@ class SlimRuntimeExtension
 {
     public function __construct(
         protected RouteParserInterface $routeParser,
-        protected UriInterface         $uri,
-        protected string               $basePath = ''
-    )
-    {
+        protected UriInterface $uri,
+        protected string $basePath = ''
+    ) {
     }
 
     public function currentUrl(bool $withQueryString = false): string

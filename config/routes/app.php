@@ -31,7 +31,6 @@ return function (App $app) {
 
         $app->get('/university', [UniversityController::class, 'get'])->setName('university');
         $app->get('/university/{course}', [UniversityController::class, 'viewCourse'])->setName('university.course');
-
     })
         ->add($ci->get(SeenMiddleware::class))
         ->add($ci->get(AuthMiddleware::class))
