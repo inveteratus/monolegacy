@@ -13,7 +13,7 @@ class UserRepository extends Repository
     public function getByEmail(string $email): ?object
     {
         $sql = <<<SQL
-            SELECT userid AS id, userpass AS password, pass_salt AS salt
+            SELECT id, password, pass_salt AS salt
             FROM users
             WHERE email = :email
         SQL;
@@ -30,7 +30,7 @@ class UserRepository extends Repository
         $sql = <<<SQL
             UPDATE users
             SET last_login = :now, lastip_login = :ip
-            WHERE userid = :uid
+            WHERE id = :uid
         SQL;
         $this->db->execute($sql, [
             'now' => time(),
@@ -44,14 +44,14 @@ class UserRepository extends Repository
         $salt = base64_encode(random_bytes(6));
 
         $sql = <<<SQL
-            INSERT INTO users (username, userpass, gender, signedup, email, staffnotes, lastip_signup, voted,
+            INSERT INTO users (name, password, gender, signedup, email, staffnotes, lastip_signup, voted,
                                user_notepad, pass_salt, display_pic)
-            VALUES (:username, :userpass, :gender, :signedup, :email, :staffnotes, :lastip_signup, :voted,
+            VALUES (:name, :password, :gender, :signedup, :email, :staffnotes, :lastip_signup, :voted,
                     :user_notepad, :pass_salt, :display_pic)
         SQL;
         $this->db->execute($sql, [
-            'username' => $name,
-            'userpass' => md5($salt . md5($password)),
+            'name' => $name,
+            'password' => md5($salt . md5($password)),
             'gender' => ['Male', 'Female'][mt_rand(0, 1)],
             'signedup' => time(),
             'email' => $email,
@@ -72,7 +72,7 @@ class UserRepository extends Repository
         $pages = ceil($records / $limit);
         $page = max(1, min($page, $pages));
         $sql = <<<SQL
-            SELECT u.username AS name,
+            SELECT u.name,
                    IF(u.jail > 0, 'Jail', IF(u.hospital > 0, 'Hospital', c.name)) AS location,
                    u.last_seen
             FROM users u
@@ -88,7 +88,7 @@ class UserRepository extends Repository
 
     public function updateLastSeen(int $uid): void
     {
-        $sql = 'UPDATE users SET last_seen = :now WHERE userid = :uid';
+        $sql = 'UPDATE users SET last_seen = :now WHERE id = :uid';
         $this->db->execute($sql, [
             'now' => Carbon::now()->format('Y-m-d H:i:s'),
             'uid' => $uid,
@@ -114,7 +114,7 @@ class UserRepository extends Repository
         $sql = <<<SQL
             UPDATE users
             SET money = money - :amount1, bankmoney = bankmoney + :amount2
-            WHERE userid = :uid AND money >= :amount3
+            WHERE id = :uid AND money >= :amount3
         SQL;
 
         $this->db->execute($sql, [
@@ -130,7 +130,7 @@ class UserRepository extends Repository
         $sql = <<<SQL
             UPDATE users
             SET bankmoney = bankmoney - :amount1, money = money + :amount2
-            WHERE userid = :uid AND bankmoney >= :amount3
+            WHERE id = :uid AND bankmoney >= :amount3
         SQL;
 
         $this->db->execute($sql, [
@@ -148,7 +148,7 @@ class UserRepository extends Repository
                    u.regenerated, u.donatordays
             FROM users u
             LEFT JOIN houses h ON u.house_id = h.id
-            WHERE u.userid = :uid
+            WHERE u.id = :uid
         SQL;
         $data = $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
 
@@ -173,7 +173,7 @@ class UserRepository extends Repository
                 hp = LEAST(maxhp, hp + (100 * :seconds3) / (3 * :interval3)),
                 will = LEAST(:maxwill, will + (10 * :seconds4) / :interval4),
                 regenerated = :now
-            WHERE userid = :uid
+            WHERE id = :uid
         SQL;
         $this->db->execute($sql, [
             'increment' => $premium ? 1.5 : 1,
@@ -196,7 +196,7 @@ class UserRepository extends Repository
         $sql = <<<SQL
             UPDATE users
             SET city_id = :city_id, money = money - :cost
-            WHERE money >= :price AND userid = :uid
+            WHERE money >= :price AND id = :uid
         SQL;
         $statement = $this->db->execute($sql, [
             'city_id' => $city_id,
@@ -211,14 +211,14 @@ class UserRepository extends Repository
     public function get(int $id): ?object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.userid AS id,
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.id,
                    u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
                    u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
-                   u.will AS power, h.power AS maxpower, u.username AS name, u.city_id, u.level, u.exp AS experience,
+                   u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender
             FROM users u
             LEFT JOIN houses h ON h.id = u.house_id
-            WHERE `userid` = :userId
+            WHERE u.id = :userId
         SQL;
 
         return $this->objectOrNull($this->db->execute($sql, ['userId' => $id])->fetch(PDO::FETCH_OBJ));
@@ -227,16 +227,16 @@ class UserRepository extends Repository
     public function getExtended(int $uid): object
     {
         $sql = <<<SQL
-            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.userid AS id,
+            SELECT FROM_UNIXTIME(u.signedup) AS created_at, u.money AS cash, u.bankmoney AS bank, u.id,
                    u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy,
                    u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
-                   u.will AS power, h.power AS maxpower, u.username AS name, u.city_id, u.level, u.exp AS experience,
+                   u.will AS power, h.power AS maxpower, u.name, u.city_id, u.level, u.exp AS experience,
                    u.strength, u.agility, u.guard AS defense, u.IQ AS intelligence, u.labour AS endurance, u.gender,
                    h.name AS house_name, c.name AS city_name
             FROM users u
             LEFT JOIN cities c ON c.id = u.city_id
             LEFT JOIN houses h ON h.id = u.house_id
-            WHERE u.userid = :uid
+            WHERE u.id = :uid
         SQL;
 
         return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
@@ -249,11 +249,11 @@ class UserRepository extends Repository
         $page = max(1, min($page, $pages));
         $offset = ($page - 1) * $ipp;
         $sql = <<<SQL
-            SELECT u.userid AS id, u.username AS name, c.name AS city, MAX(s.last_seen) AS last_seen
+            SELECT u.id, u.name, c.name AS city, MAX(s.last_seen) AS last_seen
             FROM seen s             
-            LEFT JOIN users u ON u.userid = s.user_id     
+            LEFT JOIN users u ON u.id = s.user_id     
             LEFT JOIN cities c ON c.id = u.city_id        
-            GROUP BY u.userid             
+            GROUP BY u.id             
             ORDER BY last_seen DESC
             LIMIT :offset, :ipp
         SQL;

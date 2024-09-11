@@ -32,7 +32,7 @@ class RegisterController
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         $rules = [
-            'name' => v::stringType()->notBlank()->length(3, 25)->isUnique($this->db, 'users', 'username'),
+            'name' => v::stringType()->notBlank()->length(3, 25)->isUnique($this->db, 'users', 'name'),
             'email' => v::stringType()->notBlank()->email()->isUnique($this->db, 'users', 'email'),
             'password' => v::stringType()->notBlank()->length(6),
         ];

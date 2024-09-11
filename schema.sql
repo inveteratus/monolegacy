@@ -304,33 +304,6 @@ INSERT INTO `courses` VALUES (1,'Introduction to Combat Training','introduction-
 UNLOCK TABLES;
 
 --
--- Table structure for table `courses_completed`
---
-
-DROP TABLE IF EXISTS `courses_completed`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `courses_completed` (
-  `user_id` bigint unsigned NOT NULL,
-  `course_id` bigint unsigned NOT NULL,
-  `date_completed` datetime NOT NULL,
-  PRIMARY KEY (`user_id`,`course_id`),
-  KEY `course_id` (`course_id`),
-  CONSTRAINT `courses_completed_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE,
-  CONSTRAINT `courses_completed_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `courses_completed`
---
-
-LOCK TABLES `courses_completed` WRITE;
-/*!40000 ALTER TABLE `courses_completed` DISABLE KEYS */;
-/*!40000 ALTER TABLE `courses_completed` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `crimegroups`
 --
 
@@ -742,7 +715,7 @@ DROP TABLE IF EXISTS `houses`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `houses` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `cost` int unsigned NOT NULL,
   `power` int unsigned NOT NULL,
   PRIMARY KEY (`id`)
@@ -1349,8 +1322,8 @@ CREATE TABLE `seen` (
   `last_seen` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
-  CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`userid`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=379 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1359,7 +1332,7 @@ CREATE TABLE `seen` (
 
 LOCK TABLES `seen` WRITE;
 /*!40000 ALTER TABLE `seen` DISABLE KEYS */;
-INSERT INTO `seen` VALUES (1,1,'2024-09-07',23,10,'2024-09-07 23:06:14'),(11,1,'2024-09-08',5,1,'2024-09-08 05:33:48'),(12,1,'2024-09-08',6,6,'2024-09-08 06:43:06'),(18,1,'2024-09-08',7,29,'2024-09-08 07:59:16'),(47,1,'2024-09-08',8,50,'2024-09-08 08:59:45'),(97,1,'2024-09-08',9,109,'2024-09-08 09:57:04'),(206,1,'2024-09-08',10,15,'2024-09-08 10:34:02'),(221,1,'2024-09-08',13,24,'2024-09-08 13:55:54'),(245,1,'2024-09-08',14,38,'2024-09-08 14:52:16'),(283,1,'2024-09-08',17,14,'2024-09-08 17:54:51'),(297,1,'2024-09-08',18,24,'2024-09-08 18:30:58'),(318,2,'2024-09-08',18,9,'2024-09-08 18:30:46'),(330,1,'2024-09-09',6,12,'2024-09-09 06:23:45'),(342,1,'2024-09-11',5,2,'2024-09-11 05:18:15'),(344,1,'2024-09-11',6,24,'2024-09-11 06:40:03'),(368,1,'2024-09-11',10,5,'2024-09-11 10:59:50'),(373,1,'2024-09-11',11,3,'2024-09-11 11:08:18'),(376,1,'2024-09-11',15,3,'2024-09-11 15:37:14');
+INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28');
 /*!40000 ALTER TABLE `seen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1550,15 +1523,15 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-
   `level` int NOT NULL DEFAULT '1',
   `exp` decimal(11,4) NOT NULL DEFAULT '0.0000',
-
-  `cash` bigint unsigned NOT NULL DEFAULT '100',
-  `bank` bigint unsigned DEFAULT '0',
-  `diamonds` int unsigned NOT NULL DEFAULT '0',
+  `money` bigint unsigned NOT NULL DEFAULT '100',
+  `bankmoney` bigint unsigned DEFAULT '0',
+  `cybermoney` int NOT NULL DEFAULT '-1',
+  `crystals` int unsigned NOT NULL DEFAULT '0',
   `last_seen` datetime DEFAULT NULL,
   `lastip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `job` int NOT NULL DEFAULT '0',
@@ -1585,8 +1558,6 @@ CREATE TABLE `users` (
   `course_completed` datetime DEFAULT NULL,
   `jobrank` int NOT NULL DEFAULT '0',
   `donatordays` int NOT NULL DEFAULT '0',
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `login_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `display_pic` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `duties` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `staffnotes` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
@@ -1624,13 +1595,13 @@ CREATE TABLE `users` (
   `IQ` double unsigned NOT NULL DEFAULT '10',
   `regenerated` datetime NOT NULL DEFAULT '2020-01-01 00:00:00',
   `house_id` bigint unsigned NOT NULL DEFAULT '1',
-  PRIMARY KEY (`userid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `city_id` (`city_id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE RESTRICT,
   CONSTRAINT `users_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1639,7 +1610,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Inveteratus','e3fc6867b4881563ee7469fa6b6b51a2',1,0.0000,0,100,-1,0,'2024-09-07 21:51:25','172.18.0.1',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725641736,0,0,0,'0000-00-00 00:00:00',0,0,'alan.mcfarlane@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1726036383,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'+5PiSVyi',10,10,10,10,10,'2024-09-07 21:50:36',1),(2,'Suhana','d2f7a331ee01642de2c38fcdf47b4aaa',1,0.0000,0,100,-1,0,NULL,'',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Male',0,1725820221,0,0,NULL,NULL,0,0,'susan.vash@gmail.com','','','','',0,'','','172.18.0.1','172.18.0.1',1725820221,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'6g7t9WOG',10,10,10,10,10,'2020-01-01 00:00:00',1);
+INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c',1,0.0000,100,0,-1,0,NULL,'',0,12,12,100,100,5,5,100,100,1,0,0,'',0,1,'Female',0,1726076766,0,0,NULL,NULL,0,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1701,4 +1672,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-11 15:37:57
+-- Dump completed on 2024-09-11 17:47:00
