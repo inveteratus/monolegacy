@@ -13,7 +13,6 @@ if (!function_exists('redirect')) {
         return (new ResponseFactory())
             ->createResponse($status)
             ->withHeader('Location', $url);
-
     }
 }
 
@@ -43,5 +42,4 @@ if (!function_exists('validate')) {
             $errors
         ];
     }
-
 }
