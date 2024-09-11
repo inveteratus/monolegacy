@@ -19,12 +19,12 @@ class BankController
 
     public function __invoke(Request $request): ResponseInterface
     {
-        $user = $this->userRepository->getBasic($request->getAttribute('uid'));
+        $user = $this->userRepository->get($request->getAttribute('uid'));
 
         return $this->view->render('bank.twig', [
             'user' => $user,
-            'deposit' => $this->buttons($user->money, $user->level),
-            'withdraw' => $this->buttons($user->bankmoney, $user->level),
+            'deposit' => $this->buttons($user->cash, $user->level),
+            'withdraw' => $this->buttons($user->bank, $user->level),
         ]);
     }
 
@@ -33,9 +33,9 @@ class BankController
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         $uid = $request->getAttribute("uid");
-        $user = $this->userRepository->getBasic($uid);
-        $deposit = $this->buttons($user->money, $user->level);
-        $withdraw = $this->buttons($user->bankmoney, $user->level);
+        $user = $this->userRepository->get($uid);
+        $deposit = $this->buttons($user->cash, $user->level);
+        $withdraw = $this->buttons($user->bank, $user->level);
         $params = (array)$request->getParsedBody();
 
         if (array_key_exists('deposit', $params) && ctype_digit($params['deposit']) && in_array($params['deposit'], $deposit)) {

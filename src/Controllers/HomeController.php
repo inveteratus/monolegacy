@@ -20,7 +20,7 @@ class HomeController
     public function __invoke(Request $request): ResponseInterface
     {
         return $this->view->render('home.twig', [
-            'user' => $this->userRepository->get($request->getAttribute('user_id'))
+            'user' => $this->userRepository->getExtended($request->getAttribute('user_id'))
         ]);
     }
 }

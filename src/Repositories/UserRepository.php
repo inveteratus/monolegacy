@@ -10,7 +10,7 @@ class UserRepository extends Repository
 {
     private const int REGENERATION_INTERVAL = 300;  // seconds
 
-    public function getForEmail(string $email): ?object
+    public function getByEmail(string $email): ?object
     {
         $sql = <<<SQL
             SELECT userid AS id, userpass AS password, pass_salt AS salt
@@ -64,30 +64,6 @@ class UserRepository extends Repository
         ]);
 
         return $this->db->lastInsertId();
-    }
-
-    public function getExtended(int $uid): object
-    {
-        $sql = <<<SQL
-            SELECT u.*, c.name AS city_name
-            FROM users u
-            LEFT JOIN houses h ON h.hWILL = u.maxwill
-            LEFT JOIN cities c ON c.id = u.city_id
-            WHERE u.userid = :uid
-        SQL;
-
-        return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
-    }
-
-    public function getBasic(int $uid): object
-    {
-        $sql = <<<SQL
-            SELECT u.*
-            FROM users u
-            WHERE u.userid = :uid
-        SQL;
-
-        return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
     }
 
     public function list(int $page = 1, int $limit = 15): array
@@ -168,10 +144,11 @@ class UserRepository extends Repository
     public function regenerate(int $uid): void
     {
         $sql = <<<SQL
-            SELECT energy, maxenergy, brave, maxbrave, hp, maxhp, will, maxwill, regenerated,
-                   donatordays
-            FROM users
-            WHERE userid = :uid
+            SELECT u.energy, u.maxenergy, u.brave, u.maxbrave, u.hp, u.maxhp, u.will, h.power AS maxwill,
+                   u.regenerated, u.donatordays
+            FROM users u
+            LEFT JOIN houses h ON u.house_id = h.id
+            WHERE u.userid = :uid
         SQL;
         $data = $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
 
@@ -194,7 +171,7 @@ class UserRepository extends Repository
             SET energy = LEAST(maxenergy, energy + (:increment * :seconds1) / :interval1),
                 brave = LEAST(maxbrave, brave + (1 * :seconds2) / :interval2),
                 hp = LEAST(maxhp, hp + (100 * :seconds3) / (3 * :interval3)),
-                will = LEAST(maxwill, will + (10 * :seconds4) / :interval4),
+                will = LEAST(:maxwill, will + (10 * :seconds4) / :interval4),
                 regenerated = :now
             WHERE userid = :uid
         SQL;
@@ -210,6 +187,7 @@ class UserRepository extends Repository
             'interval4' => self::REGENERATION_INTERVAL,
             'now' => $now->format('Y-m-d H:i:s'),
             'uid' => $uid,
+            'maxwill' => $data->maxwill,
         ]);
     }
 
@@ -228,13 +206,32 @@ class UserRepository extends Repository
     public function get(int $id): ?object
     {
         $sql = <<<SQL
-            SELECT *, FROM_UNIXTIME(signedup) AS created_at, money AS cash, bankmoney AS bank, crystals AS diamonds,
-                   guard AS defense, labour AS endurance, IQ AS intelligence
-            FROM `users`
+            SELECT *, FROM_UNIXTIME(signedup) AS created_at, u.money AS cash, u.bankmoney AS bank,
+                   u.crystals AS diamonds, u.guard AS defense, u.labour AS endurance, u.IQ AS intelligence, u.energy, 
+                   u.maxenergy, u.brave AS nerve, u.maxbrave AS maxnerve, u.hp AS health, u.maxhp AS maxhealth,
+                   u.will AS power, h.power AS maxpower
+            FROM users u
+            LEFT JOIN houses h ON h.id = u.house_id
             WHERE `userid` = :userId
         SQL;
 
         return $this->objectOrNull($this->db->execute($sql, ['userId' => $id])->fetch(PDO::FETCH_OBJ));
+    }
+
+    public function getExtended(int $uid): object
+    {
+        $sql = <<<SQL
+            SELECT *, FROM_UNIXTIME(signedup) AS created_at, money AS cash, bankmoney AS bank, crystals AS diamonds,
+                   guard AS defense, labour AS endurance, IQ AS intelligence, c.name AS city_name,
+                   h.name AS house_name, u.energy, u.maxenergy, brave AS nerve, maxbrave AS maxnerve, hp AS health,
+                   maxhp AS maxhealth, u.will AS power, h.power AS maxpower
+            FROM users u
+            LEFT JOIN houses h ON h.id = u.house_id
+            LEFT JOIN cities c ON c.id = u.city_id
+            WHERE u.userid = :uid
+        SQL;
+
+        return $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
     }
 
     public function getPaginatedList(int $page, int $ipp = 10): object

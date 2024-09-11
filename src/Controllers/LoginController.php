@@ -42,7 +42,7 @@ class LoginController
             return redirect($routeParser->urlFor('login'));
         }
 
-        $user = $this->repo->getForEmail($validated['email']);
+        $user = $this->repo->getByEmail($validated['email']);
         if (!$user || ($user->password !== md5($user->salt . md5($validated['password'])))) {
             $_SESSION['form'] = [
                 'errors' => ['email' => 'Invalid Credentials'],

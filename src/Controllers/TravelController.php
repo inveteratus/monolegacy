@@ -23,7 +23,7 @@ class TravelController
 
     public function __invoke(Request $request): Response
     {
-        $user = $this->userRepository->getBasic($request->getAttribute("uid"));
+        $user = $this->userRepository->get($request->getAttribute("uid"));
         $cities = $this->cityRepository->getAll();
 
         return $this->view->render('travel.twig', [
@@ -37,7 +37,7 @@ class TravelController
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
         $userId = $request->getAttribute("uid");
-        $user = $this->userRepository->getBasic($userId);
+        $user = $this->userRepository->get($userId);
 
         $cities = $this->cityRepository->getAll();
         $cities = $this->sortByDistanceFrom($cities, $cities[$user->city_id]);

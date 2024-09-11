@@ -4,13 +4,13 @@
         <span class="text-right">{{ user.username }}</span>
 
         <span>Money</span>
-        <span class="text-right">{{ user.money|currency }}</span>
+        <span class="text-right">{{ user.cash|currency }}</span>
 
         <span>Level</span>
         <span class="text-right">{{ user.level|number }}</span>
 
         <span>Diamonds</span>
-    <span class="text-right">{{ user.crystals|number }}</span>
+    <span class="text-right">{{ user.diamonds|number }}</span>
     </div>
 
     <hr class="border-t border-b-0 border-slate-200 pb-0.5" />
@@ -32,7 +32,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Nerve</span>
-                <span>{{ user.brave|number }} / {{ user.maxbrave|number }}</span>
+                <span>{{ user.nerve|number }} / {{ user.maxnerve|number }}</span>
             </p>
         </div>
 
@@ -42,7 +42,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Health</span>
-                <span>{{ ((user.hp*100)/user.maxhp)|number(1) }} %</span>
+                <span>{{ ((user.health*100)/user.maxhealth)|number(1) }} %</span>
             </p>
         </div>
 
@@ -52,7 +52,7 @@
             </div>
             <p class="flex justify-between">
                 <span>Power</span>
-                <span>{{ user.will|number }} / {{ user.maxwill|number }}</span>
+                <span>{{ user.power|number }} / {{ user.maxpower|number }}</span>
             </p>
         </div>
     </div>
