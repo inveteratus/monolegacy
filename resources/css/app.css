@@ -6,6 +6,39 @@
 
 body.app {
     @apply antialiased bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700;
+    & > header {
+        @apply bg-slate-100 shadow;
+        & > nav {
+            @apply max-w-7xl w-full mx-auto flex items-center justify-between h-16;
+            & > div {
+                @apply flex items-center;
+                & > a {
+                    @apply text-slate-700 p-3 focus:bg-slate-200 hover:bg-slate-200 focus:outline-none rounded;
+                }
+                & > div[x-data] {
+                    @apply relative;
+                    & > button {
+                        @apply text-slate-700 p-3 focus:bg-slate-200 hover:bg-slate-200 focus:outline-none rounded;
+                    }
+                    & > div {
+                        @apply bg-slate-50 absolute top-16 py-1 rounded shadow-lg whitespace-nowrap flex flex-col right-0;
+                        & > hr {
+                            @apply mt-1 pb-1 mx-4;
+                        }
+                        & > a,
+                        & > form > button {
+                            @apply text-slate-700 px-4 focus:bg-slate-200 hover:bg-slate-200 focus:outline-none py-0.5 w-full text-left;
+                        }
+                    }
+                }
+            }
+            & > div:first-child {
+                & > a:first-child {
+                    @apply text-slate-600 font-medium;
+                }
+            }
+        }
+    }
 }
 
 main.auth {
