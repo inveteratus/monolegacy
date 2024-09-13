@@ -1,113 +1,66 @@
-# Monolegacy
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-* Forked from [davemacaulay/mccodesv2](https://github.com/davemacaulay/mccodesv2).
-* Reset to v2.0.5b to remove both Dave Macaulay's and Magictallguy's alterations. (Sorry guys!)
-* Started to migrate to the [Slim/Framework](https://www.slimframework.com/).
+<p align="center">
+<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-## Requirements
+## About Laravel
 
-* Docker
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-## Setup
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-```shell
-docker compose up -d
-docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql
-```
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Crons
+## Learning Laravel
 
-Will be replaced in due course, for now, add this to your crontab, updating the
-`/path/to/app` appropriately:
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-```
-0  *  *  *  *  cd /path/to/app && docker compose exec -T php php crons/1h.php
-0  0  *  *  *  cd /path/to/app && docker compose exec -T php php crons/1d.php
-```
+You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-## Changes from v2.0.5b
+If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-* Static analysis used to catch the most obvious bugs.
-* Docker setup with nginx, php-fpm and mysql
-* Added support for PDO_mysql database driver
-* Better `laston` tracking with daily breakdown
-* Extensive starter selection of cities and courses
-* Framework (Slim) based
-* Conforms to latest PHP standards
-* Built-in support for development docker containers
-* Repository patterns pushing database queries away from the controllers
-* Composer scripts for development helpers
+## Laravel Sponsors
 
-## Todo
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-Lots of things, in no particular order:
+### Premium Partners
 
-* `[X]` Move non-page php files out to an includes folder
-* `[X]` Remove bank interest
-* `[X]` Move user stats into users table
-* `[X]` Regenerate middleware
-* `[X]` Added better `laston` tracking
-* `[X]` Work up to static analysis at level 5
-* `[ ]` Remove all crons
-* `[ ]` Remove verification
-* `[ ]` Change all code to use repository classes with PDO rather than mysql(i).
-* `[ ]` Convert pages to use templates (Twig) - See below
-* `[ ]` Create a base set of crimes, cities, items, houses, shops and courses
-* `[ ]` Remove federal jail (or make it a staff only feature)
-* `[ ]` Add real position for high scores
-* `[ ]` Create better casino games (slots, roulette?)
-* `[ ]` Add an auction house
-* `[ ]` Remove macro system
-* `[ ]` Re-implement CSRF
-* `[ ]` Restore referral link to explore 
-* `[ ]` Refactor all staff pages
-* `[ ]` Remove cyberbank
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[WebReinvent](https://webreinvent.com/)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[64 Robots](https://64robots.com)**
+- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
+- **[Cyber-Duck](https://cyber-duck.co.uk)**
+- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
+- **[Jump24](https://jump24.co.uk)**
+- **[Redberry](https://redberry.international/laravel/)**
+- **[Active Logic](https://activelogic.com)**
+- **[byte5](https://byte5.de)**
+- **[OP.GG](https://op.gg)**
 
-Refactoring pages:
+## Contributing
 
-* `[X]` Login
-* `[X]` Register
-* `[X]` Explore 
-* `[X]` User List (moved to Player List)
-* `[X]` Users Online (moved to Player List)
-* `[X]` Travel Agent
-* `[X]` Bank
-* `[X]` Staff List
-* `[ ]` Home
-* `[ ]` Inventory
-* `[ ]` Events
-* `[ ]` Mailbox
-* `[ ]` Gym
-* `[ ]` Crimes
-* `[ ]` Job
-* `[ ]` School
-* `[ ]` Jail
-* `[ ]` Hospital
-* `[ ]` Forums
-* `[ ]` Announcements
-* `[ ]` Newspaper
-* `[ ]` Search
-* `[ ]` Preferences
-* `[ ]` Player Report
-* `[ ]` Tutorial
-* `[ ]` Rules
-* `[ ]` Profile
-* `[ ]` Friends
-* `[ ]` Enemies
-* `[ ]` Gang
-* `[ ]` Shops
-* `[ ]` Shops 
-* `[ ]` Item Market
-* `[ ]` Crystal Market
-* `[ ]` Hall of Fame
-* `[ ]` Game Stats
-* `[ ]` Realtor
-* `[ ]` Crystal Temple
-* `[ ]` Battle Tent
-* `[ ]` Polling Booth
-* `[ ]` Gangs
-* `[ ]` Gang Wars
-* `[ ]` Federal Jail
-* `[ ]` Slots Machine
-* `[ ]` Roulette
-* `[ ]` Lucky Boxes
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+
+## Code of Conduct
+
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+
+## License
+
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

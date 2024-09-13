@@ -1,13 +1,17 @@
 <?php
 
-use Respect\Validation\Factory;
+use Illuminate\Http\Request;
 
-require __DIR__ . '/../vendor/autoload.php';
+define('LARAVEL_START', microtime(true));
 
-Factory::setDefaultInstance(
-    (new Factory())
-        ->withRuleNamespace('App\\Validation\\Rules')
-        ->withExceptionNamespace('App\\Validation\\Exceptions')
-);
+// Determine if the application is in maintenance mode...
+if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    require $maintenance;
+}
 
-(require __DIR__ . '/../config/bootstrap.php')->run();
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
+
+// Bootstrap Laravel and handle the request...
+(require_once __DIR__.'/../bootstrap/app.php')
+    ->handleRequest(Request::capture());
