@@ -5,9 +5,9 @@
             <x-input.text name="name" :value="old('name')" autofocus required autocomplete="name" />
             <x-input.email :value="old('email')" required autocomplete="email" />
             <x-input.password required autocomplete="current-password" />
-            <div>
+            <footer>
                 <x-button.submit label="Register" />
-            </div>
+            </footer>
         </x-form>
         <p>
             <a href="{{ route('login') }}">Already have an account ?</a>

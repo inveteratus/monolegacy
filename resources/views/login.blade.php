@@ -4,10 +4,10 @@
         <x-form>
             <x-input.email :value="old('email')" autofocus required autocomplete="email" />
             <x-input.password required autocomplete="current-password" />
-            <div>
+            <footer>
                 <x-button.submit label="Login" />
                 <a href="#">Forgot your password ?</a>
-            </div>
+            </footer>
         </x-form>
         <p>
             <a href="{{ route('register') }}">Don't have an account yet ?</a>

@@ -1,6 +1,6 @@
-@props(['name', 'label' => null])
+@props(['name', 'label' => null, 'component'])
 
-<div x-data x-id="['input']" class="input">
+<div x-data x-id="['input']" class="component-input-{{ $component }}">
     <label :for="$id('input')">{{ $label ?? str($name)->title() }}</label>
     <div>
         {{ $slot }}
