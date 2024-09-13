@@ -4,7 +4,7 @@
         <x-form>
             <x-input.text name="name" :value="old('name')" autofocus required autocomplete="name" />
             <x-input.email :value="old('email')" required autocomplete="email" />
-            <x-input.password required autocomplete="current-password" />
+            <x-input.password required autocomplete="new-password" />
             <footer>
                 <x-button.submit label="Register" />
             </footer>
