@@ -1323,7 +1323,7 @@ CREATE TABLE `seen` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `user_id` (`user_id`,`date`,`hour`),
   CONSTRAINT `seen_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=404 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=407 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1332,7 +1332,7 @@ CREATE TABLE `seen` (
 
 LOCK TABLES `seen` WRITE;
 /*!40000 ALTER TABLE `seen` DISABLE KEYS */;
-INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28'),(383,3,'2024-09-11',18,17,'2024-09-11 18:35:22'),(400,3,'2024-09-11',19,4,'2024-09-11 19:13:44');
+INSERT INTO `seen` VALUES (380,3,'2024-09-11',17,3,'2024-09-11 17:46:28'),(383,3,'2024-09-11',18,17,'2024-09-11 18:35:22'),(400,3,'2024-09-11',19,4,'2024-09-11 19:13:44'),(404,3,'2024-09-12',5,3,'2024-09-12 05:48:41');
 /*!40000 ALTER TABLE `seen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1561,7 +1561,6 @@ CREATE TABLE `users` (
   `mb_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `hospreason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `lastip_login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `lastip_signup` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `last_login` int NOT NULL DEFAULT '0',
   `voted` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `crimexp` int NOT NULL DEFAULT '0',
@@ -1606,7 +1605,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c','2024-09-11 17:46:06',0,100,0,NULL,1,0.0000,0,12,5,100,100,12,5,100,1,0,0,'',0,1,'Female',0,0,0,NULL,NULL,0,'','','',0,'','','172.18.0.1','172.18.0.1',1726076766,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
+INSERT INTO `users` VALUES (3,'Inveteratus','alan.mcfarlane@gmail.com','67a068d180a6a9aa49a375473bdac75c','2024-09-11 17:46:06',0,100,0,NULL,1,0.0000,0,12,5,100,100,12,5,100,1,0,0,'',0,1,'Female',0,0,0,NULL,NULL,0,'','','',0,'','','172.18.0.1',1726120116,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'P2UVcrBh',10,10,10,10,10,'2020-01-01 00:00:00',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1668,4 +1667,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-11 20:54:46
+-- Dump completed on 2024-09-12  5:56:40

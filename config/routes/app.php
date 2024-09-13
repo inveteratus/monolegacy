@@ -3,7 +3,9 @@
 use App\Controllers\BankController;
 use App\Controllers\ExploreController;
 use App\Controllers\HomeController;
+use App\Controllers\LogoutController;
 use App\Controllers\PlayersController;
+use App\Controllers\PreferencesController;
 use App\Controllers\StaffController;
 use App\Controllers\TravelController;
 use App\Controllers\UniversityController;
@@ -18,6 +20,8 @@ return function (App $app) {
 
     $app->group('', function (RouteCollectorProxyInterface $app) {
 
+        $app->post('/logout', LogoutController::class)->setName('logout');
+
         $app->get('/home', HomeController::class)->setName('home');
         $app->get('/explore', ExploreController::class)->setName('explore');
         $app->get('/players', PlayersController::class)->setName('players');
@@ -25,6 +29,9 @@ return function (App $app) {
 
         $app->get('/bank', BankController::class)->setName('bank');
         $app->post('/bank', [BankController::class, 'transfer']);
+
+        $app->get('/preferences', PreferencesController::class)->setName('preferences');
+        $app->post('/preferences', [PreferencesController::class, 'save']);
 
         $app->get('/travel', TravelController::class)->setName('travel');
         $app->post('/travel', [TravelController::class, 'post']);

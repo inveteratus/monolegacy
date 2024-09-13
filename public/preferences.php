@@ -1,23 +1,4 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php';
-
-require __DIR__ . '/../includes/globals.php';
-
-if (!isset($_GET['action']))
-{
-    $_GET['action'] = '';
-}
-
-function csrf_error($goBackTo)
-{
-    global $h;
-    echo '<h3>Error</h3><hr />
-    Your change has been blocked for your security.<br />
-    Please make profile changes quickly after you open the form - do not leave it open in tabs.<br />
-    &gt; <a href="preferences.php?action=' . $goBackTo . '">Try Again</a>';
-    $h->endpage();
-    exit;
-}
 switch ($_GET['action'])
 {
 case 'sexchange2':

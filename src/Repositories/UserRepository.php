@@ -25,28 +25,14 @@ class UserRepository extends Repository
         return $user ? $user : null;
     }
 
-    public function login(int $uid): void
-    {
-        $sql = <<<SQL
-            UPDATE users
-            SET last_login = :now, lastip_login = :ip
-            WHERE id = :uid
-        SQL;
-        $this->db->execute($sql, [
-            'now' => time(),
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'uid' => $uid,
-        ]);
-    }
-
     public function create(string $name, string $email, string $password): int
     {
         $salt = base64_encode(random_bytes(6));
 
         $sql = <<<SQL
-            INSERT INTO users (name, password, gender, born, email, staffnotes, lastip_signup, voted,
+            INSERT INTO users (name, password, gender, born, email, staffnotes, voted,
                                user_notepad, pass_salt, display_pic)
-            VALUES (:name, :password, :gender, :born, :email, :staffnotes, :lastip_signup, :voted,
+            VALUES (:name, :password, :gender, :born, :email, :staffnotes, :voted,
                     :user_notepad, :pass_salt, :display_pic)
         SQL;
         $this->db->execute($sql, [
@@ -56,7 +42,6 @@ class UserRepository extends Repository
             'born' => CarbonImmutable::now()->format('Y-m-d H:i:s'),
             'email' => $email,
             'staffnotes' => '',
-            'lastip_signup' => $_SERVER['REMOTE_ADDR'],
             'voted' => '',
             'user_notepad' => '',
             'pass_salt' => $salt,
@@ -259,5 +244,10 @@ class UserRepository extends Repository
             'ipp' => $ipp,
             'items' => $this->arrayOfObjects($items),
         ];
+    }
+
+    public function delete(int $id): void
+    {
+        $this->db->execute('DELETE FROM users WHERE id = :id', ['id' => $id]);
     }
 }

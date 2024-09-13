@@ -52,8 +52,6 @@ class RegisterController
         $password = trim($validated['password']);
         $id = $this->userRepository->create($name, $email, $password);
 
-        $this->userRepository->login($id);
-
         $_SESSION = [
             'userid' => (int)$id,
             'loggedin' => true,

@@ -10,7 +10,9 @@ class SessionMiddleware
 {
     public function __invoke(Request $request, RequestHandler $handler): Response
     {
-        session_start(['name' => 'MCCSID']);
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start(['name' => 'MCCSID']);
+        }
 
         return $handler->handle($request);
     }

@@ -52,8 +52,6 @@ class LoginController
             return redirect($routeParser->urlFor('login'));
         }
 
-        $this->repo->login($user->id);
-
         $_SESSION = [
             'userid' => (int)$user->id,
             'loggedin' => true,
