@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('slug', 50)->unique();
             $table->text('description');
             $table->string('image')->nullable();
-            $table->double('latitude');
-            $table->double('longitude');
-            $table->tinyInteger('min_level')->unsigned();
+            $table->integer('cost')->unsigned();
+            $table->smallInteger('capacity')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cities');
+        Schema::dropIfExists('properties');
     }
 };
