@@ -4,14 +4,14 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class ResetPasswordRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:25|unique:users',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email',
             'password' => 'required|string|min:8',
+            'token' => 'required|string',
         ];
     }
 }

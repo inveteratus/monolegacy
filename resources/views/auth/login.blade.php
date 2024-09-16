@@ -6,12 +6,16 @@
             <x-input.password required autocomplete="current-password" />
             <footer>
                 <x-button.submit label="Login" />
-                <a href="#">Forgot your password ?</a>
+                @if (Route::has('password.recover'))
+                    <a href="{{ route('password.recover') }}">Forgot your password ?</a>
+                @endif
             </footer>
         </x-form>
-        <p>
-            <a href="{{ route('register') }}">Don't have an account yet ?</a>
-        </p>
+        @if (Route::has('register'))
+            <p>
+                <a href="{{ route('register') }}">Don't have an account yet ?</a>
+            </p>
+        @endif
     </main>
 
 </x-layouts.app>

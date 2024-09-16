@@ -6,7 +6,7 @@
                     <a href="{{ route('home') }}">{{ config('app.name') }}</a>
                 @else
                     <a href="{{ route('index') }}">{{ config('app.name') }}</a>
-                @endif
+                @endauth
             </div>
             <div>
                 @auth
@@ -26,11 +26,15 @@
                     </div>
                 @else
                     <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
-                @endif
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}">Register</a>
+                    @endif
+                @endauth
             </div>
         </nav>
     </header>
 
     {{ $slot }}
+
+    <x-notify :text="session('status')" />
 </x-html>
