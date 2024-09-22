@@ -1,9 +1,10 @@
-<x-html class="app">
+<x-acme.html class="app">
     <header>
         <nav>
             <div>
                 @auth
                     <a href="{{ route('home') }}">{{ config('app.name') }}</a>
+                    <a href="{{ route('explore') }}">Explore</a>
                 @else
                     <a href="{{ route('index') }}">{{ config('app.name') }}</a>
                 @endauth
@@ -14,14 +15,14 @@
                         <button type="button" @click="open=!open">
                             <span>{{ auth()->user()->name }}</span>
                         </button>
-                        <div x-cloak x-show="open" @click.outside="open=false"">
+                        <div x-cloak x-show="open" @click.outside="open=false">
                             <a href="#">Link</a>
                             <a href="#">Long Link</a>
                             <a href="#">Very Long Link</a>
                             <hr />
-                            <x-form :action="route('logout')">
+                            <x-acme.form :action="route('logout')">
                                 <button type="submit">Logout</button>
-                            </x-form>
+                            </x-acme.form>
                         </div>
                     </div>
                 @else
@@ -34,7 +35,18 @@
         </nav>
     </header>
 
-    {{ $slot }}
+    @auth
+        <div class="outer">
+            <div class="aside">
+                @include('partials.sidebar')
+            </div>
+            <div class="inner">
+                {{ $slot }}
+            </div>
+        </div>
+    @else
+        {{ $slot }}
+    @endif
 
-    <x-notify :text="session('status')" />
-</x-html>
+    <x-acme.notify :text="session('status')" />
+</x-acme.html>

@@ -1,5 +1,4 @@
 /.phpunit.cache
-/coverage
 /node_modules
 /public/build
 /public/hot

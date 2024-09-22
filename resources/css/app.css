@@ -2,6 +2,16 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "acme.css";         /* component library */
+@import "auth.css";         /* auth pages (login, register etc) */
+@import "home.css";
+@import "explore.css";
+@import "staff.css";
+@import "players.css";
+@import "bank.css";
+@import "travel.css";
+@import "realtor.css";
+
 [x-cloak] { display: none !important; }
 
 body.app {
@@ -39,90 +49,24 @@ body.app {
             }
         }
     }
-}
 
-main.auth {
-    @apply flex flex-col flex-grow items-center justify-center space-y-1.5;
-    & > p {
-        @apply text-slate-700;
-    }
-    & > form {
-        @apply bg-slate-100 max-w-sm w-full p-6 space-y-3 flex flex-col rounded-lg shadow;
-        & footer {
-            @apply flex items-center justify-between pt-3;
-            & a {
-                @apply text-sm focus:outline-none focus:underline hover:underline;
-            }
+    & > .outer {
+        @apply bg-slate-100 max-w-7xl mx-auto flex flex-grow w-full shadow-lg;
+        & > .aside {
+            @apply bg-neutral-100 w-72 flex flex-col flex-none border-r border-slate-200 p-4 space-y-4;
         }
-    }
-    & > p > a {
-        @apply text-sm focus:outline-none focus:underline hover:underline;
+        & > .inner {
+            @apply flex flex-col flex-grow p-4 space-y-4;
+        }
     }
 }
 
-[class^="component-input-"] {
-    @apply flex flex-col space-y-0.5;
-    & > label {
-            @apply font-medium text-sm text-slate-600;
-    }
-    & span.error {
-        @apply text-red-500 text-sm;
-    }
-}
-.component-input-email > div > input,
-.component-input-text > div > input,
-.component-input-textarea > div > textarea {
-    @apply w-full rounded px-2 py-2 bg-slate-50 text-slate-700 border border-slate-300 focus:outline-none focus:ring-2
-    focus:ring-offset-0 focus:ring-blue-500 focus:border-transparent;
-}
-.component-input-textarea > div > textarea {
-    @apply aspect-[16/3];
-}
-.component-input-password > div > div {
-    @apply w-full rounded bg-slate-50 border border-slate-300 focus-within:outline-none focus-within:ring-2
-    focus-within:ring-offset-0 focus-within:ring-blue-500 focus-within:border-transparent flex overflow-hidden;
-    & > input {
-        @apply bg-slate-50 text-slate-700 border-0 px-2 py-2 flex-grow focus:outline-none;
-    }
+nav.tabs {
+    @apply flex space-x-2 mb-2 border-b border-slate-300 pl-2;
     & > button {
-        @apply border-l border-slate-300 px-2.5 bg-slate-50 text-slate-600;
-        & > svg {
-            @apply w-6 h-6;
-        }
-    }
-}
-.component-input-toggle > div > div > button {
-    @apply bg-slate-300 relative inline-flex w-12 rounded-full py-1 transition focus:outline-none focus:ring-2
-    focus:ring-offset-2 focus:ring-offset-slate-100 focus:ring-blue-500;
-    & > span {
-        @apply bg-slate-50 w-5 h-5 rounded-full transition shadow-md translate-x-1;
-    }
-    &.checked {
-        @apply bg-blue-500;
-        & > span {
-            @apply translate-x-6;
-        }
-    }
-}
-[class^="component-button-"] {
-    @apply font-medium px-3 py-2 text-sm rounded hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2
-    focus:ring-offset-slate-100;
-}
-.component-button-submit {
-    @apply bg-blue-500 text-white focus:ring-blue-500;
-}
-.component-button-cancel {
-    @apply bg-slate-400 text-white focus:ring-slate-400;
-}
-.component-notify {
-    @apply fixed right-0 bottom-0 bg-slate-100 mr-8 mb-6 rounded-lg max-w-sm w-full transition;
-    & > p {
-        @apply max-w-xs w-full pl-6 py-4 text-slate-600 ;
-    }
-    & > button {
-        @apply text-slate-700 absolute right-0 top-0 mt-2 mr-2 hover:text-slate-900 focus:outline-none;
-        & > svg {
-            @apply w-5 h-5;
+        @apply border border-slate-300 bg-slate-50 rounded-t px-2 py-1 border-b-0 text-slate-600 hover:bg-white;
+        &.active {
+            @apply bg-white text-slate-700;
         }
     }
 }

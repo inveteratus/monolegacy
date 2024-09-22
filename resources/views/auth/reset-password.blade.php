@@ -2,14 +2,14 @@
 
     <main class="auth">
 
-        <x-form :action="route('password.reset.store')">
-            <x-input.email required autocomplete="email" :value="old('email', request()->email)" />
-            <x-input.password autofocus required autocomplete="new-password" />
+        <x-acme.form :action="route('password.reset.store')">
+            <x-acme.input.email required autocomplete="email" :value="old('email', request()->email)" />
+            <x-acme.input.password autofocus required autocomplete="new-password" />
             <input type="hidden" name="token" value="{{ request()->route('token') }}" />
             <footer>
-                <x-button.submit label="Reset Password" />
+                <x-acme.button.submit label="Reset Password" />
             </footer>
-        </x-form>
+        </x-acme.form>
     </main>
 
 </x-layouts.app>

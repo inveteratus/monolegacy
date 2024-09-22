@@ -4,154 +4,205 @@ namespace Database\Seeders;
 
 use App\Models\City;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class CitySeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        Storage::disk('public')->deleteDirectory('cities');
+
         $cities = [
             [
                 'name' => 'London',
                 'slug' => 'london',
-                'description' => 'London is the capital of the United Kingdom and one of the world’s most influential cities. It is a major financial center, renowned for its history, architecture, and cultural landmarks such as the British Museum and the Tower of London.',
-                'image' => null,
+                'description' => <<<TEXT
+                    London is the capital and largest city of both England and the United Kingdom, with a population of
+                    8,866,180 in 2022. The wider metropolitan area is the largest in Western Europe, with a population
+                    of 14.9 million. London stands on the River Thames in southeast England, at the head of a 50-mile
+                    estuary down to the North Sea, and has been a major settlement for nearly 2,000 years.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/london.png')),
                 'latitude' => 51.5074,
                 'longitude' => -0.1278,
                 'min_level' => 1,
             ],
             [
-                'name' => 'Istanbul',
-                'slug' => 'istanbul',
-                'description' => 'Istanbul is a transcontinental city, straddling Europe and Asia. Historically known as Byzantium and later Constantinople, it has a rich cultural history and is one of the world’s most important historical cities, blending both eastern and western influences.',
-                'image' => null,
-                'latitude' => 41.0082,
-                'longitude' => 28.9784,
+                'name' => 'Paris',
+                'slug' => 'paris',
+                'description' => <<<TEXT
+                    Paris is the capital and largest city of France. With an official estimated population of
+                    2,102,650 residents in January 2023 in and area of more than 105km², Paris is the fourth-largest
+                    city in the European Union and the 30th most densely populated city in the work in 2022. Since the
+                    17th century, Paris has been one of the world's major centers of finance, diplomacy, commerce,
+                    culture, fashion, and gastronomy.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/paris.png')),
+                'latitude' => 48.8575,
+                'longitude' => 2.3514,
                 'min_level' => 2,
-            ],
-            [
-                'name' => 'Cairo',
-                'slug' => 'cairo',
-                'description' => 'Cairo, the capital of Egypt, is the largest city in Africa and the Middle East. Famous for its proximity to the Pyramids of Giza, Cairo is a historical city with a rich Islamic heritage and a bustling, dense urban environment.',
-                'image' => null,
-                'latitude' => 30.0444,
-                'longitude' => 31.2357,
-                'min_level' => 3,
-            ],
-            [
-                'name' => 'Kinshasa',
-                'slug' => 'kinshasa',
-                'description' => 'Kinshasa is the capital and largest city of the Democratic Republic of the Congo. Located on the Congo River, it’s a rapidly growing city with a youthful population, and it serves as a major cultural and economic hub in Central Africa.',
-                'image' => null,
-                'latitude' => -4.4419,
-                'longitude' => 15.2663,
-                'min_level' => 6,
-            ],
-            [
-                'name' => 'Lagos',
-                'slug' => 'lagos',
-                'description' => 'Lagos is the largest city in Nigeria and Africa’s most populous urban center. Known for its rapid urbanization, it’s a major financial hub for Africa, with a vibrant music and entertainment industry, and one of the fastest-growing cities in the world.',
-                'image' => null,
-                'latitude' => 6.5244,
-                'longitude' => 15.2663,
-                'min_level' => 9,
-            ],
-            [
-                'name' => 'Karachi',
-                'slug' => 'karachi',
-                'description' => 'Karachi is Pakistan\'s largest city and its main port. It’s the country\'s economic hub, famous for its diverse population, beaches, and vibrant commercial activity. Karachi also plays a significant role in global shipping and trade.',
-                'image' => null,
-                'latitude' => 24.8607,
-                'longitude' => 67.0011,
-                'min_level' => 14,
-            ],
-            [
-                'name' => 'Delhi',
-                'slug' => 'delhi',
-                'description' => 'Delhi, the capital of India, is one of the oldest cities in the world, with a rich history dating back thousands of years. It’s a bustling metropolis known for its historical monuments, vibrant street markets, and being the political center of the country.',
-                'image' => null,
-                'latitude' => 28.7041,
-                'longitude' => 77.1025,
-                'min_level' => 19,
-            ],
-            [
-                'name' => 'Dhaka',
-                'slug' => 'dhaka',
-                'description' => 'Dhaka, the capital of Bangladesh, is one of the most densely populated cities in the world. It’s a bustling, fast-growing city known for its textile industry, historical sites, and vibrant street life.',
-                'image' => null,
-                'latitude' => 23.8103,
-                'longitude' => 90.4125,
-                'min_level' => 26,
-            ],
-            [
-                'name' => 'Jakarta',
-                'slug' => 'jakarta',
-                'description' => 'Jakarta is the capital of Indonesia and the largest city in Southeast Asia. It is an economic powerhouse in the region, with a mixture of modern skyscrapers and traditional neighborhoods, reflecting the country\'s diverse culture.',
-                'image' => null,
-                'latitude' => -6.2088,
-                'longitude' => 106.8456,
-                'min_level' => 33,
-            ],
-            [
-                'name' => 'Shanghai',
-                'slug' => 'shanghai',
-                'description' => 'Shanghai is China’s largest city and a global financial hub. Located on the central coast, it’s renowned for its modern skyline, the historic Bund waterfront, and as a vital center of commerce and trade in East Asia.',
-                'image' => null,
-                'latitude' => 31.2304,
-                'longitude' => 121.4737,
-                'min_level' => 41,
-            ],
-            [
-                'name' => 'Tokyo',
-                'slug' => 'tokyo',
-                'description' => 'Tokyo is the most populous city in the world and the capital of Japan. It’s a global financial hub known for its mix of ultramodern skyscrapers and historic temples. The Tokyo metropolitan area spans a vast urban sprawl, integrating several smaller cities.',
-                'image' => null,
-                'latitude' => 35.6762,
-                'longitude' => 139.6503,
-                'min_level' => 51,
-            ],
-            [
-                'name' => 'Mexico City',
-                'slug' => 'mexico-city',
-                'description' => 'Mexico City, the capital of Mexico, is one of the oldest cities in the Americas. It’s a vibrant cultural and political center known for its Aztec heritage, colonial architecture, and status as one of the most important economic hubs in Latin America.',
-                'image' => null,
-                'latitude' => 19.4326,
-                'longitude' => -99.1332,
-                'min_level' => 62,
             ],
             [
                 'name' => 'New York City',
                 'slug' => 'new-york-city',
-                'description' => 'New York City is the largest city in the United States and a global center for finance, media, and culture. Known for landmarks like Times Square, the Statue of Liberty, and Central Park, it is also one of the world’s most diverse cities.',
-                'image' => null,
+                'description' => <<<TEXT
+                    New York, often called New York City or NYC, is the most populous city in the United States,
+                    located at the southern tip of New York State on one of the world's largest natural harbors. The
+                    city comprises five boroughs, each coextensive with a respective county. New York is a global
+                    center of finance and commerce, culture, technology, entertainment and media, academics and
+                    scientific output, the arts and fashion, and, as home to the headquarters of the United Nations,
+                    international diplomacy.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/new-york.png')),
                 'latitude' => 40.7128,
                 'longitude' => -74.006,
-                'min_level' => 73,
+                'min_level' => 3,
             ],
             [
-                'name' => 'São Paulo',
-                'slug' => 'sao-paulo',
-                'description' => 'São Paulo is the largest city in Brazil and the Southern Hemisphere. Known for its cultural diversity and economic influence, it’s a key financial center in Latin America with a vibrant arts scene and vast urban landscape.',
-                'image' => null,
-                'latitude' => -23.5505,
-                'longitude' => -46.6333,
-                'min_level' => 86,
+                'name' => 'Sydney',
+                'slug' => 'sydney',
+                'description' => <<<TEXT
+                    Sydney is the capital city of the state of New South Wales and the most populous city in Australia.
+                    Located on Australia's east coast, the metropolis surrounds Sydney Harbour and extends about 80 km
+                    from the Pacific Ocean in the east to the Blue Mountains in the west, and about 80 km from the
+                    Ku-ring-gai Chase National Park and the Hawkesbury River in the north and north-west, to the Royal
+                    National Park and Macarthur in the south and south-west.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/sydney.png')),
+                'latitude' => -33.8688,
+                'longitude' => 151.2093,
+                'min_level' => 5,
             ],
             [
-                'name' => 'Buenos Aires',
-                'slug' => 'buenos-aires',
-                'description' => 'Buenos Aires, the capital of Argentina, is the largest city in the country and one of the most important cultural hubs in South America. Known for its European-style architecture, tango music, and vibrant arts scene, it’s also a key financial center in the region.',
-                'image' => null,
-                'latitude' => -34.6037,
-                'longitude' => -58.3816,
-                'min_level' => 100,
+                'name' => 'Rio de Janeiro',
+                'slug' => 'rio-de-janeiro',
+                'description' => <<<TEXT
+                    Rio de Janeiro or simply Rio, is the capital of the state of Rio de Janeiro. It is the
+                    second-most-populous city in Brazil (after São Paulo) and the sixth-most-populous city in the
+                    Americas. Founded in 1565 by the Portuguese, the city was initially the seat of the Captaincy of
+                    Rio de Janeiro, a domain of the Portuguese Empire.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/rio-de-janeiro.png')),
+                'latitude' => -22.9068,
+                'longitude' => -43.1729,
+                'min_level' => 8,
+            ],
+            [
+                'name' => 'Rome',
+                'slug' => 'rome',
+                'description' => <<<TEXT
+                    The Metropolitan City of Rome, with a population of 4,355,725 residents, is the most populous
+                    metropolitan city in Italy. Its metropolitan area is the third-most populous within Italy. Rome is
+                    located in the central-western portion of the Italian Peninsula, within Lazio, along the shores of
+                    the Tiber.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/rome.png')),
+                'latitude' => 41.8967,
+                'longitude' => 12.4822,
+                'min_level' => 13,
+            ],
+            [
+                'name' => 'Athens',
+                'slug' => 'athens',
+                'description' => <<<TEXT
+                    Athens is the capital and largest city of Greece. A major coastal urban area in the Mediterranean,
+                    Athens is also the capital of the Attica region and is the southernmost capital on the European
+                    mainland. With its urban area's population numbering over three and a quarter million, it is the
+                    eighth largest urban area in the European Union. The Municipality of Athens (also City of Athens),
+                    which constitutes a small administrative unit of the entire urban area, had a population of 643,452
+                    (2021) within its official limits, and a land area of 38.96²km.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/athens.png')),
+                'latitude' => 37.9838,
+                'longitude' => 23.7275,
+                'min_level' => 21,
+            ],
+            [
+                'name' => 'San Francisco',
+                'slug' => 'san-francisco',
+                'description' => <<<TEXT
+                    San Francisco, officially the City and County of San Francisco, is the commercial, financial, and
+                    cultural center of Northern California. With a population of 808,988 residents as of 2023, San
+                    Francisco is the fourth most populous city in the U.S. state of California behind Los Angeles, San
+                    Diego, and San Jose.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/san-francisco.png')),
+                'latitude' => 37.7749,
+                'longitude' => -122.4194,
+                'min_level' => 34,
+            ],
+            [
+                'name' => 'Moscow',
+                'slug' => 'moscow',
+                'description' => <<<TEXT
+                    Moscow, on the Moskva River in western Russia, is the nation’s cosmopolitan capital. In its
+                    historic core is the Kremlin, a complex that’s home to the president and tsarist treasures in the
+                    Armoury. Outside its walls is Red Square, Russia's symbolic center. It's home to Lenin’s Mausoleum,
+                    the State Historical Museum's comprehensive collection and St. Basil’s Cathedral, known for its
+                    colorful, onion-shaped domes.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/moscow.png')),
+                'latitude' => 55.7558,
+                'longitude' => 37.6173,
+                'min_level' => 55,
+            ],
+            [
+                'name' => 'Beijing',
+                'slug' => 'beijing',
+                'description' => <<<TEXT
+                    Beijing, China’s sprawling capital, has history stretching back 3 millennia. Yet it’s known as much
+                    for modern architecture as its ancient sites such as the grand Forbidden City complex, the imperial
+                    palace during the Ming and Qing dynasties. Nearby, the massive Tiananmen Square pedestrian plaza is
+                    the site of Mao Zedong’s mausoleum and the National Museum of China, displaying a vast collection
+                    of cultural relics.
+                TEXT,
+                'image' => $this->makeImage(resource_path('assets/cities/beijing.png')),
+                'latitude' => 39.9042,
+                'longitude' => 116.4074,
+                'min_level' => 89,
             ],
         ];
 
         foreach ($cities as $city) {
             City::factory()->create($city);
         }
+    }
+
+    private function makeImage(string $filename): ?string
+    {
+        if (str_ends_with($filename, '.png')) {
+            $input = imagecreatefrompng($filename);
+        }
+        elseif (str_ends_with($filename, '.jpg') || str_ends_with($filename, '.jpeg')) {
+            $input = imagecreatefromjpeg($filename);
+        }
+        else {
+            return null;
+        }
+
+        $sx = imagesx($input);
+        $sy = imagesy($input);
+        if (($sx < 800) || ($sy < 600)) {
+            imagedestroy($input);
+            return null;
+        }
+
+        // scale to fit within 800x600
+        $scale = max($sx / 800, $sy / 600);
+        $dx = floor($sx / $scale);
+        $dy = floor($sy / $scale);
+
+        $output = imagecreatetruecolor($dx, $dy);
+        imagecopyresampled($output, $input, 0, 0, 0, 0, $dx, $dy, $sx, $sy);
+        ob_start();
+        imagejpeg($output);
+        $buffer = ob_get_clean();
+        imagedestroy($output);
+        imagedestroy($input);
+
+        $target = 'cities/' . sha1(random_bytes(256)) . '.jpeg';
+        Storage::disk('public')->put($target, $buffer);
+
+        return $target;
     }
 }

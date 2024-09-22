@@ -1,0 +1,28 @@
+main.players {
+    & > table {
+        @apply w-full shadow rounded overflow-hidden;
+        thead {
+            @apply bg-slate-200;
+            tr {
+                th {
+                    @apply p-2 font-medium text-right w-[17.5%];
+                    &:first-child {
+                        @apply text-left w-auto;
+                    }
+                }
+            }
+        }
+        tbody {
+            @apply bg-slate-50;
+            tr {
+                @apply hover:bg-slate-100;
+                td {
+                    @apply p-2 text-right text-slate-700;
+                    &:first-child {
+                        @apply text-left font-medium text-slate-600;
+                    }
+                }
+            }
+        }
+    }
+}

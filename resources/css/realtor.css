@@ -1,0 +1,12 @@
+main.realtor {
+    @apply grid grid-cols-4 gap-4;
+    & > a {
+        @apply border border-slate-200 bg-slate-50 rounded flex flex-col shadow overflow-hidden;
+        & > img {
+            @apply aspect-video bg-white object-cover;
+        }
+        & > p {
+            @apply text-center text-slate-600;
+        }
+    }
+}

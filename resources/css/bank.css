@@ -1,0 +1,29 @@
+main.bank {
+    & > form {
+        @apply grid grid-cols-2 gap-4;
+        & > div {
+            @apply border border-slate-200 bg-slate-50 p-4 rounded flex flex-col;
+            & > h3 {
+                @apply text-center font-light text-2xl;
+            }
+            & > p {
+                @apply text-sm text-slate-500 text-center;
+            }
+            & > div {
+                @apply inline-flex rounded overflow-hidden mt-4 mx-auto;
+                & > button {
+                    @apply px-2 py-1 bg-blue-500 text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none;
+                    &:not(:first-child) {
+                        @apply border-l border-blue-400
+                    }
+                }
+                & > span {
+                    @apply px-2 py-1 bg-slate-200 text-slate-400;
+                }
+            }
+            & > span {
+                @apply text-red-500 text-sm text-center;
+            }
+        }
+    }
+}

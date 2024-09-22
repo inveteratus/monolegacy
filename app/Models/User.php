@@ -3,45 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use DateTimeImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-/**
- * @property int $id
- * @property string $name
- * @property string $email
- * @property DateTimeImmutable|null $email_verified_at
- * @property string $password
- * @property string|null $remember_token
- * @property DateTimeImmutable $created_at
- * @property DateTimeImmutable $updated_at
- * @property int $cash
- * @property int $bank
- * @property int $tokens
- * @property DateTimeImmutable|null $premium
- * @property int $city_id
- * @property int $property_id
- * @property float $energy
- * @property float $nerve
- * @property float $health
- * @property float $power           // $max_power comes from property->capacity
- * @property int $max_energy
- * @property int $max_nerve
- * @property int $max_health
- * @property DateTimeImmutable $regenerated_at
- * @property float $experience
- * @property float $strength
- * @property float $agility
- * @property float $defense
- * @property float $intelligence
- * @property float $endurance
- * @property DateTimeImmutable $hospital
- * @property DateTimeImmutable $jail
- * @property string|null $reason
- */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -61,9 +27,6 @@ class User extends Authenticatable
         'tokens',
         'premium',
 
-        'city_id',
-        'property_id',
-
         'energy',
         'nerve',
         'health',
@@ -75,17 +38,14 @@ class User extends Authenticatable
 
         'regenerated_at',
 
-        'experience',
+        'city_id',
+        'property_id',
 
         'strength',
         'agility',
         'defense',
         'intelligence',
         'endurance',
-
-        'hospital',
-        'jail',
-        'reason',
     ];
 
     /**
@@ -114,9 +74,6 @@ class User extends Authenticatable
             'tokens' => 'integer',
             'premium' => 'immutable_datetime',
 
-            'city_id' => 'integer',
-            'property_id' => 'integer',
-
             'energy' => 'float',
             'nerve' => 'float',
             'health' => 'float',
@@ -128,16 +85,14 @@ class User extends Authenticatable
 
             'regenerated_at' => 'immutable_datetime',
 
-            'experience' => 'float',
+            'city_id' => 'integer',
+            'property_id' => 'integer',
 
             'strength' => 'float',
             'agility' => 'float',
             'defense' => 'float',
             'intelligence' => 'float',
             'endurance' => 'float',
-
-            'hospital' => 'immutable_datetime',
-            'jail' => 'immutable_datetime',
         ];
     }
 
@@ -151,25 +106,30 @@ class User extends Authenticatable
         return $this->belongsTo(Property::class);
     }
 
-    public function regenerate(): void
+    public function regenerate(bool $force = false): self
     {
         $now = now()->toImmutable();
-        $diffInSeconds = $now->diffInSeconds($this->regenerated_at, true);
-        if ($diffInSeconds >= 300) {
-            // Increase energy by 1 unit every 2 minutes (
-            $this->energy = min($this->max_energy, $this->energy + $diffInSeconds / 120);
+        $seconds = $now->diffInSeconds($this->regenerated_at, true);
+        if (($force && ($seconds > 0)) || ($seconds >= 300)) {
+            // Energy increases by 10 units every 5 minutes
+            $this->energy = min($this->max_energy, $this->energy + $seconds / 30);
 
-            // Increase nerve by 1 unit every minute
-            $this->nerve = min($this->max_nerve, $this->nerve + $diffInSeconds / 60);
+            // Nerve increases by 1 unit every 5 minutes
+            $this->nerve = min($this->max_nerve, $this->nerve + $seconds / 300);
 
-            // Increase energy by 1 unit every 3 minutes (
-            $this->health = min($this->max_health, $this->health + $diffInSeconds / 180);
+            // Health increases by 5 units every 5 minutes
+            $this->health = min($this->max_health, $this->health + $seconds / 60);
 
-            // Increase power by 10 units every 5 minutes (1 unit every 30 seconds)
-            $this->power = min($this->property->capacity, $this->power + $diffInSeconds / 30);
+            // Power increases by 3 units every 5 minutes
+            $this->power = min($this->property->capacity, $this->power + $seconds / 100);
 
+            // Update regenerated_at timestamp
             $this->regenerated_at = $now;
+
+            // Save any changes
             $this->save();
         }
+
+        return $this;
     }
 }

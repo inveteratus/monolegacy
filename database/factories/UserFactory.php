@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
+use App\Models\Property;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -11,16 +14,8 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
@@ -29,12 +24,38 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+
+            'cash' => 100,
+            'bank' => 0,
+            'tokens' => 0,
+            'premium' => null,
+
+            'energy' => 100,
+            'nerve' => 10,
+            'health' => 100,
+            'power' => 100,
+
+            'max_energy' => 100,
+            'max_nerve' => 10,
+            'max_health' => 100,
+
+            'regenerated_at' => now()->toImmutable(),
+
+            'strength' => 0,
+            'agility' => 0,
+            'defense' => 0,
+            'intelligence' => 0,
+            'endurance' => 0,
+
+            'city_id' => City::factory(),
+            'property_id' => Property::factory(),
+
+            'jail' => CarbonImmutable::parse('2000-01-01 00:00:00'),
+            'hospital' => CarbonImmutable::parse('2000-01-01 00:00:00'),
+            'reason' => null,
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
-     */
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [

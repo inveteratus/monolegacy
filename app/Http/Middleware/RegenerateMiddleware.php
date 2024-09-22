@@ -15,9 +15,8 @@ class RegenerateMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        auth()->user()->regenerate();
+        $request->user()->regenerate();
 
         return $next($request);
     }
-
 }
