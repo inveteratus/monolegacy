@@ -31,6 +31,7 @@ Route::middleware(['auth', 'regenerate'])->group(function () {
         Route::get('', RealtorController::class)->name('realtor');
         Route::prefix('{property:slug}')->group(function () {
             Route::get('', [RealtorController::class, 'details'])->name('realtor.details');
+            Route::post('', [RealtorController::class, 'purchase'])->name('realtor.purchase');
         });
     });
 });

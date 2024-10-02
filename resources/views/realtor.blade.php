@@ -6,7 +6,7 @@
 
     <main class="realtor">
         @foreach ($properties as $property)
-            <a href="#">
+            <a href="{{ route('realtor.details', $property) }}">
                 <img src="/storage/{{ $property->image }}" />
                 <p>{{ $property->name }}</p>
             </a>
