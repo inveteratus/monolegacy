@@ -13,6 +13,7 @@
 ```shell
 docker compose up -d
 docker compose exec -T db mysql -umonolegacy -psecret monolegacy < schema.sql
+cp .env.example .env
 ```
 
 ## Crons
