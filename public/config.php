@@ -1,7 +1,7 @@
 <?php
 
 $_CONFIG = [
-    'hostname' => '127.0.0.1',
+    'hostname' => 'db',
     'username' => 'monolegacy',
     'password' => 'secret',
     'database' => 'monolegacy',
