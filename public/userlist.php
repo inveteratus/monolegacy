@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/sglobals.php';
+require __DIR__ . '/globals.php';
 
 global $c, $db, $domain, $h, $ir, $set, $userid;
 
