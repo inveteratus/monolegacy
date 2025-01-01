@@ -1579,7 +1579,7 @@ CREATE TABLE `users` (
   `force_logout` tinyint NOT NULL DEFAULT '0',
   `pass_salt` varchar(8) NOT NULL DEFAULT '',
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1588,6 +1588,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Admin','28064b2b2b248789db0b3072126ae00b',1,0.0000,100,0,0,'127.0.0.1',0,12,100,100,5,5,12,100,100,0,0,1,0,0,'',0,2,'Male',0,1735737934,0,0,0,0,0,0,'admin@example.com','admin','','N/A',-1,-1,'',0,'','','127.0.0.1','127.0.0.1',0,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'9e08946e'),(2,'User','2a836554bcdda3752c19826b4dc600ef',1,0.0000,100,0,0,'127.0.0.1',0,12,100,100,5,5,12,100,100,0,0,1,0,0,'',0,1,'Female',0,1735737967,0,0,0,0,0,0,'user@example.com','user','','N/A',-1,-1,'',0,'','','127.0.0.1','127.0.0.1',0,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'74a712be');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1615,6 +1616,7 @@ CREATE TABLE `userstats` (
 
 LOCK TABLES `userstats` WRITE;
 /*!40000 ALTER TABLE `userstats` DISABLE KEYS */;
+INSERT INTO `userstats` VALUES (1,10,10,10,10,10),(2,10,10,10,10,10);
 /*!40000 ALTER TABLE `userstats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1676,4 +1678,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-01 12:06:15
+-- Dump completed on 2025-01-01 13:30:24

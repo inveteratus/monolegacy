@@ -20,6 +20,7 @@ The plans are relatively simple - not necessarily in order:
 * Make a front-end controller using PSR7/PSR15
 * Create a modular plugin system for future modules
 * Remove the current cron system
+* Ensure code is compliant with PHP 8.3
 
 ## Setup
 
@@ -32,9 +33,16 @@ sh import.sh
 ```
 You should now able to access the site by opening [http://localhost/](http://localhost/).
 
-The scripts `import.sh` and `export.sh` import and export the `schema.sql` file respectively.
+There are two users setup by default:default users:
 
-You can also access the database via an [Adminer](https://www.adminer.org/) script by pointing your browser to
+| Name  | Username | Password | Email             | Usage                |
+|-------|----------|----------|-------------------|----------------------|
+| Admin | admin    | secret   | admin@example.com | A full administrator |
+| User  | user     | secret   | user@example.com  | A normal user        |
+
+## Database
+
+You can access the database via an [Adminer](https://www.adminer.org/) script by pointing your browser to
 [http://localhost:8080](http://localhost:8080/?server=db&username=monolegacy&db=monolegacy) with the following
 credentials:
 
@@ -43,3 +51,12 @@ credentials:
 * **Username**: _monolegacy_
 * **Password**: _secret_
 * **Database**: _monolegacy_
+
+There are also two scripts in the root folder
+
+* `import.sh` will import `schema.sql` overwriting all existing data.
+* `export.sh` will write the current database schema to `schema.sql`.
+
+You can add extra queries to `extra.sql` which will be imported after `schema.sql` when running `import.sh`. This
+allows you to, for example, add a new user or update one of the existing users. Note that the `extra.sql` file is
+_NOT_ tracked by git so will not be pushed to your repository.
