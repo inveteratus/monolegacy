@@ -29,6 +29,7 @@ git clone git@github.com:inveteratus/monolegacy.git
 cd monolegacy
 cp env.example .env
 docker compose up -d
+composer install
 sh import.sh
 ```
 You should now able to access the site by opening [http://localhost/](http://localhost/).
