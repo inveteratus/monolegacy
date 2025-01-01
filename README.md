@@ -44,10 +44,10 @@ your crontab:
 #    |    |    |    +--------- Day of Week
 #    |    |    |    |    +---- Command
 #    |    |    |    |    |
-*    *    *    *    *    docker exec -it monolegacy.app php crons/1m.php
-*/5  *    *    *    *    docker exec -it monolegacy.app php crons/5m.php
-0    *    *    *    *    docker exec -it monolegacy.app php crons/1h.php
-0    0    *    *    *    docker exec -it monolegacy.app php crons/1d.php
+*    *    *    *    *    docker exec -t monolegacy.app php crons/1m.php
+*/5  *    *    *    *    docker exec -t monolegacy.app php crons/5m.php
+0    *    *    *    *    docker exec -t monolegacy.app php crons/1h.php
+0    0    *    *    *    docker exec -t monolegacy.app php crons/1d.php
 ```
 
 You should now able to access the site by opening [http://localhost/](http://localhost/).
