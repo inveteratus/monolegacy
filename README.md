@@ -1,8 +1,11 @@
 # Monolegacy
 
-Forked from [davemacaulay/mccodesv2](https://github.com/davemacaulay/mccodesv2/tree/v2.0.5b), Monolegacy is a simple browser game written in PHP where players commit crimes, trade and fight one-another in an effort to "be the best".
+Forked from [davemacaulay/mccodesv2](https://github.com/davemacaulay/mccodesv2/tree/v2.0.5b), Monolegacy is a simple browser game written in PHP where players commit
+crimes, trade and fight one-another in an effort to "**be the best**".
 
-Since support for the original game died a long time ago, and there appears to be little or no activity over at [MakeWebGames](https://makewebgames.io/forum/32-mccodes/), I've created this repo, ignoring the changes made by [Dave Macaulay](https://github.com/davemacaulay) and [Anthony](https://github.com/Magictallguy) as their contributions will get superseded as I work on this code-base.
+Since support for the original game died a long time ago, and there appears to be little or no activity over at
+[MakeWebGames](https://makewebgames.io/forum/32-mccodes/), I've created this repo, ignoring the changes made by [Dave Macaulay](https://github.com/davemacaulay) and [Anthony](https://github.com/Magictallguy) as
+their contributions will get superseded as I work on this code-base.
 
 The plans are relatively simple - not necessarily in order:
 
