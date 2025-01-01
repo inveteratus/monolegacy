@@ -52,7 +52,7 @@ your crontab:
 
 You should now able to access the site by opening [http://localhost/](http://localhost/).
 
-There are two users setup by default:default users:
+There are two users setup by default:
 
 | Name  | Username | Password | Email             | Usage                |
 |-------|----------|----------|-------------------|----------------------|
