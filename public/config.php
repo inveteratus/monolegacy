@@ -1,8 +1,7 @@
 <?php
 
 $_CONFIG = [
-    'hostname' => 'db',
-    'username' => 'monolegacy',
-    'password' => 'secret',
-    'database' => 'monolegacy',
+    'db.dsn' => 'mysql:host=db;charset=utf8mb4;port=3306;dbname=monolegacy',
+    'db.user' => 'monolegacy',
+    'db.password' => 'secret',
 ];

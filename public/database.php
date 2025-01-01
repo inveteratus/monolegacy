@@ -1,213 +1,99 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: class/database.php
- * Signature: 0bd885c66484350e8b0130c39e932e20
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
-
-if (!defined('MONO_ON'))
-{
-    exit;
-}
-
-if (!function_exists('error_critical'))
-{
-    // Umm...
-    die('<h1>Error</h1>' . 'Error handler not present');
-}
-
-if (!extension_loaded('mysqli'))
-{
-    // dl doesn't work anymore, crash
-    error_critical('Database connection failed',
-            'MySQLi extension not present but required', 'N/A',
-            debug_backtrace(false));
-}
 
 class database
 {
-    var $host;
-    var $user;
-    var $pass;
-    var $database;
-    var $persistent = 0;
-    var $last_query;
-    var $result;
-    var $connection_id;
-    var $num_queries = 0;
-    var $start_time;
-    var $queries = array();
+    private PDO $pdo;
+    private mysqli $mysqli;
 
-    function configure($host, $user, $pass, $database)
+    public function __construct(string $dsn, string $user, string $password)
     {
-        $this->host = $host;
-        $this->user = $user;
-        $this->pass = $pass;
-        $this->database = $database;
-        return 1; //Success.
+       $this->pdo = new PDO($dsn, $user, $password, [
+           PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+           PDO::ATTR_EMULATE_PREPARES => false,
+           PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+       ]);
+
+        // Legacy (mysqli) support
+        $params = array_map(
+            function (string $keyValuePair): array {
+                [$key, $value] = explode('=', $keyValuePair);
+                return [$key => $value];
+            }, explode(';', explode(':', $dsn)[1]));
+        $params = array_merge(...$params);
+
+        $result = mysqli_connect($params['host'], $user, $password, $params['dbname']);
+        if (mysqli_connect_error()) {
+            die('Database connection failed - ' . mysqli_connect_error());
+        }
+
+        $this->mysqli = $result;
     }
 
-    function connect()
+    public function execute(string $sql, array $context = []): PDOStatement
     {
-        if (!$this->host)
-        {
-            $this->host = "localhost";
-        }
-        if (!$this->user)
-        {
-            $this->user = "root";
-        }
-        $conn =
-                mysqli_connect($this->host, $this->user, $this->pass,
-                        $this->database);
-        if (mysqli_connect_error())
-        {
-            error_critical('Database connection failed',
-                    mysqli_connect_errno() . ': ' . mysqli_connect_error(),
-                    'Attempted to connect to database on ' . $this->host,
-                    debug_backtrace(false));
-        }
-        // @overridecharset mysqli
-        $this->connection_id = $conn;
-        return $this->connection_id;
+        $statement = $this->pdo->prepare($sql);
+        $statement->execute($context);
+
+        return $statement;
     }
 
-    function disconnect()
+    /** @deprecated */
+    public function connection(): mysqli
     {
-        if ($this->connection_id)
-        {
-            mysqli_close($this->connection_id);
-            $this->connection_id = 0;
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+        return $this->mysqli;
     }
 
-    function change_db($database)
+    /** @deprecated */
+    public function query(string $query): mysqli_result|null|true
     {
-        if (!mysqli_select_db($this->connection_id, $database))
-        {
-            error_critical('Database change failed',
-                    mysqli_errno($this->connection_id) . ': '
-                            . mysqli_error($this->connection_id),
-                    'Attempted to select database: ' . $database,
-                    debug_backtrace(false));
+        $result = mysqli_query($this->mysqli, $query);
+        if ($result === false) {
+            die('query failed: ' . mysqli_error($this->mysqli));
         }
-        $this->database = $database;
+
+        return $result;
     }
 
-    function query($query)
+    /** @deprecated */
+    public function fetch_row(mysqli_result $result): array|false|null
     {
-        $this->last_query = $query;
-        $this->queries[] = $query;
-        $this->num_queries++;
-        $this->result =
-                mysqli_query($this->connection_id, $this->last_query);
-        if ($this->result === false)
-        {
-            error_critical('Query failed',
-                    mysqli_errno($this->connection_id) . ': '
-                            . mysqli_error($this->connection_id),
-                    'Attempted to execute query: ' . nl2br($this->last_query),
-                    debug_backtrace(false));
-        }
-        return $this->result;
-    }
-
-    function fetch_row($result = 0)
-    {
-        if (!$result)
-        {
-            $result = $this->result;
-        }
         return mysqli_fetch_assoc($result);
     }
 
-    function num_rows($result = 0)
+    /** @deprecated */
+    public function num_rows(mysqli_result $result): int|string
     {
-        if (!$result)
-        {
-            $result = $this->result;
-        }
         return mysqli_num_rows($result);
     }
 
-    function insert_id()
+    /** @deprecated */
+    public function insert_id(): int|string
     {
-        return mysqli_insert_id($this->connection_id);
+        return mysqli_insert_id($this->mysqli);
     }
 
-    function fetch_single($result = 0)
+    /** @deprecated */
+    public function fetch_single(mysqli_result $result)
     {
-        if (!$result)
-        {
-            $result = $this->result;
-        }
-        //Ugly hack here
         mysqli_data_seek($result, 0);
-        $temp = mysqli_fetch_array($result);
-        return $temp[0];
+
+        return mysqli_fetch_array($result)[0];
     }
 
-    function easy_insert($table, $data)
+    /** @deprecated */
+    public function escape(string $text): string
     {
-        $query = "INSERT INTO `$table` (";
-        $i = 0;
-        foreach ($data as $k => $v)
-        {
-            $i++;
-            if ($i > 1)
-            {
-                $query .= ", ";
-            }
-            $query .= $k;
-        }
-        $query .= ") VALUES(";
-        $i = 0;
-        foreach ($data as $k => $v)
-        {
-            $i++;
-            if ($i > 1)
-            {
-                $query .= ", ";
-            }
-            $query .= "'" . $this->escape($v) . "'";
-        }
-        $query .= ")";
-        return $this->query($query);
+        return mysqli_real_escape_string($this->mysqli, $text);
     }
 
-    function escape($text)
+    /** @deprecated */
+    public function affected_rows(): int|string
     {
-        return mysqli_real_escape_string($this->connection_id, $text);
+        return mysqli_affected_rows($this->mysqli);
     }
 
-    function affected_rows()
+    /** @deprecated */
+    public function free_result($result): void
     {
-        return mysqli_affected_rows($this->connection_id);
     }
-
-    function free_result($result)
-    {
-        mysqli_free_result($result);
-    }
-
 }

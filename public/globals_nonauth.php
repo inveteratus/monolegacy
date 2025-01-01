@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 <?php
 
 if (strpos($_SERVER['PHP_SELF'], "globals_nonauth.php") !== false)
@@ -42,20 +33,13 @@ if (get_magic_quotes_gpc() == 0)
 }
 require __DIR__ . '/error_handler.php';
 set_error_handler('error_php');
+
 require __DIR__ . '/config.php';
 global $_CONFIG;
-define("MONO_ON", 1);
-require __DIR__ . '/database.php';
+
 require __DIR__ .  '/global_func.php';
-$db = new database;
-$db->configure($_CONFIG['hostname'], $_CONFIG['username'],
-        $_CONFIG['password'], $_CONFIG['database']);
-$db->connect();
-$c = $db->connection_id;
-$set = array();
-$settq = $db->query("SELECT *
-					 FROM `settings`");
-while ($r = $db->fetch_row($settq))
-{
-    $set[$r['conf_name']] = $r['conf_value'];
-}
+
+require __DIR__ . '/database.php';
+$db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
+$c = $db->connection();
+$set = $db->execute('SELECT conf_name, conf_value FROM settings')->fetchAll(PDO::FETCH_KEY_PAIR);
