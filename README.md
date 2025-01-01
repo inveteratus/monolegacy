@@ -20,3 +20,26 @@ The plans are relatively simple - not necessarily in order:
 * Make a front-end controller using PSR7/PSR15
 * Create a modular plugin system for future modules
 * Remove the current cron system
+
+## Setup
+
+```bash
+git clone git@github.com:inveteratus/monolegacy.git
+cd monolegacy
+cp env.example .env
+docker compose up -d
+sh import.sh
+```
+You should now able to access the site by opening [http://localhost/](http://localhost/).
+
+The scripts `import.sh` and `export.sh` import and export the `schema.sql` file respectively.
+
+You can also access the database via an [Adminer](https://www.adminer.org/) script by pointing your browser to
+[http://localhost:8080](http://localhost:8080/?server=db&username=monolegacy&db=monolegacy) with the following
+credentials:
+
+* **System**: _MySQL_
+* **Server**: _db_
+* **Username**: _monolegacy_
+* **Password**: _secret_
+* **Database**: _monolegacy_
