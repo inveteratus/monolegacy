@@ -15,21 +15,12 @@
  * using it illegally. Please contact MCCodes to discuss licensing options
  * in this case.
  *
- * File: cron_hour.php
+ * File: 1h.php
  * Signature: 4b8febe7fa0e1b37799c15544092f62f
  * Date: Fri, 20 Apr 12 08:50:30 +0000
  */
 
-require_once('globals_nonauth.php');
-if($argc == 2) {
-    if($argv[1] != $_CONFIG['code']) {
-        exit;
-    }
-}
-else if (!isset($_GET['code']) || $_GET['code'] !== $_CONFIG['code'])
-{
-    exit;
-}
+require_once(__DIR__ . '/../public/globals_nonauth.php');
 $db->query(
         "UPDATE `gangs` SET `gangCHOURS` = `gangCHOURS` - 1 WHERE `gangCRIME` > 0");
 $q =

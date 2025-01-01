@@ -15,23 +15,12 @@
  * using it illegally. Please contact MCCodes to discuss licensing options
  * in this case.
  *
- * File: cron_minute.php
+ * File: 1m.php
  * Signature: ed4ad301835b277d396a036d67ba6a39
  * Date: Fri, 20 Apr 12 08:50:30 +0000
  */
 
-require_once('globals_nonauth.php');
-if ($argc == 2)
-{
-    if ($argv[1] != $_CONFIG['code'])
-    {
-        exit;
-    }
-}
-else if (!isset($_GET['code']) || $_GET['code'] !== $_CONFIG['code'])
-{
-    exit;
-}
+require_once(__DIR__ . '/../public/globals_nonauth.php');
 $db->query(
         "UPDATE `users` SET `hospital` = GREATEST(`hospital` - 1, 0), `jail` = GREATEST(`jail` - 1, 0)");
 $counts =
@@ -42,4 +31,3 @@ $db->query(
         "UPDATE `settings` SET `conf_value` = '{$counts['hc']}' WHERE `conf_name` = 'hospital_count'");
 $db->query(
         "UPDATE `settings` SET `conf_value` = '{$counts['jc']}' WHERE `conf_name` = 'jail_count'");
-

@@ -60,3 +60,22 @@ There are also two scripts in the root folder
 You can add extra queries to `extra.sql` which will be imported after `schema.sql` when running `import.sh`. This
 allows you to, for example, add a new user or update one of the existing users. Note that the `extra.sql` file is
 _NOT_ tracked by git so will not be pushed to your repository.
+
+## Crons
+
+The current system relies on crons to perform various maintenance tasks; you can run these by adding the following to
+your crontab:
+
+```
+#----------------------------- Minute
+#    +------------------------ Hour
+#    |    +------------------- Day of Month
+#    |    |    +-------------- Month
+#    |    |    |    +--------- Day of Week
+#    |    |    |    |    +---- Command
+#    |    |    |    |    |
+*    *    *    *    *    docker exec -it monolegacy.app php crons/1m.php
+*/5  *    *    *    *    docker exec -it monolegacy.app php crons/5m.php
+0    *    *    *    *    docker exec -it monolegacy.app php crons/1h.php
+0    0    *    *    *    docker exec -it monolegacy.app php crons/1d.php
+```

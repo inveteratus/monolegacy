@@ -7,5 +7,4 @@ $_CONFIG = [
     'database' => 'monolegacy',
     'persistent' => false,
     'driver' => 'mysqli',
-    'code' => 'secret',
 ];
