@@ -1,0 +1,12 @@
+{
+    "name": "inveteratus/monolegacy",
+    "description": "Legacy gaming made good",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Inveteratus",
+            "email": "inveteratus@node83.com"
+        }
+    ]
+}
