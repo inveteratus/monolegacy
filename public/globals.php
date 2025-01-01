@@ -110,25 +110,13 @@ if ($macropage && !$ir['verified'] && $set['validate_on'] == 1)
     exit;
 }
 check_level();
-$h = new headers;
-if (isset($nohdr) == false || !$nohdr)
-{
-    $h->startheaders();
-    $fm = money_formatter($ir['money']);
-    $cm = money_formatter($ir['crystals'], '');
-    $lv = date('F j, Y, g:i a', $ir['laston']);
-    global $atkpage;
-    if ($atkpage)
-    {
-        $h->userdata($ir, $lv, $fm, $cm, 0);
-    }
-    else
-    {
-        $h->userdata($ir, $lv, $fm, $cm);
-    }
-    global $menuhide;
-    if (!$menuhide)
-    {
-        $h->menuarea();
-    }
-}
+$h = new headers();
+$h->startheaders();
+$fm = money_formatter($ir['money']);
+$cm = money_formatter($ir['crystals'], '');
+$lv = date('F j, Y, g:i a', $ir['laston']);
+
+global $atkpage;
+
+$h->userdata($ir, $lv, $fm, $cm, !$atkpage);
+$h->menuarea();

@@ -125,25 +125,18 @@ if ($ir['force_logout'] != '0')
     header("Location: {$login_url}");
     exit;
 }
-if (!in_array($ir['user_level'], array(2, 3, 5)))
-{
-    echo 'This page cannot be accessed.<br />&gt; <a href="index.php">Go Home</a>';
-    die;
-}
 check_level();
-$h = new headers;
+$h = new headers();
 $h->startheaders();
 $fm = money_formatter($ir['money']);
 $cm = money_formatter($ir['crystals'], '');
 $lv = date('F j, Y, g:i a', $ir['laston']);
-global $atkpage;
-$staffpage = 1;
-if ($atkpage)
-{
-    $h->userdata($ir, $lv, $fm, $cm, 0);
-}
-else
-{
-    $h->userdata($ir, $lv, $fm, $cm);
-}
+
+$h->userdata($ir, $lv, $fm, $cm);
 $h->smenuarea();
+
+if ($ir['user_level'] != 2) {
+    echo '<h2>403 Forbidden</h2>';
+    $h->endpage();
+    exit;
+}
