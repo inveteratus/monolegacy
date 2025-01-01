@@ -34,9 +34,6 @@ function staff_csrf_error($goBackTo)
  * Check the CSRF code we received against the one that was registered for the form - using default code properties ($_POST['verf']).
  * If verification fails, end execution immediately.
  * If not, continue.
- * @param string $formid A unique string used to identify this form to match up its submission with the right token.
- * @param string $code The code the user's form input returned.
- * @return boolean Whether the user provided a valid code or not
  */
 function staff_csrf_stdverify($formid, $goBackTo)
 {

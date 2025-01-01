@@ -1,24 +1,4 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: bbcode_engine.php
- * Signature: d34c12616ac9beca032b0eb80ba92a98
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 class bbcode_engine
 {
@@ -30,7 +10,7 @@ class bbcode_engine
 
         if (!$tag)
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "\](.+?)\[\/" . $tag . "\]/";
         $this->htmls[] = "<" . $tag . ">\\1</" . $tag . ">";
@@ -41,7 +21,7 @@ class bbcode_engine
 
         if (!$tag)
         {
-            break;
+            return;
         }
 
         $this->parsings[] = "/\[" . $tag . "\](.+?)\[\/" . $tag . "\]/";
@@ -53,7 +33,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "")
         {
-            break;
+            return;
         }
         $this->parsings[] =
                 "/\[" . $tag . "=(.+?)\](.+?)\[\/" . $tag . "\]/";
@@ -66,7 +46,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] =
                 "/\[" . $tag . "=(.+?)\](.+?)\[\/" . $tag . "\]/";
@@ -80,7 +60,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] =
                 "/\[" . $tag . "=(.+?)\](.+?)\[\/" . $tag . "\]/";
@@ -94,7 +74,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "=(.+?)\]/";
         $this->htmls[] = "<" . $tag . " " . $optionval . "='\\1' />";
@@ -105,7 +85,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "=(.+?)\]/";
         $this->htmls[] = "<" . $reptag . " " . $optionval . "='\\1' />";
@@ -116,7 +96,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "=(.+?)\]/";
         $this->htmls[] =
@@ -129,7 +109,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "\](.+?)\[\/" . $tag . "\]/";
         $this->htmls[] = "<" . $tag . " " . $optionval . "='\\1' />";
@@ -140,7 +120,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "\](.+?)\[\/" . $tag . "\]/";
         $this->htmls[] = "<" . $reptag . " " . $optionval . "='\\1' />";
@@ -151,7 +131,7 @@ class bbcode_engine
 
         if ($tag == "" || $optionval == "" || $reptag == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = "/\[" . $tag . "\](.+?)\[\/" . $tag . "\]/";
         $this->htmls[] =
@@ -164,7 +144,7 @@ class bbcode_engine
 
         if ($bbcode == "" || $html == "")
         {
-            break;
+            return;
         }
         $this->parsings[] = $bbcode;
         $this->htmls[] = $html;

@@ -83,7 +83,7 @@ default:
 
 function new_user_form()
 {
-    global $db, $ir, $c;
+    global $db, $ir, $c, $h;
     if ($ir['user_level'] != 2)
     {
         echo 'You cannot access this area.<br />&gt; <a href="staff.php">Go Back</a>';

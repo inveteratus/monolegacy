@@ -65,12 +65,12 @@ default:
 
 function new_item_form()
 {
-    global $db, $ir, $c;
+    global $db, $ir, $c, $h;
     if ($ir['user_level'] != 2)
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     $csrf = request_csrf_html('staff_newitem');
     echo "
@@ -152,7 +152,7 @@ function new_item_submit()
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     staff_csrf_stdverify('staff_newitem', 'staff_items.php?action=newitem');
     $itmname =
@@ -249,12 +249,12 @@ function new_item_submit()
 
 function give_item_form()
 {
-    global $db, $ir, $c;
+    global $db, $ir, $c, $h;
     if (!in_array($ir['user_level'], array(2, 3)))
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     $csrf = request_csrf_html('staff_giveitem');
     echo "
@@ -280,7 +280,7 @@ function give_item_submit()
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     staff_csrf_stdverify('staff_giveitem', 'staff_items.php?action=giveitem');
     $_POST['item'] =
@@ -335,7 +335,7 @@ function kill_item_form()
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     $csrf = request_csrf_html('staff_killitem');
     echo "
@@ -359,7 +359,7 @@ function kill_item_submit()
     {
         echo 'You cannot access this area.<br />
         &gt; <a href="staff.php">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     staff_csrf_stdverify('staff_killitem', 'staff_items.php?action=killitem');
     $_POST['item'] =
@@ -369,7 +369,7 @@ function kill_item_submit()
     {
         echo 'Invalid Item.<br />
         &gt; <a href="staff_items.php?action=killitem">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     $d =
             $db->query(
@@ -381,7 +381,7 @@ function kill_item_submit()
         $db->free_result($d);
         echo 'Item doesn\'t seem to exist.<br />
         &gt; <a href="staff_items.php?action=killitem">Go Back</a>';
-        die($h->endpage());
+        $h->endpage(); exit;
     }
     $itemname = $db->fetch_single($d);
     $db->free_result($d);
@@ -396,11 +396,11 @@ function kill_item_submit()
     $db->query(
             "DELETE FROM `itemmarket`
      		 WHERE `imITEM` = {$_POST['item']}");
-    stafflog_add("Deleted item {$itemi['itmname']}");
-    echo 'The ' . $itemi['itmname']
+    stafflog_add("Deleted item {$itemname}");
+    echo 'The ' . $itemname
             . ' Item was removed from the game.<br />
             &gt; <a href="staff.php">Go Home</a>';
-    die($h->endpage());
+    $h->endpage(); exit;
 }
 
 function edit_item_begin()

@@ -585,8 +585,7 @@ function jobrankdele()
                      INNER JOIN `jobs` AS `j`
                      ON `u`.`job` = `j`.`jID`
                      SET `u`.`jobrank` = `j`.`jFIRST`
-                     WHERE `u`.`job` = {$jr['jrJOB']}
-                     AND `u`.`jobrank` = {$_POST['jrID']}");
+                     WHERE `u`.`jobrank` = {$_POST['jrID']}");
         }
         $db->free_result($q);
         echo '<br />&gt; <a href="staff.php">Go Home</a>';

@@ -878,19 +878,13 @@ function reorder_crimegroups()
         }
         $ro_cnt = count($used);
         $ro = implode(',', $used);
-        $c_g =
-                $db->query(
-                        'SELECT COUNT(`cgID`)
-                         FROM `crimegroups`
-                         WHERE `cgORDER` IN(' . $ro . ')');
+        $c_g = $db->query('SELECT COUNT(`cgID`) FROM `crimegroups` WHERE `cgORDER` IN(' . $ro . ')');
         if ($db->fetch_single($c_g) < $ro_cnt)
         {
-            $db->free_result($c_q);
             echo 'Group order doesn\'t exist.<br />
             &gt; <a href="staff_crimes.php?action=reorder">Go Back</a>';
             die($h->endpage());
         }
-        $db->free_result($c_q);
         foreach ($_POST as $k => $v)
         {
             $cg = str_replace("order", "", $k);

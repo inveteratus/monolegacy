@@ -421,7 +421,7 @@ function userlevelform()
 
 function massmailer()
 {
-    global $db, $ir, $c, $userid;
+    global $db, $ir, $c, $userid, $h;
     $_POST['text'] =
             (isset($_POST['text']))
                     ? $db->escape(strip_tags(stripslashes($_POST['text'])))
