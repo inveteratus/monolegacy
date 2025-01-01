@@ -8,5 +8,11 @@
             "name": "Inveteratus",
             "email": "inveteratus@node83.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
+    },
+    "scripts": {
+        "sa": "phpstan --memory-limit=1g --no-progress"
+    }
 }
