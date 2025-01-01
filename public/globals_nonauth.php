@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 <?php
 
 if (strpos($_SERVER['PHP_SELF'], "globals_nonauth.php") !== false)
@@ -31,7 +40,7 @@ if (get_magic_quotes_gpc() == 0)
         $_GET[$k] = addslashes($v);
     }
 }
-require __DIR__ . '/lib/basic_error_handler.php';
+require __DIR__ . '/error_handler.php';
 set_error_handler('error_php');
 require __DIR__ . '/config.php';
 global $_CONFIG;
