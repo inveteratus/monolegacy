@@ -5,6 +5,4 @@ $_CONFIG = [
     'username' => 'monolegacy',
     'password' => 'secret',
     'database' => 'monolegacy',
-    'persistent' => false,
-    'driver' => 'mysqli',
 ];

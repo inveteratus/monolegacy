@@ -321,8 +321,7 @@ function index()
         		</tr>
         		<tr>
         			<th>MySQL Driver:</th>
-        			<td>" . $_CONFIG['driver']
-                . "</td>
+        			<td>mysqli</td>
         		</tr>
         		<tr>
         			<th>Codes Version:</th>
@@ -330,11 +329,7 @@ function index()
         		</tr>
         		<tr>
         			<th>Update Status:</th>
-        			<td>
-        				<iframe
-        					src='http://www.mccodes.com/update_check.php?version={$versionno}'
-        					width='250' height='30'></iframe>
-        			</td>
+        			<td>N/A</td>
         		</tr>
         </table>
         <hr />

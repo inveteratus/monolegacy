@@ -15,8 +15,8 @@
  * using it illegally. Please contact MCCodes to discuss licensing options
  * in this case.
  *
- * File: class/class_db_mysql.php
- * Signature: c43fdec3c66d23162f869ddcf5af599d
+ * File: class/database.php
+ * Signature: 0bd885c66484350e8b0130c39e932e20
  * Date: Fri, 20 Apr 12 08:50:30 +0000
  */
 
@@ -31,11 +31,11 @@ if (!function_exists('error_critical'))
     die('<h1>Error</h1>' . 'Error handler not present');
 }
 
-if (!extension_loaded('mysql'))
+if (!extension_loaded('mysqli'))
 {
     // dl doesn't work anymore, crash
     error_critical('Database connection failed',
-            'MySQL extension not present but required', 'N/A',
+            'MySQLi extension not present but required', 'N/A',
             debug_backtrace(false));
 }
 
@@ -51,14 +51,14 @@ class database
     var $connection_id;
     var $num_queries = 0;
     var $start_time;
+    var $queries = array();
 
-    function configure($host, $user, $pass, $database, $persistent = 0)
+    function configure($host, $user, $pass, $database)
     {
         $this->host = $host;
         $this->user = $user;
         $this->pass = $pass;
         $this->database = $database;
-        $this->persistent = $persistent;
         return 1; //Success.
     }
 
@@ -72,31 +72,18 @@ class database
         {
             $this->user = "root";
         }
-        if ($this->persistent)
-        {
-            $conn = mysql_pconnect($this->host, $this->user, $this->pass);
-        }
-        else
-        {
-            $conn =
-                    mysql_connect($this->host, $this->user, $this->pass, true);
-        }
-        if ($conn === false)
+        $conn =
+                mysqli_connect($this->host, $this->user, $this->pass,
+                        $this->database);
+        if (mysqli_connect_error())
         {
             error_critical('Database connection failed',
-                    mysql_errno() . ': ' . mysql_error(),
+                    mysqli_connect_errno() . ': ' . mysqli_connect_error(),
                     'Attempted to connect to database on ' . $this->host,
                     debug_backtrace(false));
         }
-        // @overridecharset mysql
+        // @overridecharset mysqli
         $this->connection_id = $conn;
-        if (!mysql_select_db($this->database, $this->connection_id))
-        {
-            error_critical('Database connection failed',
-                    mysql_errno($conn) . ': ' . mysql_error($conn),
-                    'Attempted to select database: ' . $this->database,
-                    debug_backtrace(false));
-        }
         return $this->connection_id;
     }
 
@@ -104,7 +91,7 @@ class database
     {
         if ($this->connection_id)
         {
-            mysql_close($this->connection_id);
+            mysqli_close($this->connection_id);
             $this->connection_id = 0;
             return 1;
         }
@@ -116,11 +103,11 @@ class database
 
     function change_db($database)
     {
-        if (!mysql_select_db($database, $this->connection_id))
+        if (!mysqli_select_db($this->connection_id, $database))
         {
             error_critical('Database change failed',
-                    mysql_errno($this->connection_id) . ': '
-                            . mysql_error($this->connection_id),
+                    mysqli_errno($this->connection_id) . ': '
+                            . mysqli_error($this->connection_id),
                     'Attempted to select database: ' . $database,
                     debug_backtrace(false));
         }
@@ -130,13 +117,15 @@ class database
     function query($query)
     {
         $this->last_query = $query;
+        $this->queries[] = $query;
         $this->num_queries++;
-        $this->result = mysql_query($this->last_query, $this->connection_id);
+        $this->result =
+                mysqli_query($this->connection_id, $this->last_query);
         if ($this->result === false)
         {
             error_critical('Query failed',
-                    mysql_errno($this->connection_id) . ': '
-                            . mysql_error($this->connection_id),
+                    mysqli_errno($this->connection_id) . ': '
+                            . mysqli_error($this->connection_id),
                     'Attempted to execute query: ' . nl2br($this->last_query),
                     debug_backtrace(false));
         }
@@ -149,7 +138,7 @@ class database
         {
             $result = $this->result;
         }
-        return mysql_fetch_assoc($result);
+        return mysqli_fetch_assoc($result);
     }
 
     function num_rows($result = 0)
@@ -158,12 +147,12 @@ class database
         {
             $result = $this->result;
         }
-        return mysql_num_rows($result);
+        return mysqli_num_rows($result);
     }
 
     function insert_id()
     {
-        return mysql_insert_id($this->connection_id);
+        return mysqli_insert_id($this->connection_id);
     }
 
     function fetch_single($result = 0)
@@ -172,7 +161,10 @@ class database
         {
             $result = $this->result;
         }
-        return mysql_result($result, 0, 0);
+        //Ugly hack here
+        mysqli_data_seek($result, 0);
+        $temp = mysqli_fetch_array($result);
+        return $temp[0];
     }
 
     function easy_insert($table, $data)
@@ -205,17 +197,17 @@ class database
 
     function escape($text)
     {
-        return mysql_real_escape_string($text, $this->connection_id);
+        return mysqli_real_escape_string($this->connection_id, $text);
     }
 
     function affected_rows()
     {
-        return mysql_affected_rows($this->connection_id);
+        return mysqli_affected_rows($this->connection_id);
     }
 
     function free_result($result)
     {
-        return mysql_free_result($result);
+        return mysqli_free_result($result);
     }
 
 }
