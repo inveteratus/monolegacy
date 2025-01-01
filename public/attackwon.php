@@ -21,7 +21,11 @@
  */
 
 $atkpage = 1;
-require_once('globals.php');
+
+require __DIR__ . '/globals.php';
+
+global $ir, $h, $db, $userid, $c;
+
 $_GET['ID'] =
         (isset($_GET['ID']) && is_numeric($_GET['ID']))
                 ? abs((int) $_GET['ID']) : 0;
@@ -61,7 +65,7 @@ if ($db->num_rows($od) > 0)
                 "UPDATE `users`
                         SET `hp` = 1, `money` = `money` - $stole, `hospital` = $hosptime,
                         `hospreason` = '{$hospreason}' WHERE `userid` = {$r['userid']}");
-        event_add($r['userid'],
+        addEvent($r['userid'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a> mugged you and stole "
                         . money_formatter($stole) . ".", $c);
         $atklog = $db->escape($_SESSION['attacklog']);

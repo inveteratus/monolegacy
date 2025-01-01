@@ -1,72 +1,59 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: attack.php
- * Signature: 2574b38849a3e8141366209f7b43c19e
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 $menuhide = 1;
 $atkpage = 1;
-require_once('globals.php');
 
-$_GET['ID'] =
-        (isset($_GET['ID']) && is_numeric($_GET['ID']))
-                ? abs(intval($_GET['ID'])) : '';
+require __DIR__ . '/globals.php';
+
+global $ir, $h, $db, $userid;
+
+$_GET['ID'] = (isset($_GET['ID']) && is_numeric($_GET['ID'])) ? abs(intval($_GET['ID'])) : '';
 if (!$_GET['ID'])
 {
-    echo 'Invalid ID<br />&gt; <a href="index.php">Go Home</a>';
-    die($h->endpage());
+    echo '<p>Invalid ID</p>';
+    echo '<p><a href="/">Home</a></p>';
+    $h->endpage();
+    exit;
 }
 else if ($_GET['ID'] == $userid)
 {
     echo 'you can\'t attack yourself.<br />&gt; <a href="index.php">Go Home</a>';
-    die($h->endpage());
+    $h->endpage();
+    exit;
 }
 else if ($ir['hp'] <= 1)
 {
     echo 'You\'re unconcious therefore you can\'t attack.<br />&gt; <a href="index.php">Go Home</a>';
-    die($h->endpage());
+    $h->endpage();
+    exit;
 }
 else if (isset($_SESSION['attacklost']) && $_SESSION['attacklost'] == 1)
 {
     $_SESSION['attacklost'] = 0;
     echo 'Only the losers of all their EXP attack when they\'ve already lost.<br />&gt; <a href="index.php">Go Home</a>';
-    die($h->endpage());
+    $h->endpage();
+    exit;
 }
+
 $youdata = $ir;
-$odata_sql =
-        <<<SQL
-	SELECT `u`.`userid`, `hp`, `hospital`, `jail`, `equip_armor`, `username`,
-	       `equip_primary`, `equip_secondary`, `gang`, `location`, `maxhp`,
-	       `guard`, `agility`, `strength`, `gender`
-	FROM `users` AS `u`
-	INNER JOIN `userstats` AS `us` ON `u`.`userid` = `us`.`userid`
-	WHERE `u`.`userid` = {$_GET['ID']}
-	LIMIT 1
+
+$odata_sql = <<<SQL
+    SELECT u.userid, u.hp, u.hospital, u.jail, u.equip_armor, u.username, u.equip_primary, u.equip_secondary, u.gang,
+           u.location, u.maxhp, us.guard, us.agility, us.strength, u.gender
+    FROM users u
+    LEFT JOIN userstats us USING userid
+    WHERE u.userid = {$_GET['ID']}
 SQL;
+
 $q = $db->query($odata_sql);
 if ($db->num_rows($q) == 0)
 {
     echo 'That user doesn&#39;t exist<br />&gt; <a href="index.php">Go Home</a>';
-    die($h->endpage());
+    $h->endpage();
+    exit;
 }
+
 $odata = $db->fetch_row($q);
-$db->free_result($q);
 $myabbr = ($ir['gender'] == "Male") ? "his" : "her";
 $oabbr = ($odata['gender'] == "Male") ? "his" : "her";
 if ($ir['attacking'] && $ir['attacking'] != $_GET['ID'])
@@ -126,14 +113,10 @@ echo '
 		<tr>
 	<td colspan="2" align="center">
    ';
-$_GET['wepid'] =
-        (isset($_GET['wepid']) && is_numeric($_GET['wepid']))
-                ? abs(intval($_GET['wepid'])) : '';
+$_GET['wepid'] = (isset($_GET['wepid']) && is_numeric($_GET['wepid'])) ? abs(intval($_GET['wepid'])) : '';
 if ($_GET['wepid'])
 {
-    $_GET['nextstep'] =
-            (isset($_GET['nextstep']) && is_numeric($_GET['nextstep']))
-                    ? abs(intval($_GET['nextstep'])) : 1;
+    $_GET['nextstep'] = (isset($_GET['nextstep']) && is_numeric($_GET['nextstep'])) ? abs(intval($_GET['nextstep'])) : 1;
     if (!$_GET['nextstep'])
     {
         $_GET['nextstep'] = 1;
@@ -144,9 +127,7 @@ if ($_GET['wepid'])
         {
             $youdata['energy'] -= floor($youdata['maxenergy'] / 2);
             $cost = floor($youdata['maxenergy'] / 2);
-            $db->query(
-                    "UPDATE `users` SET `energy` = `energy` - {$cost} "
-                            . "WHERE `userid` = {$userid}");
+            $db->query("UPDATE `users` SET `energy` = `energy` - {$cost} WHERE `userid` = {$userid}");
             $_SESSION['attacklog'] = '';
             $_SESSION['attackdmg'] = 0;
         }
@@ -272,18 +253,15 @@ SQL;
     else
     {
 
-        $eq =
-                $db->query(
-                        "SELECT `itmname`,`weapon` FROM  `items` WHERE `itmid` IN({$odata['equip_primary']}, {$odata['equip_secondary']})");
+        $eq = $db->query("SELECT `itmname`,`weapon` FROM  `items` WHERE `itmid` IN({$odata['equip_primary']}, {$odata['equip_secondary']})");
         if ($db->num_rows($eq) == 0)
         {
             $wep = "Fists";
-            $dam =
-                    (int) ((((int) ($odata['strength'] / $ir['guard'] / 100))
-                            + 1) * (rand(8000, 12000) / 10000));
+            $dam = (int) ((((int) ($odata['strength'] / $ir['guard'] / 100)) + 1) * (rand(8000, 12000) / 10000));
         }
         else
         {
+            $enweps = [];
             $cnt = 0;
             while ($r = $db->fetch_row($eq))
             {

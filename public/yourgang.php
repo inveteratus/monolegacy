@@ -1,26 +1,8 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: yourgang.php
- * Signature: 1be0798ef42661e44bcc13bb1b2a2a77
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals.php');
+require __DIR__ . '/sglobals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
 
 function csrf_error($goBackTo)
 {
@@ -374,7 +356,7 @@ function gang_staff_kick()
                         "You were kicked out of {$gangdata['gangNAME']} by "
                                 . "<a href='viewuser.php?u={$userid}'>"
                                 . $d_oname . "</a>";
-                event_add($who, $their_event, $c);
+                addEvent($who, $their_event, $c);
                 $gang_event =
                         $db->escape(
                                 "<a href='viewuser.php?u={$who}'>"
@@ -837,7 +819,7 @@ function gang_staff_apps()
                 $db->query(
                         "DELETE FROM `applications`
                          WHERE `appID` = {$_POST['app']}");
-                event_add($appdata['appUSER'],
+                addEvent($appdata['appUSER'],
                         "Your application to join the {$gangdata['gangNAME']} gang was declined",
                         $c);
                 $gang_event =
@@ -883,7 +865,7 @@ function gang_staff_apps()
                 $db->query(
                         "DELETE FROM `applications`
                          WHERE `appID` = {$_POST['app']}");
-                event_add($appdata['appUSER'],
+                addEvent($appdata['appUSER'],
                         "Your application to join the {$gangdata['gangNAME']} gang was accepted, Congrats!",
                         $c);
                 $gang_event =
@@ -1036,7 +1018,7 @@ function gang_staff_vault()
                      SET `gangMONEY` = `gangMONEY` - $money,
                      `gangCRYSTALS` = `gangCRYSTALS` - $crys
                      WHERE `gangID` = {$gangdata['gangID']}");
-            event_add($who,
+            addEvent($who,
                     "You were given " . money_formatter($money)
                             . " and/or $crys crystals from your Gang.", $c);
             $gang_event =
@@ -1111,7 +1093,7 @@ function gang_staff_vicepres()
                 "UPDATE `gangs`
                  SET `gangVICEPRES` = {$_POST['vp']}
                  WHERE `gangID` = {$gangdata['gangID']}");
-        event_add($memb['userid'],
+        addEvent($memb['userid'],
                 "You were transferred vice-presidency of {$gangdata['gangNAME']}.",
                 $c);
         $m_name = htmlentities($memb['username'], ENT_QUOTES, 'ISO-8859-1');
@@ -1550,7 +1532,7 @@ function gang_staff_pres()
                     "UPDATE `gangs`
                      SET `gangPRESIDENT` = {$_POST['pres']}
                      WHERE `gangID` = {$gangdata['gangID']}");
-            event_add($memb['userid'],
+            addEvent($memb['userid'],
                     "You were transferred presidency of {$gangdata['gangNAME']}.",
                     $c);
             echo "Presidency was transferred to {$memb['username']}<br />
@@ -1690,7 +1672,7 @@ function gang_staff_masspayment()
         {
             if ($gangdata['gangMONEY'] >= $_POST['amt'])
             {
-                event_add($r['userid'],
+                addEvent($r['userid'],
                         "You were given " . money_formatter($_POST['amt'])
                                 . " from your gang.", $c);
                 $db->query(

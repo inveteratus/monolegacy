@@ -21,7 +21,10 @@
  */
 
 $atkpage = 1;
-require_once('globals.php');
+
+require __DIR__ . '/globals.php';
+
+global $ir, $h, $db, $userid, $c;
 
 $_GET['ID'] =
         (isset($_GET['ID']) && is_numeric($_GET['ID']))
@@ -43,7 +46,7 @@ if ($db->num_rows($od) > 0)
     $newexp = max($ir['exp'] - $expgain, 0);
     $db->query(
             "UPDATE `users` SET `exp` = {$newexp}, `attacking` = 0 WHERE `userid` = $userid");
-    event_add($r['userid'],
+    addEvent($r['userid'],
             "<a href='viewuser.php?u=$userid'>{$ir['username']}</a> attacked you and lost.",
             $c);
     $atklog = $db->escape($_SESSION['attacklog']);

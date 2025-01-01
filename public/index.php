@@ -1,27 +1,11 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: index.php
- * Signature: 9b1118d3386254e8f62cf5a439c74f45
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 $housequery = 1;
-require_once('globals.php');
+
+require __DIR__ . '/globals.php';
+
+global $c, $cm, $db, $domain, $fm, $h, $ir, $set, $userid;
+
 echo "<h3>General Info:</h2>";
 $exp = (int) ($ir['exp'] / $ir['exp_needed'] * 100);
 echo "<table><tr><td><b>Name:</b> {$ir['username']}</td><td><b>Crystals:</b> {$cm}</td></tr><tr>

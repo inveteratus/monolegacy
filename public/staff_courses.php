@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: staff_courses.php
- * Signature: cd12f79bc59259fafe30ee2517389b04
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('sglobals.php');
+require __DIR__ . '/sglobals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
+
 if ($ir['user_level'] != 2)
 {
     echo 'You cannot access this area.<br />
@@ -184,7 +167,7 @@ function editcourse()
                         ? $db->escape(strip_tags(stripslashes($_POST['desc'])))
                         : '';
         if (empty($_POST['name']) || empty($_POST['desc']) || empty($cost)
-                || empty($days) || empty($cost) || empty($energy)
+                || empty($days) || empty($energy)
                 || empty($str) || empty($agil) || empty($gua) || empty($lab)
                 || empty($iq))
         {

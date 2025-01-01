@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: register.php
- * Signature: f8dda67b811dca9f363ebf3870e85571
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals_nonauth.php');
+require __DIR__ . '/globals_nonauth.php';
+
+global $set, $db, $c;
+
 //thx to http://www.phpit.net/code/valid-email/ for valid_email
 
 function valid_email($email)
@@ -193,7 +176,7 @@ if (!empty($username))
                     "UPDATE `users`
                      SET `crystals` = `crystals` + 2
                      WHERE `userid` = {$_POST['ref']}");
-            event_add($_POST['ref'],
+            addEvent($_POST['ref'],
                     "For refering $username to the game, you have earnt 2 valuable crystals!",
                     $c);
             $e_rip = $db->escape($rem_IP);

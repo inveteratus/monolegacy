@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: 1h.php
- * Signature: 4b8febe7fa0e1b37799c15544092f62f
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once(__DIR__ . '/../public/globals_nonauth.php');
+require __DIR__ . '/../public/globals_nonauth.php';
+
+global $db, $c, $set;
+
 $db->query(
         "UPDATE `gangs` SET `gangCHOURS` = `gangCHOURS` - 1 WHERE `gangCRIME` > 0");
 $q =
@@ -50,7 +33,7 @@ while ($r = $db->fetch_row($q))
                         "SELECT `userid` FROM `users` WHERE `gang` = {$r['gangID']}");
         while ($rm = $db->fetch_row($qm))
         {
-            event_add($rm['userid'],
+            addEvent($rm['userid'],
                     "Your Gang's Organised Crime Succeeded. Go <a href='oclog.php?ID=$i'>here</a> to view the details.",
                     NULL);
         }
@@ -73,7 +56,7 @@ while ($r = $db->fetch_row($q))
                         "SELECT `userid` FROM `users` WHERE `gang` = {$r['gangID']}");
         while ($rm = $db->fetch_row($qm))
         {
-            event_add($rm['userid'],
+            addEvent($rm['userid'],
                     "Your Gang's Organised Crime Failed. Go <a href='oclog.php?ID=$i'>here</a> to view the details.",
                     $c);
         }

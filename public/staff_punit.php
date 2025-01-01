@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: staff_punit.php
- * Signature: f0ed16545d89e246f9cdb0eb9d56dc6a
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('sglobals.php');
+require __DIR__ . '/sglobals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
+
 if (!in_array($ir['user_level'], array(2, 3, 5)))
 {
     echo 'You cannot access this area.<br />&gt; <a href="staff.php">Go Home</a>';
@@ -334,7 +317,7 @@ function mail_user_submit()
                      SET `mailban` = {$_POST['days']},
                      `mb_reason` = '{$_POST['reason']}'
                      WHERE `userid` = {$_POST['user']}");
-    event_add($_POST['user'],
+    addEvent($_POST['user'],
             "You were banned from mail for {$_POST['days']} day(s) for the following reason: {$_POST['reason']}",
             $c);
     stafflog_add(
@@ -417,7 +400,7 @@ function forum_user_submit()
                      SET `forumban` = {$_POST['days']},
                      `fb_reason` = '{$_POST['reason']}'
                      WHERE `userid` = {$_POST['user']}");
-    event_add($_POST['user'],
+    addEvent($_POST['user'],
             "You were banned from the forums for {$_POST['days']} day(s) for the following reason: {$_POST['reason']}",
             $c);
     stafflog_add(
@@ -536,7 +519,7 @@ function unmail_user_submit()
             "UPDATE `users`
              SET `mailban` = 0
              WHERE `userid` = {$_POST['user']}");
-    event_add($_POST['user'],
+    addEvent($_POST['user'],
             "You were unbanned from mail. You can now use it again.", $c);
     stafflog_add('Un-mailbanned user ID ' . $_POST['user']);
     echo 'User un-mailbanned.<br />
@@ -593,7 +576,7 @@ function unforum_user_submit()
             "UPDATE `users`
              SET `forumban` = 0
              WHERE `userid` = {$_POST['user']}");
-    event_add($_POST['user'],
+    addEvent($_POST['user'],
             "You were unbanned from the forums. You can now use them again.",
             $c);
     stafflog_add("Un-forumbanned user ID {$_POST['user']}");

@@ -1,24 +1,4 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: docrime.php
- * Signature: 427d116f8a7253197c4364dd543771e6
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 if (!isset($_GET['c']))
 {
@@ -26,7 +6,11 @@ if (!isset($_GET['c']))
 }
 $_GET['c'] = abs((int) $_GET['c']);
 $macropage = "docrime.php?c={$_GET['c']}";
-require_once('globals.php');
+
+require __DIR__ . '/globals.php';
+
+global $h, $ir, $db, $h, $userid, $set, $c;
+
 if ($ir['jail'] > 0 || $ir['hospital'] > 0)
 {
     die("This page cannot be accessed while in jail or hospital.");
@@ -57,6 +41,7 @@ else
     }
     else
     {
+        $sucrate = 0;
         $ec =
                 "\$sucrate="
                         . str_replace(

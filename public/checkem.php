@@ -41,7 +41,10 @@ function valid_email($email)
     return (filter_var($email, FILTER_VALIDATE_EMAIL) === $email);
 }
 
-require_once('globals_nonauth.php');
+require __DIR__ . '/globals_nonauth.php';
+
+global $db;
+
 $email = isset($_POST['email']) ? stripslashes($_POST['email']) : '';
 if (empty($email))
 {

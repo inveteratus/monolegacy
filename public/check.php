@@ -1,24 +1,4 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: check.php
- * Signature: 0352c71843def0ca5c418c51bf95b8ee
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
 if (isset($_SERVER['REQUEST_METHOD']) && is_string($_SERVER['REQUEST_METHOD']))
 {
@@ -35,6 +15,7 @@ if (!is_ajax())
     header('HTTP/1.1 400 Bad Request');
     exit;
 }
+
 if (!isset($_POST['password']))
 { // If they are trying to view this without ?password=password.
     die("Whats this document for?"); // Lawl what is this doccument for anyways?
@@ -128,6 +109,7 @@ elseif (isset($_POST['password']))
                         ",", "<", ">", "_", "-", "!", "#", "\$", "%", "^",
                         "&", "*");
         $strength = 0;
+        $overall = '';
         if (strlen($PASS) >= 7)
         {
             $strength += 3;

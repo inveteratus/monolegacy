@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: staff_special.php
- * Signature: 3adb819832a38f3972bd3195eabc2917
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('sglobals.php');
+require __DIR__ . '/sglobals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
+
 if ($ir['user_level'] != 2)
 {
     echo 'You cannot access this area.<br />
@@ -136,6 +119,8 @@ function give_dp_submit()
         &gt; <a href="staff_special.php?action=givedpform">Go Back</a>';
         die($h->endpage());
     }
+    $don = '';
+    $d = 0;
     if ($_POST['type'] == 1)
     {
         $don =
@@ -183,7 +168,7 @@ function give_dp_submit()
              ON `u`.`userid` = `us`.`userid`
              SET {$don}
              WHERE `u`.`userid` = {$_POST['user']}");
-    event_add($_POST['user'],
+    addEvent($_POST['user'],
             "You were given one {$d}-day donator pack (Pack {$_POST['type']}) from the administration.",
             $c);
     stafflog_add(

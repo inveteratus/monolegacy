@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: itemmarket.php
- * Signature: c6bac751e81d5c73ae07995883409fe2
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals.php');
+require __DIR__ . '/globals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
+
 echo "<h3>Item Market</h3>";
 if (!isset($_GET['action']))
 {
@@ -334,7 +317,7 @@ function item_buy()
                 WHERE `userid` = {$r['imADDER']}");
         if ($curr == "money")
         {
-            event_add($r['imADDER'],
+            addEvent($r['imADDER'],
                     "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                             . " bought your {$r['itmname']} item "
                             . ' from the market for '
@@ -356,7 +339,7 @@ function item_buy()
         }
         else
         {
-            event_add($r['imADDER'],
+            addEvent($r['imADDER'],
                     "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                             . " bought your {$r['itmname']} item "
                             . ' from the market for '
@@ -566,12 +549,12 @@ function item_gift2()
              WHERE `userid` = {$r['imADDER']}");
     if ($curr == "money")
     {
-        event_add($r['imADDER'],
+        addEvent($r['imADDER'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                         . " bought your {$r['itmname']} x{$_POST['QTY']} item(s)"
                         . " from the market for "
                         . money_formatter($final_price) . ".", $c);
-        event_add($_POST['user'],
+        addEvent($_POST['user'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                         . " bought you {$r['itmname']} x{$_POST['QTY']}"
                         . " from the item market as a gift.", $c);
@@ -601,12 +584,12 @@ function item_gift2()
     }
     else
     {
-        event_add($r['imADDER'],
+        addEvent($r['imADDER'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                         . " bought your {$r['itmname']} x{$_POST['QTY']} item(s)"
                         . " from the market for "
                         . number_format($final_price) . " crystals.", $c);
-        event_add($_POST['user'],
+        addEvent($_POST['user'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a>"
                         . " bought you {$r['itmname']} x{$_POST['QTY']}"
                         . " from the item market as a gift.", $c);

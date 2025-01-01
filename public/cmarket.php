@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: cmarket.php
- * Signature: e26eace4420c392719bf14416ddb6230
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals.php');
+require __DIR__ . '/globals.php';
+
+global $h;
+
 echo '
 	<h3>Crystal Market</h3>
    ';
@@ -213,7 +196,7 @@ function crystal_buy()
                 'UPDATE `users` SET `money` = `money` + ' . $cprice
                         . ' WHERE `userid` = ' . $r['cmADDER']);
 
-        event_add($r['cmADDER'],
+        addEvent($r['cmADDER'],
                 "<a href='viewuser.php?u=$userid'>{$ir['username']}</a> bought of {$_POST['QTY']} your crystals from the market for "
                         . money_formatter($cprice) . ".", $c);
 

@@ -749,7 +749,7 @@ function crimegroup_dropdown($connection, $ddname = "crimegroup",
  * @param mysql $connection Redundant (legacy from v1) - use NULL
  * @return int 1
  */
-function event_add($userid, $text, $connection = 0)
+function addEvent($userid, $text, $connection = 0)
 {
     global $db;
     $text = $db->escape($text);

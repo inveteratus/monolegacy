@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: equip_weapon.php
- * Signature: 5fa6ce6f751fd7f09cde14b86ba287bf
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals.php');
+require __DIR__ . '/globals.php';
+
+global $h, $ir, $db, $h, $userid, $set, $c, $domain;
+
 $_GET['ID'] =
         (isset($_GET['ID']) && is_numeric($_GET['ID']))
                 ? abs((int) $_GET['ID']) : 0;

@@ -1,26 +1,9 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: jailbust.php
- * Signature: e804c111c46807add9a40f11ac376803
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-require_once('globals.php');
+require __DIR__ . '/globals.php';
+
+global $c, $db, $domain, $h, $ir, $set, $userid;
+
 if ($ir['energy'] < 10)
 {
     echo "Sorry, it costs 10 energy to bust someone. "
@@ -68,7 +51,7 @@ if (rand(1, 100) < $chance)
             "UPDATE `users`
     		 SET `jail` = 0
     		 WHERE `userid` = {$r['userid']}");
-    event_add($r['userid'],
+    addEvent($r['userid'],
             "<a href='viewuser.php?u={$ir['userid']}'>{$ir['username']}</a> busted you out of jail.",
             $c);
 }
@@ -83,7 +66,7 @@ else
              SET `jail` = $time, `jail_reason` = '{$jail_reason}',
              `energy` = `energy` - 10
              WHERE `userid` = $userid");
-    event_add($r['userid'],
+    addEvent($r['userid'],
             "<a href='viewuser.php?u={$ir['userid']}'>{$ir['username']}</a> was caught trying to bust you out of jail.",
             $c);
 }

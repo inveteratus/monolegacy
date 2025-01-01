@@ -21,7 +21,11 @@
  */
 
 $atkpage = 1;
-require_once('globals.php');
+
+require __DIR__ . '/globals.php';
+
+global $ir, $h, $db, $userid, $c;
+
 $_GET['ID'] =
         (isset($_GET['ID']) && is_numeric($_GET['ID']))
                 ? abs((int) $_GET['ID']) : 0;
@@ -61,9 +65,8 @@ You hide your weapons and drop {$r['username']} off outside the hospital entranc
                 "UPDATE `users` SET `hp` = 1, `hospital` = $hosptime,
                         `hospreason` = '$hospreason'
                         WHERE `userid` = {$r['userid']}");
-        event_add($r['userid'],
-                "<a href='viewuser.php?u=$userid'>{$ir['username']}</a> attacked you and left you lying outside the hospital.",
-                $c, 'combat');
+        addEvent($r['userid'],
+                "<a href='viewuser.php?u=$userid'>{$ir['username']}</a> attacked you and left you lying outside the hospital.");
         $atklog = $db->escape($_SESSION['attacklog']);
         $db->query(
                 "INSERT INTO `attacklogs` VALUES(NULL, $userid, {$_GET['ID']},

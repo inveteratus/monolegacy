@@ -35,7 +35,10 @@ if (!is_ajax())
     header('HTTP/1.1 400 Bad Request');
     exit;
 }
-require_once('globals_nonauth.php');
+require __DIR__ . '/globals_nonauth.php';
+
+global $db;
+
 $username =
         isset($_POST['username']) ? stripslashes($_POST['username']) : '';
 if (!$username)
