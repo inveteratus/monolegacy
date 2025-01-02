@@ -7,6 +7,10 @@ require __DIR__ . '/database.php';
 $db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 
 session_start(['name' => 'MCCSID']);
+if (array_key_exists('userid', $_SESSION) && ($_SESSION['userid'] > 0)) {
+    header('Location: /');
+    exit;
+}
 
 $email = $error = '';
 
