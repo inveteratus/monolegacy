@@ -1,310 +1,117 @@
 <?php
 
-require __DIR__ . '/globals_nonauth.php';
+require __DIR__ . '/config.php';
+global $_CONFIG;
 
-global $set, $db, $c;
+require __DIR__ . '/database.php';
+$db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 
-//thx to http://www.phpit.net/code/valid-email/ for valid_email
+session_start(['name' => 'MCCSID']);
 
-function valid_email($email)
-{
-    return (filter_var($email, FILTER_VALIDATE_EMAIL) === $email);
+$name = $email = '';
+$errors = ['name' => '', 'email' => '', 'password' => ''];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = array_key_exists('name', $_POST) && is_string($_POST['name']) ? trim($_POST['name']) : '';
+    $email = array_key_exists('email', $_POST) && is_string($_POST['email']) ? trim($_POST['email']) : '';
+    $password = array_key_exists('password', $_POST) && is_string($_POST['password']) ? trim($_POST['password']) : '';
+
+    if (!strlen($name)) {
+        $errors['name'] = 'Name is required';
+    }
+    else if ($db->execute('SELECT COUNT(*) FROM users WHERE username = :name', ['name' => $name])->fetchColumn()) {
+        $errors['name'] = 'Name is already in use';
+    }
+
+    if (!strlen($email)) {
+        $errors['email'] = 'Name is required';
+    }
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Invalid email address';
+    }
+    else if ($db->execute('SELECT COUNT(*) FROM users WHERE email = :email', ['email' => $email])->fetchColumn()) {
+        $errors['name'] = 'Email is already in use';
+    }
+
+    if (!strlen($password)) {
+        $errors['password'] = 'Password is required';
+    }
+    else if (strlen($password) < 8) {
+        $errors['password'] = 'Password too short';
+    }
+
+    if (!implode('', $errors)) {
+        $salt = substr(implode('', array_filter(str_split(random_bytes(100)), 'ctype_alnum')), -8);
+        $sql = <<<SQL
+            INSERT INTO users (username, userpass, gender, signedup, email, lastip_login, lastip_signup, last_login, pass_salt)
+            VALUES (:username, :userpass, :gender, :signedup, :email, :lastip_login, :lastip_signup, :last_login, :pass_salt)
+        SQL;
+        $db->execute($sql, [
+            'username' => $name,
+            'userpass' => md5($salt . md5($password)),
+            'gender' => ['Male', 'Female'][random_int(0, 1)],
+            'signedup' => time(),
+            'email' => $email,
+            'lastip_login' => $_SERVER['REMOTE_ADDR'],
+            'lastip_signup' => $_SERVER['REMOTE_ADDR'],
+            'last_login' => time(),
+            'pass_salt' => $salt,
+        ]);
+        $userid = $db->lastInsertId();
+        $sql = <<<SQL
+            INSERT INTO userstats (userid, strength, agility, guard, labour, IQ)
+            VALUES (:userid, 10, 10, 10, 10, 10)
+        SQL;
+        $db->execute($sql, ['userid' => $userid]);
+
+        $_SESSION = ['loggedin' => true, 'userid' => $userid];
+
+        session_regenerate_id();
+        session_write_close();
+
+        header('Location: /loggedin.php');
+        exit;
+    }
+
+    $name = htmlentities($name);
+    $email = htmlentities($email);
+    $errors = array_map(fn (string $error) => '<span class="text-sm text-red-500">' . htmlentities($error) . '</span>', $errors);
 }
-print
-        <<<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<title>{$set['game_name']}</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<script type="text/javascript" src="{$set['jquery_location']}"></script>
-<script type="text/javascript" src="js/register.js"></script>
-<link href="css/register.css" type="text/css" rel="stylesheet" />
-</head>
-<body>
-<center>
-<table width="970" border="0" cellpadding="0" cellspacing="0" class="table2">
-<tr>
-<td class="lgrad"></td>
-<td class="center"><img src="title.jpg" alt="Mccodes Version 2" /><br />
-<!-- Begin Main Content -->
-EOF;
-$IP = str_replace(array('/', '\\', '\0'), '', $_SERVER['REMOTE_ADDR']);
-if (file_exists('ipbans/' . $IP))
-{
-    die(
-            "<span style='font-weight: bold; color:red;'>
-            Your IP has been banned, there is no way around this.
-            </span></body></html>");
-}
-$username =
-        (isset($_POST['username'])
-                && ((strlen($_POST['username']) < 32)
-                        && (strlen($_POST['username']) >= 3)))
-                ? stripslashes($_POST['username']) : '';
-if (!empty($username))
-{
-    if ($set['regcap_on'])
-    {
-        if (!$_SESSION['captcha'] || !isset($_POST['captcha'])
-                || $_SESSION['captcha'] != $_POST['captcha'])
-        {
-            unset($_SESSION['captcha']);
-            echo "Captcha Test Failed<br />
-			&gt; <a href='register.php'>Back</a>";
-            register_footer();
-        }
-        unset($_SESSION['captcha']);
-    }
-    if (!isset($_POST['email']) || !valid_email(stripslashes($_POST['email'])))
-    {
-        echo "Sorry, the email is invalid.<br />
-		&gt; <a href='register.php'>Back</a>";
-        register_footer();
-    }
-    // Check Gender
-    if (!isset($_POST['gender'])
-            || ($_POST['gender'] != 'Male' && $_POST['gender'] != 'Female'))
-    {
-        echo "Sorry, the gender is invalid.<br />
-			&gt; <a href='register.php'>Back</a>";
-        register_footer();
-    }
-    $e_gender = $db->escape(stripslashes($_POST['gender']));
-    $sm = 100;
-    if (isset($_POST['promo']) && $_POST['promo'] == "Your Promo Code Here")
-    {
-        $sm += 100;
-    }
-    $e_username = $db->escape($username);
-    $e_email = $db->escape(stripslashes($_POST['email']));
-    $q =
-            $db->query(
-                    "SELECT COUNT(`userid`)
-                     FROM `users`
-                     WHERE `username` = '{$e_username}'
-                     OR `login_name` = '{$e_username}'");
-    $q2 =
-            $db->query(
-                    "SELECT COUNT(`userid`)
-    				 FROM `users`
-    				 WHERE `email` = '{$e_email}'");
-    $u_check = $db->fetch_single($q);
-    $e_check = $db->fetch_single($q2);
-    $db->free_result($q);
-    $db->free_result($q2);
-    $base_pw =
-            (isset($_POST['password']) && is_string($_POST['password']))
-                    ? stripslashes($_POST['password']) : '';
-    $check_pw =
-            (isset($_POST['cpassword']) && is_string($_POST['cpassword']))
-                    ? stripslashes($_POST['cpassword']) : '';
-    if ($u_check > 0)
-    {
-        echo "Username already in use. Choose another.<br />
-		&gt; <a href='register.php'>Back</a>";
-    }
-    else if ($e_check > 0)
-    {
-        echo "E-Mail already in use. Choose another.<br />
-		&gt; <a href='register.php'>Back</a>";
-    }
-    else if (empty($base_pw) || empty($check_pw))
-    {
-        echo "You must specify your password and confirm it.<br />
-		&gt; <a href='register.php'>Back</a>";
-    }
-    else if ($base_pw != $check_pw)
-    {
-        echo "The passwords did not match, go back and try again.<br />
-		&gt; <a href='register.php'>Back</a>";
-    }
-    else
-    {
-        $_POST['ref'] =
-                (isset($_POST['ref']) && is_numeric($_POST['ref']))
-                        ? abs(intval($_POST['ref'])) : '';
-        $IP = $db->escape($_SERVER['REMOTE_ADDR']);
-        if ($_POST['ref'])
-        {
-            $q =
-                    $db->query(
-                            "SELECT `lastip`
-                             FROM `users`
-                             WHERE `userid` = {$_POST['ref']}");
-            if ($db->num_rows($q) == 0)
-            {
-                $db->free_result($q);
-                echo "Referrer does not exist.<br />
-				&gt; <a href='register.php'>Back</a>";
-                register_footer();
-            }
-            $rem_IP = $db->fetch_single($q);
-            $db->free_result($q);
-            if ($rem_IP == $_SERVER['REMOTE_ADDR'])
-            {
-                echo "No creating referral multies.<br />
-				&gt; <a href='register.php'>Back</a>";
-                register_footer();
-            }
-        }
-        $salt = generate_pass_salt();
-        $e_salt = $db->escape($salt);
-        $encpsw = encode_password($base_pw, $salt);
-        $e_encpsw = $db->escape($encpsw);
-        $db->query(
-                "INSERT INTO `users`
-                 (`username`, `login_name`, `userpass`, `level`,
-                 `money`, `crystals`, `donatordays`, `user_level`,
-                 `energy`, `maxenergy`, `will`, `maxwill`, `brave`,
-                 `maxbrave`, `hp`, `maxhp`, `location`, `gender`,
-                 `signedup`, `email`, `bankmoney`, `lastip`,
-                 `lastip_signup`, `pass_salt`, `display_pic`, `staffnotes`, `voted`, `user_notepad`)
-                 VALUES('{$e_username}', '{$e_username}', '{$e_encpsw}', 1,
-                 $sm, 0, 0, 1, 12, 12, 100, 100, 5, 5, 100, 100, 1,
-                 '{$e_gender}', " . time()
-                        . ",'{$e_email}', -1, '$IP',
-                 '$IP', '{$e_salt}', '', '', '', '')");
-        $i = $db->insert_id();
-        $db->query(
-                "INSERT INTO `userstats`
-        	     VALUES($i, 10, 10, 10, 10, 10)");
 
-        if ($_POST['ref'])
-        {
-            $db->query(
-                    "UPDATE `users`
-                     SET `crystals` = `crystals` + 2
-                     WHERE `userid` = {$_POST['ref']}");
-            addEvent($_POST['ref'],
-                    "For refering $username to the game, you have earnt 2 valuable crystals!",
-                    $c);
-            $e_rip = $db->escape($rem_IP);
-            $db->query(
-                    "INSERT INTO `referals`
-                     VALUES(NULL, {$_POST['ref']}, $i, " . time()
-                            . ", '{$e_rip}', '$IP')");
-        }
-        echo "You have signed up, enjoy the game.<br />
-		&gt; <a href='login.php'>Login</a>";
-    }
-}
-else
-{
-    if ($set['regcap_on'])
-    {
-        $chars =
-                "123456789abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?\\/%^";
-        $len = strlen($chars);
-        $_SESSION['captcha'] = "";
-        for ($i = 0; $i < 6; $i++)
-            $_SESSION['captcha'] .= $chars[rand(0, $len - 1)];
-    }
+ob_start(fn (string $html) => preg_replace('`>\s+<`', '><', trim($html)));
 
-    echo "<h3>{$set['game_name']} Registration</h3>";
-    echo "<form action=register.php method=post>
-            <table width='75%' class='table' cellspacing='1'>
-                <tr>
-                    <td width='30%'>Username</td>
-                    <td width='40%'>
-                    	<input type='text' name='username'
-                    	 onkeyup='CheckUsername(this.value);' />
-                    </td>
-                    <td width='30%'><div id='usernameresult'></div></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td>
-                    	<input type='password' id='pw1' name='password'
-                    	 onkeyup='CheckPasswords(this.value);PasswordMatch();' />
-                    </td>
-                    <td><div id='passwordresult'></div></td>
-                </tr>
-                <tr>
-                    <td>Confirm Password</td>
-                    <td>
-                    	<input type='password' name='cpassword' id='pw2'
-                    	 onkeyup='PasswordMatch();' />
-                    </td>
-                    <td><div id='cpasswordresult'></div></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td>
-                    	<input type='text' name='email'
-                    	 onkeyup='CheckEmail(this.value);' />
-                    </td>
-                    <td><div id='emailresult'></div></td>
-                </tr>
-                <tr>
-                    <td>Gender</td>
-                    <td colspan='2'>
-                    	<select name='gender' type='dropdown'>
-                    	<option value='Male'>Male</option>
-                    	<option value='Female'>Female</option>
-                    	</select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Promo Code</td>
-                    <td colspan='2'><input type='text' name='promo' /></td>
-                </tr>
-
-                <input type='hidden' name='ref' value='";
-    if (!isset($_GET['REF']))
-    {
-        $_GET['REF'] = 0;
-    }
-    $_GET['REF'] = abs((int) $_GET['REF']);
-    if ($_GET['REF'])
-    {
-        print $_GET['REF'];
-    }
-    echo "' />";
-    if ($set['regcap_on'])
-    {
-        echo "<tr>
-				<td colspan='3'>
-					<img src='captcha_verify.php?bgcolor=C3C3C3' /><br />
-					<input type='text' name='captcha' />
-				</td>
-			  </tr>";
-    }
-    echo "
-			<tr>
-				<td colspan='3' align='center'>
-					<input type='submit' value='Submit' />
-				</td>
-			</tr>
-	</table>
-	</form><br />
-	&gt; <a href='login.php'>Go Back</a>";
-}
-register_footer();
-
-function register_footer()
-{
-    print
-            <<<OUT
-
-</td>
-<td class="rgrad"></td>
-</tr>
-<tr>
-<td colspan="3">
-<table cellpadding="0" cellspacing="0" border="0" width="100%">
-<tr>
-<td class="dgradl">&nbsp;</td>
-<td class="dgrad">&nbsp;</td>
-<td class="dgradr">&nbsp;</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
-</center>
-</body>
-</html>
-OUT;
-    exit;
-}
+echo <<<HTML
+    <!DOCTYPE html>
+    <html lang="en-GB">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Monolegacy</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-slate-200 flex flex-col items-center justify-center min-h-screen text-slate-700">
+        <form action="/register.php" method="post" class="bg-slate-100 rounded-md px-8 py-6 shadow border border-slate-300 max-w-md w-full flex flex-col space-y-3">
+            <div class="flex flex-col">
+                <label for="name" class="text-sm font-medium text-slate-600">Name</label>
+                <input id="name" type="text" name="name" value="{$name}" maxlength="25" autofocus autocomplete="name" required class="p-2 border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 rounded" />
+                {$errors['name']}            
+            </div>            
+            <div class="flex flex-col">
+                <label for="email" class="text-sm font-medium text-slate-600">Email</label>
+                <input id="email" type="email" name="email" value="{$email}" maxlength="250" autocomplete="email" required class="p-2 border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 rounded" />
+                {$errors['email']}            
+            </div>            
+            <div class="flex flex-col">
+                <label for="password" class="text-sm font-medium text-slate-600">Password</label>            
+                <input id="password" type="password" name="password" autocomplete="new-password" required class="p-2 border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 rounded" />            
+                {$errors['password']}            
+            </div>            
+            <div class="flex pt-3">
+                <button type="submit" class="bg-blue-500 text-white font-medium px-3 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-slate-100 focus:ring-blue-500">Register</button>
+            </div>            
+        </form>
+        <p class="pt-2 text-center text-sm"><a href="/login.php" class="text-slate-700 hover:underline focus:underline focus:outline-none">Already got an account ?</a></p>
+    </body>
+    </html>
+HTML;

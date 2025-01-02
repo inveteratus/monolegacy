@@ -29,15 +29,6 @@ CREATE TABLE `announcements` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `announcements`
---
-
-LOCK TABLES `announcements` WRITE;
-/*!40000 ALTER TABLE `announcements` DISABLE KEYS */;
-/*!40000 ALTER TABLE `announcements` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `applications`
 --
 
@@ -52,15 +43,6 @@ CREATE TABLE `applications` (
   PRIMARY KEY (`appID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `applications`
---
-
-LOCK TABLES `applications` WRITE;
-/*!40000 ALTER TABLE `applications` DISABLE KEYS */;
-/*!40000 ALTER TABLE `applications` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `attacklogs`
@@ -80,15 +62,6 @@ CREATE TABLE `attacklogs` (
   PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `attacklogs`
---
-
-LOCK TABLES `attacklogs` WRITE;
-/*!40000 ALTER TABLE `attacklogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `attacklogs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `bankxferlogs`
@@ -111,15 +84,6 @@ CREATE TABLE `bankxferlogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `bankxferlogs`
---
-
-LOCK TABLES `bankxferlogs` WRITE;
-/*!40000 ALTER TABLE `bankxferlogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bankxferlogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `blacklist`
 --
 
@@ -134,15 +98,6 @@ CREATE TABLE `blacklist` (
   PRIMARY KEY (`bl_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `blacklist`
---
-
-LOCK TABLES `blacklist` WRITE;
-/*!40000 ALTER TABLE `blacklist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `blacklist` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `cashxferlogs`
@@ -164,15 +119,6 @@ CREATE TABLE `cashxferlogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cashxferlogs`
---
-
-LOCK TABLES `cashxferlogs` WRITE;
-/*!40000 ALTER TABLE `cashxferlogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cashxferlogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `challengebots`
 --
 
@@ -184,15 +130,6 @@ CREATE TABLE `challengebots` (
   `cb_money` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `challengebots`
---
-
-LOCK TABLES `challengebots` WRITE;
-/*!40000 ALTER TABLE `challengebots` DISABLE KEYS */;
-/*!40000 ALTER TABLE `challengebots` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `challengesbeaten`
@@ -208,15 +145,6 @@ CREATE TABLE `challengesbeaten` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `challengesbeaten`
---
-
-LOCK TABLES `challengesbeaten` WRITE;
-/*!40000 ALTER TABLE `challengesbeaten` DISABLE KEYS */;
-/*!40000 ALTER TABLE `challengesbeaten` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `cities`
 --
 
@@ -229,18 +157,8 @@ CREATE TABLE `cities` (
   `citydesc` longtext NOT NULL,
   `cityminlevel` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cityid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cities`
---
-
-LOCK TABLES `cities` WRITE;
-/*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES (1,'Default City','A standard city added to start you off',1);
-/*!40000 ALTER TABLE `cities` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `contactlist`
@@ -256,15 +174,6 @@ CREATE TABLE `contactlist` (
   PRIMARY KEY (`cl_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `contactlist`
---
-
-LOCK TABLES `contactlist` WRITE;
-/*!40000 ALTER TABLE `contactlist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `contactlist` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `courses`
@@ -290,15 +199,6 @@ CREATE TABLE `courses` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `courses`
---
-
-LOCK TABLES `courses` WRITE;
-/*!40000 ALTER TABLE `courses` DISABLE KEYS */;
-/*!40000 ALTER TABLE `courses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `coursesdone`
 --
 
@@ -310,15 +210,6 @@ CREATE TABLE `coursesdone` (
   `courseid` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `coursesdone`
---
-
-LOCK TABLES `coursesdone` WRITE;
-/*!40000 ALTER TABLE `coursesdone` DISABLE KEYS */;
-/*!40000 ALTER TABLE `coursesdone` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `crimegroups`
@@ -334,15 +225,6 @@ CREATE TABLE `crimegroups` (
   PRIMARY KEY (`cgID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `crimegroups`
---
-
-LOCK TABLES `crimegroups` WRITE;
-/*!40000 ALTER TABLE `crimegroups` DISABLE KEYS */;
-/*!40000 ALTER TABLE `crimegroups` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `crimes`
@@ -372,15 +254,6 @@ CREATE TABLE `crimes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `crimes`
---
-
-LOCK TABLES `crimes` WRITE;
-/*!40000 ALTER TABLE `crimes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `crimes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `crystalmarket`
 --
 
@@ -395,15 +268,6 @@ CREATE TABLE `crystalmarket` (
   PRIMARY KEY (`cmID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `crystalmarket`
---
-
-LOCK TABLES `crystalmarket` WRITE;
-/*!40000 ALTER TABLE `crystalmarket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `crystalmarket` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `crystalxferlogs`
@@ -425,15 +289,6 @@ CREATE TABLE `crystalxferlogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `crystalxferlogs`
---
-
-LOCK TABLES `crystalxferlogs` WRITE;
-/*!40000 ALTER TABLE `crystalxferlogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `crystalxferlogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `dps_accepted`
 --
 
@@ -450,15 +305,6 @@ CREATE TABLE `dps_accepted` (
   PRIMARY KEY (`dpID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dps_accepted`
---
-
-LOCK TABLES `dps_accepted` WRITE;
-/*!40000 ALTER TABLE `dps_accepted` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dps_accepted` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `events`
@@ -478,15 +324,6 @@ CREATE TABLE `events` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `events`
---
-
-LOCK TABLES `events` WRITE;
-/*!40000 ALTER TABLE `events` DISABLE KEYS */;
-/*!40000 ALTER TABLE `events` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `fedjail`
 --
 
@@ -503,15 +340,6 @@ CREATE TABLE `fedjail` (
   UNIQUE KEY `fed_userid` (`fed_userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `fedjail`
---
-
-LOCK TABLES `fedjail` WRITE;
-/*!40000 ALTER TABLE `fedjail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fedjail` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `forum_forums`
@@ -538,15 +366,6 @@ CREATE TABLE `forum_forums` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `forum_forums`
---
-
-LOCK TABLES `forum_forums` WRITE;
-/*!40000 ALTER TABLE `forum_forums` DISABLE KEYS */;
-/*!40000 ALTER TABLE `forum_forums` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `forum_posts`
 --
 
@@ -569,15 +388,6 @@ CREATE TABLE `forum_posts` (
   PRIMARY KEY (`fp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `forum_posts`
---
-
-LOCK TABLES `forum_posts` WRITE;
-/*!40000 ALTER TABLE `forum_posts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `forum_posts` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `forum_topics`
@@ -605,15 +415,6 @@ CREATE TABLE `forum_topics` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `forum_topics`
---
-
-LOCK TABLES `forum_topics` WRITE;
-/*!40000 ALTER TABLE `forum_topics` DISABLE KEYS */;
-/*!40000 ALTER TABLE `forum_topics` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `friendslist`
 --
 
@@ -630,15 +431,6 @@ CREATE TABLE `friendslist` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `friendslist`
---
-
-LOCK TABLES `friendslist` WRITE;
-/*!40000 ALTER TABLE `friendslist` DISABLE KEYS */;
-/*!40000 ALTER TABLE `friendslist` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `gangevents`
 --
 
@@ -653,15 +445,6 @@ CREATE TABLE `gangevents` (
   PRIMARY KEY (`gevID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `gangevents`
---
-
-LOCK TABLES `gangevents` WRITE;
-/*!40000 ALTER TABLE `gangevents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gangevents` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `gangs`
@@ -690,15 +473,6 @@ CREATE TABLE `gangs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gangs`
---
-
-LOCK TABLES `gangs` WRITE;
-/*!40000 ALTER TABLE `gangs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gangs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `gangwars`
 --
 
@@ -715,15 +489,6 @@ CREATE TABLE `gangwars` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `gangwars`
---
-
-LOCK TABLES `gangwars` WRITE;
-/*!40000 ALTER TABLE `gangwars` DISABLE KEYS */;
-/*!40000 ALTER TABLE `gangwars` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `houses`
 --
 
@@ -736,18 +501,8 @@ CREATE TABLE `houses` (
   `hPRICE` int NOT NULL DEFAULT '0',
   `hWILL` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`hID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `houses`
---
-
-LOCK TABLES `houses` WRITE;
-/*!40000 ALTER TABLE `houses` DISABLE KEYS */;
-INSERT INTO `houses` VALUES (1,'Default House',0,100);
-/*!40000 ALTER TABLE `houses` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `imarketaddlogs`
@@ -767,15 +522,6 @@ CREATE TABLE `imarketaddlogs` (
   PRIMARY KEY (`imaID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `imarketaddlogs`
---
-
-LOCK TABLES `imarketaddlogs` WRITE;
-/*!40000 ALTER TABLE `imarketaddlogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imarketaddlogs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `imbuylogs`
@@ -799,15 +545,6 @@ CREATE TABLE `imbuylogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `imbuylogs`
---
-
-LOCK TABLES `imbuylogs` WRITE;
-/*!40000 ALTER TABLE `imbuylogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imbuylogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `imremovelogs`
 --
 
@@ -828,15 +565,6 @@ CREATE TABLE `imremovelogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `imremovelogs`
---
-
-LOCK TABLES `imremovelogs` WRITE;
-/*!40000 ALTER TABLE `imremovelogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imremovelogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `inventory`
 --
 
@@ -851,15 +579,6 @@ CREATE TABLE `inventory` (
   PRIMARY KEY (`inv_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `inventory`
---
-
-LOCK TABLES `inventory` WRITE;
-/*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `itembuylogs`
@@ -881,15 +600,6 @@ CREATE TABLE `itembuylogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `itembuylogs`
---
-
-LOCK TABLES `itembuylogs` WRITE;
-/*!40000 ALTER TABLE `itembuylogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itembuylogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `itemmarket`
 --
 
@@ -906,15 +616,6 @@ CREATE TABLE `itemmarket` (
   PRIMARY KEY (`imID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `itemmarket`
---
-
-LOCK TABLES `itemmarket` WRITE;
-/*!40000 ALTER TABLE `itemmarket` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemmarket` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `items`
@@ -944,15 +645,6 @@ CREATE TABLE `items` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `items`
---
-
-LOCK TABLES `items` WRITE;
-/*!40000 ALTER TABLE `items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `itemselllogs`
 --
 
@@ -972,15 +664,6 @@ CREATE TABLE `itemselllogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `itemselllogs`
---
-
-LOCK TABLES `itemselllogs` WRITE;
-/*!40000 ALTER TABLE `itemselllogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemselllogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `itemtypes`
 --
 
@@ -993,15 +676,6 @@ CREATE TABLE `itemtypes` (
   PRIMARY KEY (`itmtypeid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `itemtypes`
---
-
-LOCK TABLES `itemtypes` WRITE;
-/*!40000 ALTER TABLE `itemtypes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemtypes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `itemxferlogs`
@@ -1024,15 +698,6 @@ CREATE TABLE `itemxferlogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `itemxferlogs`
---
-
-LOCK TABLES `itemxferlogs` WRITE;
-/*!40000 ALTER TABLE `itemxferlogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemxferlogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `jaillogs`
 --
 
@@ -1049,15 +714,6 @@ CREATE TABLE `jaillogs` (
   PRIMARY KEY (`jaID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jaillogs`
---
-
-LOCK TABLES `jaillogs` WRITE;
-/*!40000 ALTER TABLE `jaillogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jaillogs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `jobranks`
@@ -1082,15 +738,6 @@ CREATE TABLE `jobranks` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `jobranks`
---
-
-LOCK TABLES `jobranks` WRITE;
-/*!40000 ALTER TABLE `jobranks` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jobranks` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `jobs`
 --
 
@@ -1106,15 +753,6 @@ CREATE TABLE `jobs` (
   PRIMARY KEY (`jID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `jobs`
---
-
-LOCK TABLES `jobs` WRITE;
-/*!40000 ALTER TABLE `jobs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `mail`
@@ -1134,15 +772,6 @@ CREATE TABLE `mail` (
   PRIMARY KEY (`mail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mail`
---
-
-LOCK TABLES `mail` WRITE;
-/*!40000 ALTER TABLE `mail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mail` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `oclogs`
@@ -1165,15 +794,6 @@ CREATE TABLE `oclogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `oclogs`
---
-
-LOCK TABLES `oclogs` WRITE;
-/*!40000 ALTER TABLE `oclogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `oclogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `orgcrimes`
 --
 
@@ -1194,15 +814,6 @@ CREATE TABLE `orgcrimes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `orgcrimes`
---
-
-LOCK TABLES `orgcrimes` WRITE;
-/*!40000 ALTER TABLE `orgcrimes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orgcrimes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `papercontent`
 --
 
@@ -1213,16 +824,6 @@ CREATE TABLE `papercontent` (
   `content` longtext NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `papercontent`
---
-
-LOCK TABLES `papercontent` WRITE;
-/*!40000 ALTER TABLE `papercontent` DISABLE KEYS */;
-INSERT INTO `papercontent` VALUES ('Here you can put game news, or prehaps an update log.');
-/*!40000 ALTER TABLE `papercontent` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `polls`
@@ -1263,15 +864,6 @@ CREATE TABLE `polls` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `polls`
---
-
-LOCK TABLES `polls` WRITE;
-/*!40000 ALTER TABLE `polls` DISABLE KEYS */;
-/*!40000 ALTER TABLE `polls` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `preports`
 --
 
@@ -1286,15 +878,6 @@ CREATE TABLE `preports` (
   PRIMARY KEY (`prID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `preports`
---
-
-LOCK TABLES `preports` WRITE;
-/*!40000 ALTER TABLE `preports` DISABLE KEYS */;
-/*!40000 ALTER TABLE `preports` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `referals`
@@ -1315,15 +898,6 @@ CREATE TABLE `referals` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `referals`
---
-
-LOCK TABLES `referals` WRITE;
-/*!40000 ALTER TABLE `referals` DISABLE KEYS */;
-/*!40000 ALTER TABLE `referals` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `settings`
 --
 
@@ -1335,18 +909,8 @@ CREATE TABLE `settings` (
   `conf_name` varchar(255) NOT NULL DEFAULT '',
   `conf_value` text NOT NULL,
   PRIMARY KEY (`conf_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `settings`
---
-
-LOCK TABLES `settings` WRITE;
-/*!40000 ALTER TABLE `settings` DISABLE KEYS */;
-INSERT INTO `settings` VALUES (1,'validate_period','15'),(2,'validate_on','0'),(3,'regcap_on','0'),(4,'hospital_count','0'),(5,'jail_count','0'),(6,'sendcrys_on','1'),(7,'sendbank_on','1'),(8,'ct_refillprice','12'),(9,'ct_iqpercrys','5'),(10,'ct_moneypercrys','200'),(11,'staff_pad','Here you can store notes for all staff to see.'),(12,'willp_item','0'),(13,'jquery_location','js/jquery-1.7.1.min.js'),(14,'game_name','Monolegacy'),(15,'game_description','Description'),(16,'game_owner','Owner');
-/*!40000 ALTER TABLE `settings` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `shopitems`
@@ -1362,15 +926,6 @@ CREATE TABLE `shopitems` (
   PRIMARY KEY (`sitemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `shopitems`
---
-
-LOCK TABLES `shopitems` WRITE;
-/*!40000 ALTER TABLE `shopitems` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shopitems` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `shops`
@@ -1389,15 +944,6 @@ CREATE TABLE `shops` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `shops`
---
-
-LOCK TABLES `shops` WRITE;
-/*!40000 ALTER TABLE `shops` DISABLE KEYS */;
-/*!40000 ALTER TABLE `shops` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `stafflog`
 --
 
@@ -1413,15 +959,6 @@ CREATE TABLE `stafflog` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stafflog`
---
-
-LOCK TABLES `stafflog` WRITE;
-/*!40000 ALTER TABLE `stafflog` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stafflog` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `staffnotelogs`
@@ -1442,15 +979,6 @@ CREATE TABLE `staffnotelogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `staffnotelogs`
---
-
-LOCK TABLES `staffnotelogs` WRITE;
-/*!40000 ALTER TABLE `staffnotelogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `staffnotelogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `surrenders`
 --
 
@@ -1466,15 +994,6 @@ CREATE TABLE `surrenders` (
   PRIMARY KEY (`surID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `surrenders`
---
-
-LOCK TABLES `surrenders` WRITE;
-/*!40000 ALTER TABLE `surrenders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `surrenders` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `unjaillogs`
@@ -1493,15 +1012,6 @@ CREATE TABLE `unjaillogs` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `unjaillogs`
---
-
-LOCK TABLES `unjaillogs` WRITE;
-/*!40000 ALTER TABLE `unjaillogs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `unjaillogs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `users`
 --
 
@@ -1510,87 +1020,68 @@ DROP TABLE IF EXISTS `users`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `users` (
   `userid` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL DEFAULT '',
-  `userpass` varchar(255) NOT NULL DEFAULT '',
-  `level` int NOT NULL DEFAULT '0',
-  `exp` decimal(11,4) NOT NULL DEFAULT '0.0000',
-  `money` int NOT NULL DEFAULT '0',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `userpass` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `level` int unsigned NOT NULL DEFAULT '1',
+  `exp` double unsigned NOT NULL DEFAULT '0',
+  `money` int NOT NULL DEFAULT '100',
   `crystals` int NOT NULL DEFAULT '0',
-  `laston` int NOT NULL DEFAULT '0',
-  `lastip` varchar(255) NOT NULL DEFAULT '',
-  `job` int NOT NULL DEFAULT '0',
-  `energy` int NOT NULL DEFAULT '0',
-  `will` int NOT NULL DEFAULT '0',
-  `maxwill` int NOT NULL DEFAULT '0',
-  `brave` int NOT NULL DEFAULT '0',
-  `maxbrave` int NOT NULL DEFAULT '0',
-  `maxenergy` int NOT NULL DEFAULT '0',
-  `hp` int NOT NULL DEFAULT '0',
-  `maxhp` int NOT NULL DEFAULT '0',
-  `lastrest_life` int NOT NULL DEFAULT '0',
-  `lastrest_other` int NOT NULL DEFAULT '0',
-  `location` int NOT NULL DEFAULT '0',
-  `hospital` int NOT NULL DEFAULT '0',
-  `jail` int NOT NULL DEFAULT '0',
-  `jail_reason` varchar(255) NOT NULL DEFAULT '',
-  `fedjail` int NOT NULL DEFAULT '0',
-  `user_level` int NOT NULL DEFAULT '1',
-  `gender` enum('Male','Female') NOT NULL DEFAULT 'Male',
-  `daysold` int NOT NULL DEFAULT '0',
-  `signedup` int NOT NULL DEFAULT '0',
-  `gang` int NOT NULL DEFAULT '0',
-  `daysingang` int NOT NULL DEFAULT '0',
-  `course` int NOT NULL DEFAULT '0',
-  `cdays` int NOT NULL DEFAULT '0',
-  `jobrank` int NOT NULL DEFAULT '0',
-  `donatordays` int NOT NULL DEFAULT '0',
-  `email` varchar(255) NOT NULL DEFAULT '',
-  `login_name` varchar(255) NOT NULL DEFAULT '',
-  `display_pic` text NOT NULL,
-  `duties` varchar(255) NOT NULL DEFAULT 'N/A',
-  `bankmoney` int NOT NULL DEFAULT '0',
-  `cybermoney` int NOT NULL DEFAULT '-1',
-  `staffnotes` longtext NOT NULL,
-  `mailban` int NOT NULL DEFAULT '0',
-  `mb_reason` varchar(255) NOT NULL DEFAULT '',
-  `hospreason` varchar(255) NOT NULL DEFAULT '',
-  `lastip_login` varchar(255) NOT NULL DEFAULT '127.0.0.1',
-  `lastip_signup` varchar(255) NOT NULL DEFAULT '127.0.0.1',
-  `last_login` int NOT NULL DEFAULT '0',
-  `voted` text NOT NULL,
-  `crimexp` int NOT NULL DEFAULT '0',
-  `attacking` int NOT NULL DEFAULT '0',
-  `verified` int NOT NULL DEFAULT '0',
-  `forumban` int NOT NULL DEFAULT '0',
-  `fb_reason` varchar(255) NOT NULL DEFAULT '',
-  `posts` int NOT NULL DEFAULT '0',
-  `forums_avatar` varchar(255) NOT NULL DEFAULT '',
-  `forums_signature` varchar(250) NOT NULL DEFAULT '',
-  `new_events` int NOT NULL DEFAULT '0',
-  `new_mail` int NOT NULL DEFAULT '0',
-  `friend_count` int NOT NULL DEFAULT '0',
-  `enemy_count` int NOT NULL DEFAULT '0',
-  `new_announcements` int NOT NULL DEFAULT '0',
-  `boxes_opened` int NOT NULL DEFAULT '0',
-  `user_notepad` text NOT NULL,
-  `equip_primary` int NOT NULL DEFAULT '0',
-  `equip_secondary` int NOT NULL DEFAULT '0',
-  `equip_armor` int NOT NULL DEFAULT '0',
-  `force_logout` tinyint NOT NULL DEFAULT '0',
-  `pass_salt` varchar(8) NOT NULL DEFAULT '',
+  `laston` int DEFAULT NULL,
+  `lastip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `job` int unsigned NOT NULL DEFAULT '0',
+  `energy` int unsigned NOT NULL DEFAULT '12',
+  `will` int unsigned NOT NULL DEFAULT '100',
+  `maxwill` int unsigned NOT NULL DEFAULT '100',
+  `brave` int unsigned NOT NULL DEFAULT '5',
+  `maxbrave` int unsigned NOT NULL DEFAULT '5',
+  `maxenergy` int unsigned NOT NULL DEFAULT '12',
+  `hp` int unsigned NOT NULL DEFAULT '100',
+  `maxhp` int unsigned NOT NULL DEFAULT '100',
+  `location` int unsigned NOT NULL DEFAULT '1',
+  `hospital` int unsigned NOT NULL DEFAULT '0',
+  `jail` int unsigned NOT NULL DEFAULT '0',
+  `jail_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `fedjail` int unsigned NOT NULL DEFAULT '0',
+  `user_level` int unsigned NOT NULL DEFAULT '1',
+  `gender` enum('Male','Female') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `daysold` int unsigned NOT NULL DEFAULT '0',
+  `signedup` int unsigned NOT NULL,
+  `gang` int unsigned NOT NULL DEFAULT '0',
+  `daysingang` int unsigned NOT NULL DEFAULT '0',
+  `course` int unsigned NOT NULL DEFAULT '0',
+  `cdays` int unsigned NOT NULL DEFAULT '0',
+  `jobrank` int unsigned NOT NULL DEFAULT '0',
+  `donatordays` int unsigned NOT NULL DEFAULT '0',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `display_pic` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `duties` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `bankmoney` int unsigned NOT NULL DEFAULT '0',
+  `staffnotes` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `mailban` int unsigned NOT NULL DEFAULT '0',
+  `mb_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `hospreason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `lastip_login` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `lastip_signup` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `last_login` int unsigned NOT NULL DEFAULT '0',
+  `voted` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `crimexp` int unsigned NOT NULL DEFAULT '0',
+  `attacking` int unsigned NOT NULL DEFAULT '0',
+  `forumban` int unsigned NOT NULL DEFAULT '0',
+  `fb_reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `posts` int unsigned NOT NULL DEFAULT '0',
+  `forums_avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `forums_signature` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `new_announcements` int unsigned NOT NULL DEFAULT '0',
+  `boxes_opened` int unsigned NOT NULL DEFAULT '0',
+  `user_notepad` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `equip_primary` int unsigned NOT NULL DEFAULT '0',
+  `equip_secondary` int unsigned NOT NULL DEFAULT '0',
+  `equip_armor` int unsigned NOT NULL DEFAULT '0',
+  `force_logout` tinyint unsigned NOT NULL DEFAULT '0',
+  `pass_salt` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','28064b2b2b248789db0b3072126ae00b',1,0.0000,100,0,0,'127.0.0.1',0,12,100,100,5,5,12,100,100,0,0,1,0,0,'',0,2,'Male',0,1735737934,0,0,0,0,0,0,'admin@example.com','admin','','N/A',-1,-1,'',0,'','','127.0.0.1','127.0.0.1',0,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'9e08946e'),(2,'User','2a836554bcdda3752c19826b4dc600ef',1,0.0000,100,0,0,'127.0.0.1',0,12,100,100,5,5,12,100,100,0,0,1,0,0,'',0,1,'Female',0,1735737967,0,0,0,0,0,0,'user@example.com','user','','N/A',-1,-1,'',0,'','','127.0.0.1','127.0.0.1',0,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',0,0,0,0,'74a712be');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `userstats`
@@ -1611,16 +1102,6 @@ CREATE TABLE `userstats` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `userstats`
---
-
-LOCK TABLES `userstats` WRITE;
-/*!40000 ALTER TABLE `userstats` DISABLE KEYS */;
-INSERT INTO `userstats` VALUES (1,10,10,10,10,10),(2,10,10,10,10,10);
-/*!40000 ALTER TABLE `userstats` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `votes`
 --
 
@@ -1632,15 +1113,6 @@ CREATE TABLE `votes` (
   `list` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `votes`
---
-
-LOCK TABLES `votes` WRITE;
-/*!40000 ALTER TABLE `votes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `votes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `willps_accepted`
@@ -1659,15 +1131,6 @@ CREATE TABLE `willps_accepted` (
   PRIMARY KEY (`dpID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `willps_accepted`
---
-
-LOCK TABLES `willps_accepted` WRITE;
-/*!40000 ALTER TABLE `willps_accepted` DISABLE KEYS */;
-/*!40000 ALTER TABLE `willps_accepted` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -1678,4 +1141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-01 13:30:24
+-- Dump completed on 2025-01-02  9:27:44

@@ -37,6 +37,11 @@ class database
         return $statement;
     }
 
+    public function lastInsertId(): int
+    {
+        return $this->pdo->lastInsertId();
+    }
+
     /** @deprecated */
     public function connection(): mysqli
     {

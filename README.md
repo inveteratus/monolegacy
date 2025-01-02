@@ -73,9 +73,9 @@ credentials:
 
 There are also two scripts in the root folder
 
-* `import.sh` will import `schema.sql` overwriting all existing data.
+* `import.sh` will import `schema.sql` and `data.sql` overwriting all existing data.
 * `export.sh` will write the current database schema to `schema.sql`.
 
-You can add extra queries to `extra.sql` which will be imported after `schema.sql` when running `import.sh`. This
-allows you to, for example, add a new user or update one of the existing users. Note that the `extra.sql` file is
+You can add extra queries to `extra.sql` which will be imported after `schema.sql` and `data.sql` when running
+`import.sh`. This allows you to, for example, update one of the existing users. Note that the `extra.sql` file is
 _NOT_ tracked by git so will not be pushed to your repository.

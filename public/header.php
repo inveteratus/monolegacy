@@ -21,8 +21,8 @@ class headers
                 <meta name="viewport" content="width=device-width,initial-scale=1">
                 <title>Monolegacy</title>
                 <script src="https://cdn.tailwindcss.com"></script>
-                <script src="//unpkg.com/alpinejs" defer></script
-                <link href="css/game.css" rel="stylesheet" />
+                <script src="https://unpkg.com/alpinejs" defer></script
+                <link href="/app.css" rel="stylesheet" />
             </head>
             <body class="bg-slate-200">
                 <div class="max-w-5xl mx-auto shadow-xl">

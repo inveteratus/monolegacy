@@ -62,6 +62,7 @@ echo <<<HTML
                 <button type="submit" class="bg-blue-500 text-white font-medium px-3 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-slate-100 focus:ring-blue-500">Login</button>
             </div>            
         </form>
+        <p class="pt-2 text-center text-sm"><a href="/register.php" class="text-slate-700 hover:underline focus:underline focus:outline-none">Not got an account yet ?</a></p>
     </body>
     </html>
 HTML;

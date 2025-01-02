@@ -39,14 +39,14 @@ td .alt {
 }
 
 td .h {
-	background-image: url(../tablehgrad.png);
+	background-image: url(tablehgrad.png);
 	background-repeat: repeat-x;
 	font-weight: bold;
 	background-color: #D6D6D6;
 }
 
 .table th {
-	background-image: url(../tablehgrad.png);
+	background-image: url(tablehgrad.png);
 	background-repeat: repeat-x;
 	font-weight: bold;
 	background-color: #D6D6D6;

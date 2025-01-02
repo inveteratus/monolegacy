@@ -5,10 +5,8 @@ require __DIR__ . '/globals.php';
 global $c, $db, $domain, $h, $ir, $set, $userid;
 
 echo '<h3>The MonoPaper</h3>';
-$paperQ = $db->query("SELECT `content`
-					  FROM `papercontent`");
-$paper = $db->fetch_single($paperQ);
-$db->free_result($paperQ);
+$news = $db->execute('SELECT content FROM papercontent')->fetchColumn();
+
 echo '
 <table width="75%" cellspacing="1" class="table">
 		<tr style="text-align: center; font-weight: bold;">
@@ -18,7 +16,7 @@ echo '
 		</tr>
 		<tr>
 			<td width="34%"><img src="ad_filler.png" alt="Ad" title="Ad" /></td>
-			<td colspan="2">' . nl2br($paper)
+			<td colspan="2">' . nl2br(htmlentities($news === false ? '' : $news))
         . '</td>
 		</tr>
 </table>
