@@ -19,6 +19,7 @@
         "php": "^8.3",
         "ext-mysqli": "*",
         "ext-pdo": "*",
+        "eftec/bladeone": "^4.17",
         "php-di/php-di": "^7.0",
         "slim/psr7": "^1.7",
         "symfony/expression-language": "^7.2",

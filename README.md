@@ -30,6 +30,7 @@ cd monolegacy
 cp env.example .env
 docker compose up -d
 composer install
+chmod o+w cache
 sh import.sh
 ```
 
