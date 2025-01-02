@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en-GB">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Monolegacy</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-200 flex flex-col items-center justify-center min-h-screen text-slate-700">
+@extends('layouts.guest')
+
+@section('body')
     <form action="/login.php" method="post" class="bg-slate-100 rounded-md px-8 py-6 shadow border border-slate-300 max-w-md w-full flex flex-col space-y-3">
         <div class="flex flex-col space-y-1">
             <label for="email" class="text-sm font-medium text-slate-600">Email</label>
@@ -28,5 +21,4 @@
         </div>
     </form>
     <p class="pt-2 text-center text-sm"><a href="/register.php" class="text-slate-700 hover:underline focus:underline focus:outline-none">Not got an account yet ?</a></p>
-</body>
-</html>
+@endsection
