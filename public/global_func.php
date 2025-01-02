@@ -26,8 +26,7 @@
  * @return string The difference formatted in units so that the numerical component is not less than 1 or absurdly large.
  */
 function DateTime_Parse($time_stamp)
-{
-    $time_difference = ($_SERVER['REQUEST_TIME'] - $time_stamp);
+{    $time_difference = ($_SERVER['REQUEST_TIME'] - $time_stamp);
     $unit =
             array('second', 'minute', 'hour', 'day', 'week', 'month', 'year');
     $lengths = array(60, 60, 24, 7, 4.35, 12);
@@ -768,11 +767,13 @@ function addEvent($userid, $text, $connection = 0)
  */
 function check_level()
 {
-    global $db;
     global $ir, $c, $userid;
     $ir['exp_needed'] =
             (int) (($ir['level'] + 1) * ($ir['level'] + 1)
                     * ($ir['level'] + 1) * 2.2);
+    return;
+    global $db;
+
     if ($ir['exp'] >= $ir['exp_needed'])
     {
         $expu = $ir['exp'] - $ir['exp_needed'];

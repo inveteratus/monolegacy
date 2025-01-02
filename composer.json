@@ -14,5 +14,8 @@
     },
     "scripts": {
         "sa": "phpstan --memory-limit=1g --no-progress"
+    },
+    "require": {
+        "symfony/expression-language": "^7.2"
     }
 }
