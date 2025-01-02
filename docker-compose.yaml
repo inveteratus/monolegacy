@@ -32,8 +32,8 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: secret
-      MYSQL_DATABASE: "${DB_DATABASE}"
-      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_DATABASE: "${APP_NAME}"
+      MYSQL_USER: "${DB_USER}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
     ports:
       - 3306:3306
