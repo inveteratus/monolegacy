@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/sglobals.php';
+require __DIR__ . '/../includes/sglobals.php';
 
 global $c, $db, $domain, $h, $ir, $set, $userid;
 
@@ -553,7 +553,7 @@ function jobrankdele()
             $jname = $db->fetch_single($q);
             echo "<br />
             <b>Warning!</b> The Job {$jname} now has no first rank!
-            	Please go edit it and include a first rank.<br />
+            	Please go edit it and create a first rank.<br />
             Users who were in the rank you deleted will have to
             	reapply for their job.";
             $db->query(

@@ -2,7 +2,7 @@
 
 $housequery = 1;
 
-require __DIR__ . '/globals.php';
+require __DIR__ . '/../includes/globals.php';
 
 global $c, $cm, $db, $domain, $fm, $h, $ir, $lv, $set, $userid;
 

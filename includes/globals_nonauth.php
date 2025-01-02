@@ -1,9 +1,5 @@
 <?php
 
-if (strpos($_SERVER['PHP_SELF'], "globals_nonauth.php") !== false)
-{
-    exit;
-}
 session_name('MCCSID');
 @session_start();
 if (!isset($_SESSION['started']))
@@ -37,7 +33,7 @@ set_error_handler('error_php');
 require __DIR__ . '/config.php';
 global $_CONFIG;
 
-require __DIR__ .  '/global_func.php';
+require __DIR__ . '/global_func.php';
 
 require __DIR__ . '/database.php';
 $db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);

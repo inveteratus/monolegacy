@@ -2,7 +2,7 @@
 
 $nohdr = true;
 
-require __DIR__ . '/globals.php';
+require __DIR__ . '/../includes/globals.php';
 
 global $h, $ir, $db, $h, $userid, $set;
 

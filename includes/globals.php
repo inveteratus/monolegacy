@@ -1,9 +1,5 @@
 <?php
 
-if (strpos($_SERVER['PHP_SELF'], "globals.php") !== false)
-{
-    exit;
-}
 session_name('MCCSID');
 session_start();
 if (!isset($_SESSION['started']))

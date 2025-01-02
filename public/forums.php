@@ -2,7 +2,8 @@
 
 $forums = 1;
 
-require __DIR__ . '/globals.php';
+require __DIR__ . '/../includes/globals.php';
+require __DIR__ . '/../includes/bbcode_engine.php';
 
 global $ir, $h;
 
@@ -12,7 +13,6 @@ class bbcode
 
     function bbcode()
     {
-        require "bbcode_engine.php";
         $this->engine = new bbcode_engine;
         $this->engine->cust_tag("/</", "&lt;");
         $this->engine->cust_tag("/>/", "&gt;");

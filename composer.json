@@ -16,6 +16,9 @@
         "sa": "phpstan --memory-limit=1g --no-progress"
     },
     "require": {
+        "php": "^8.3",
+        "ext-pdo": "*",
+        "ext-mysqli": "*",
         "symfony/expression-language": "^7.2"
     }
 }

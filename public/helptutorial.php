@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/globals.php';
+require __DIR__ . '/../includes/globals.php';
 
 global $c, $db, $domain, $h, $ir, $set, $userid;
 
@@ -112,7 +112,7 @@ and lose the experience you've worked so hard to get.</p>
 <p>School offers courses that will raise your stats over a certain period of time</p>
 <br />
 <p><u>Your Job</u></p>
-<p>A job will provide you with money at 5:00PM every day, as well as raising your job stats everyday. Some jobs have requirements before
+<p>A job will provide you with money at 5:00PM every day, as well as raising your job stats everyday. Some jobs have needs before
 you can do them, so make sure to keep an eye out for that.</p>
 <br />
 <p><u>Attacking</u></p>

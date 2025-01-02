@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/sglobals.php';
+require __DIR__ . '/../includes/sglobals.php';
 
 global $c, $db, $domain, $h, $ir, $set, $userid;
 
@@ -27,7 +27,7 @@ case "delhouse":
     delhouse();
     break;
 default:
-    echo "Error: This script requires an action.";
+    echo "Error: This script needs an action.";
     break;
 }
 

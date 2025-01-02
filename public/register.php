@@ -1,9 +1,9 @@
 <?php
 
-require __DIR__ . '/config.php';
+require __DIR__ . '/../includes/config.php';
 global $_CONFIG;
 
-require __DIR__ . '/database.php';
+require __DIR__ . '/../includes/database.php';
 $db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 
 session_start(['name' => 'MCCSID']);

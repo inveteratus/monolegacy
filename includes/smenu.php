@@ -1,30 +1,5 @@
 <?php
-/**
- * MCCodes Version 2.0.5b
- * Copyright (C) 2005-2012 Dabomstew
- * All rights reserved.
- *
- * Redistribution of this code in any form is prohibited, except in
- * the specific cases set out in the MCCodes Customer License.
- *
- * This code license may be used to run one (1) game.
- * A game is defined as the set of users and other game database data,
- * so you are permitted to create alternative clients for your game.
- *
- * If you did not obtain this code from MCCodes.com, you are in all likelihood
- * using it illegally. Please contact MCCodes to discuss licensing options
- * in this case.
- *
- * File: smenu.php
- * Signature: 3f5a7bbb749b6730b7c33d18fee3811f
- * Date: Fri, 20 Apr 12 08:50:30 +0000
- */
 
-if (!defined('jdsf45tji'))
-{
-    echo 'This file cannot be accessed directly.';
-    die;
-}
 global $db, $c, $ir, $set;
 echo "&gt; <a href='index.php'>Back To Game</a><hr />
 <b>General</b><br />

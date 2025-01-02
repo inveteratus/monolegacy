@@ -90,7 +90,7 @@ class headers
         {
             $u = "<span style='color: red;'>{$ir['username']}</span>";
             $d =
-                "<img src='donator.gif'
+                "<img src='../public/donator.gif'
                      alt='Donator: {$ir['donatordays']} Days Left'
                      title='Donator: {$ir['donatordays']} Days Left' />";
         }
@@ -152,8 +152,7 @@ class headers
 
     function smenuarea()
     {
-        define('jdsf45tji', true);
-        include 'smenu.php';
+        require __DIR__ . '/smenu.php';
 
         echo <<<HTML
             </aside>

@@ -3,7 +3,7 @@
 $menuhide = 1;
 $atkpage = 1;
 
-require __DIR__ . '/globals.php';
+require __DIR__ . '/../includes/globals.php';
 
 global $ir, $h, $db, $userid;
 
