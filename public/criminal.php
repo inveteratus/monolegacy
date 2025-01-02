@@ -63,27 +63,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (in_array($id, array_column($crimes, 'id'))) {
         $crime = array_values(array_filter($crimes, fn (object $crime) => $crime->id == $id))[0];
         if ($crime->enabled) {
-            $name = htmlentities($crime->name);
-            $intro = htmlentities($crime->introduction);
-            if (random_int(0, 100) < $crime->chance) {
-                $success = htmlentities($crime->success);
-                $gains = [];
-                if ($crime->cash) {
-                    $cash = floor($crime->cash * random_int(90, 110) / 100);
-                    $db->execute('UPDATE users SET money = money + :cash WHERE userid = :userid', ['cash' => $cash, 'userid' => $userid]);
-                    $gains[] = number_format($cash) . ' Cr';
-                }
-                if ($crime->diamonds) {
-                    $db->execute('UPDATE users SET crystals = crystals + :amount WHERE userid = :userid', ['amount' => $crime->diamonds, 'userid' => $userid]);
-                    $gains[] = number_format($crime->diamonds) . ' diamond' . ($crime->diamond == 1 ? '' : 's');
-                }
-                if ($crime->item) {
-                    // TODO add to inventory
-                    $gains[] = 'a/an ' . htmlentities($db->execute('SELECT itmname FROM items WHERE itmid = :id', ['id' => $crime->item])->fetchColumn());
-                }
-                $gains = count($gains) ? ('Gains: ' . implode(', ', $gains)) : 'Nothing';
-                $db->execute('UPDATE users SET crimexp = crimexp + :xp1, exp = exp + :xp2 WHERE userid = :userid', ['xp1' => $crime->experience, 'xp2' => $crime->experience / 10, 'userid' => $userid]);
-                echo <<<HTML
+            $rowCount = $db->execute('UPDATE users SET brave = brave - :nerve1 WHERE userid = :userid AND brave >= :nerve2', [
+                    'nerve1' => $crime->nerve,
+                    'nerve2' => $crime->nerve,
+                    'userid' => $userid,
+                ])->rowCount();
+            if ($rowCount > 0) {
+                $name = htmlentities($crime->name);
+                $intro = htmlentities($crime->introduction);
+                if (random_int(0, 100) < $crime->chance) {
+                    $success = htmlentities($crime->success);
+                    $gains = [];
+                    if ($crime->cash) {
+                        $cash = floor($crime->cash * random_int(90, 110) / 100);
+                        $db->execute('UPDATE users SET money = money + :cash WHERE userid = :userid', ['cash' => $cash, 'userid' => $userid]);
+                        $gains[] = number_format($cash) . ' Cr';
+                    }
+                    if ($crime->diamonds) {
+                        $db->execute('UPDATE users SET crystals = crystals + :amount WHERE userid = :userid', ['amount' => $crime->diamonds, 'userid' => $userid]);
+                        $gains[] = number_format($crime->diamonds) . ' diamond' . ($crime->diamond == 1 ? '' : 's');
+                    }
+                    if ($crime->item) {
+                        // TODO add to inventory
+                        $gains[] = 'a/an ' . htmlentities($db->execute('SELECT itmname FROM items WHERE itmid = :id', ['id' => $crime->item])->fetchColumn());
+                    }
+                    $gains = count($gains) ? ('Gains: ' . implode(', ', $gains)) : 'Nothing';
+                    $db->execute('UPDATE users SET crimexp = crimexp + :xp1, exp = exp + :xp2 WHERE userid = :userid', ['xp1' => $crime->experience, 'xp2' => $crime->experience / 10, 'userid' => $userid]);
+                    echo <<<HTML
                     <div class="text-left">
                         <h2 class="text-slate-600 font-medium text-2xl">{$name}</h2>
                         <p class="my-2 text-slate-700">{$intro}</p>
@@ -97,13 +103,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </form>
                     </div>
                 HTML;
-            }
-            else {
-                $failure = htmlentities($crime->failure);
-                $jail = htmlentities($crime->jail);
-                $db->execute('UPDATE users SET jail = :jail WHERE userid = :userid', ['jail' => $crime->time, 'userid' => $userid]);
+                } else {
+                    $failure = htmlentities($crime->failure);
+                    $jail = htmlentities($crime->jail);
+                    $db->execute('UPDATE users SET jail = :jail WHERE userid = :userid', ['jail' => $crime->time, 'userid' => $userid]);
 
-                echo <<<HTML
+                    echo <<<HTML
                     <div class="text-left">
                         <h2 class="text-slate-600 font-medium text-2xl">{$name}</h2>
                         <p class="my-2 text-slate-700">{$intro}</p>
@@ -115,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </p>
                     </div>
                 HTML;
+                }
             }
 
             $h->endpage();
@@ -151,7 +157,7 @@ foreach ($crimes as $crime) {
             <td class="p-2 text-left text-slate-700">{$nerve}</td>
             <td class="p-2 text-left text-slate-700">{$chance}</td>
             <td class="p-0 text-center">
-                <button type="submit" name="id" value="{$id}" $disabled class="text-slate-700 disabled:text-slate-400">
+                <button type="submit" name="id" value="{$id}" $disabled class="text-slate-700 disabled:text-slate-300">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M7.864 4.243A7.5 7.5 0 0 1 19.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 0 0 4.5 10.5a7.464 7.464 0 0 1-1.15 3.993m1.989 3.559A11.209 11.209 0 0 0 8.25 10.5a3.75 3.75 0 1 1 7.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 0 1-3.6 9.75m6.633-4.596a18.666 18.666 0 0 1-2.485 5.33" />
                     </svg>
