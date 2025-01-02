@@ -1,8 +1,12 @@
 <?php
 
-require __DIR__ . '/globals_nonauth.php';
+require __DIR__ . '/config.php';
+global $_CONFIG;
 
-global $db;
+require __DIR__ . '/database.php';
+$db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
+
+session_start(['name' => 'MCCSID']);
 
 $email = $error = '';
 

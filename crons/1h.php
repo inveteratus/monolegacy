@@ -1,20 +1,22 @@
 <?php
 
-require __DIR__ . '/../public/globals_nonauth.php';
+require __DIR__ . '/../public/config.php';
+global $_CONFIG;
 
-global $db, $c, $set;
+require __DIR__ . '/../public/database.php';
+$db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 
-$db->query(
-        "UPDATE `gangs` SET `gangCHOURS` = `gangCHOURS` - 1 WHERE `gangCRIME` > 0");
-$q =
-        $db->query(
-                "SELECT `gangID`,`ocSTARTTEXT`, `ocSUCCTEXT`, `ocFAILTEXT`,
-                `ocMINMONEY`, `ocMAXMONEY`, `ocID`, `ocNAME`
-                FROM `gangs` AS `g`
-                LEFT JOIN `orgcrimes` AS `oc` ON `g`.`gangCRIME` = `oc`.`ocID`
-                WHERE `g`.`gangCRIME` > 0 AND `g`.`gangCHOURS` <= 0");
-while ($r = $db->fetch_row($q))
-{
+$db->execute('UPDATE gangs SET gangCHOURS = gangCHOURS - 1 WHERE gangCRIME > 0');
+
+$sql = <<<SQL
+    SELECT g.gangID, oc.ocSTARTTEXT, oc.ocSUCCTEXT, oc.ocFAILTEXT, oc.ocMINMONEY, oc.ocMAXMONEY, oc.ocID, oc.ocNAME
+    FROM gangs g
+    LEFT JOIN orgcrimes oc ON oc.ocID = g.gangCRIME
+    WHERE g.gangCRIME > 0 AND g.gangCHOURS <= 0
+SQL;
+$gangs = $db->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($gangs as $r) {
     $suc = rand(0, 1);
     if ($suc)
     {
@@ -57,13 +59,11 @@ while ($r = $db->fetch_row($q))
         while ($rm = $db->fetch_row($qm))
         {
             addEvent($rm['userid'],
-                    "Your Gang's Organised Crime Failed. Go <a href='oclog.php?ID=$i'>here</a> to view the details.",
-                    $c);
+                    "Your Gang's Organised Crime Failed. Go <a href='oclog.php?ID=$i'>here</a> to view the details.");
         }
-        $db->free_result($qm);
     }
 }
-$db->free_result($q);
+
 if (date('G') == 17)
 {
     // Job stats update
@@ -76,8 +76,4 @@ if (date('G') == 17)
     		    `us`.`labour` = (`us`.`labour` + 1) + `jr`.`jrLABOURG` - 1,
     		    `us`.`IQ` = (`us`.`IQ`+1) + `jr`.`jrIQG` - 1
     		    WHERE `u`.`job` > 0 AND `u`.`jobrank` > 0");
-}
-if ($set['validate_period'] == 60 && $set['validate_on'])
-{
-    $db->query("UPDATE `users` SET `verified` = 0");
 }

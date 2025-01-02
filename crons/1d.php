@@ -1,9 +1,10 @@
 <?php
 
-require __DIR__ . '/../public/globals_nonauth.php';
+require __DIR__ . '/../public/config.php';
+global $_CONFIG;
 
-global $db;
-
+require __DIR__ . '/../public/database.php';
+$db = new database($_CONFIG['db.dsn'], $_CONFIG['db.user'], $_CONFIG['db.password']);
 
 $db->query("UPDATE `fedjail` SET `fed_days` = `fed_days` - 1");
 $q = $db->query("SELECT * FROM `fedjail` WHERE `fed_days` <= 0");
@@ -91,5 +92,5 @@ while ($r = $db->fetch_row($q))
             "Congratulations, you completed the {$coud['crNAME']} and gained {$ev}!",
             NULL);
 }
-$db->free_result($q);
-$db->query("TRUNCATE TABLE `votes`");
+
+$db->execute('TRUNCATE TABLE votes');
