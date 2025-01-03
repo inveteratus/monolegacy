@@ -2,57 +2,8 @@
 
 namespace Monolegacy\Repositories;
 
-use Monolegacy\Classes\Database;
-
-class UserRepository
+class UserRepository extends Repository
 {
-    public function __construct(private Database $db)
-    {
-    }
-
-    public function findByEmail(string $email): ?object
-    {
-        $sql = <<<SQL
-            SELECT `userid` AS `id`, `password`
-            FROM `users`
-            WHERE `email` = :email
-        SQL;
-
-        $result = $this->db->execute($sql, ['email' => $email])
-            ->fetch();
-
-        return is_object($result) ? $result : null;
-    }
-
-    public function findById(int $id): ?object
-    {
-        $sql = <<<SQL
-            SELECT u.*, us.*
-            FROM users u
-            LEFT JOIN userstats us USING (userid)
-            WHERE u.userid = :id
-        SQL;
-
-        $result = $this->db->execute($sql, ['id' => $id])
-            ->fetch();
-
-        return is_object($result) ? $result : null;
-    }
-
-    public function nameExists(string $name): bool
-    {
-        return $this->db
-                ->execute('SELECT COUNT(*) FROM users WHERE username = :name', ['name' => $name])
-                ->fetchColumn() > 0;
-    }
-
-    public function emailExists(string $email): bool
-    {
-        return $this->db
-                ->execute('SELECT COUNT(*) FROM users WHERE email = :email', ['email' => $email])
-                ->fetchColumn() > 0;
-    }
-
     public function create(string $name, string $email, string $password): int
     {
         $sql = <<<SQL
@@ -78,7 +29,77 @@ class UserRepository
         SQL;
 
         $this->db->execute($sql, ['id' => $id]);
-
         return $id;
+    }
+
+    public function findByEmail(string $email): ?object
+    {
+        $sql = <<<SQL
+            SELECT `userid` AS `id`, `password`
+            FROM `users`
+            WHERE `email` = :email
+        SQL;
+
+        $result = $this->db->execute($sql, ['email' => $email])->fetch();
+        return is_object($result) ? $result : null;
+    }
+
+    public function get(int $id, bool $extended = false): ?object
+    {
+        if ($extended) {
+            // TODO add job, gang and course
+
+            $sql = <<<SQL
+                SELECT u.userid AS id, u.username AS name, u.email, u.password, FROM_UNIXTIME(signedup) AS born,
+                       u.money AS cash, u.bankmoney AS bank, u.crystals AS diamonds, u.exp AS experience, u.level,
+                       u.energy, u.maxenergy AS max_energy, u.brave AS nerve, u.maxbrave AS max_nerve, u.hp AS health,
+                       u.maxhp AS max_health, u.will AS power, u.maxwill AS max_power, u.hospital, u.jail,
+                       u.hospreason AS reason, ELT(u.user_level + 1, 'NPC', 'Player', 'Staff') AS type, u.notes,
+                       us.strength, us.agility, us.guard AS defence, us.labour AS endurance, us.IQ AS intelligence,
+                       u.crimexp AS criminal, u.location AS city_id, c.cityname AS city_name, h.hID AS property_id,
+                       h.hNAME AS property_name
+                FROM users u
+                LEFT JOIN userstats us USING (userid)
+                LEFT JOIN houses h ON h.hWILL = u.maxwill
+                LEFT JOIN cities c ON c.cityid = u.location
+                WHERE u.userid = :id     
+            SQL;
+        }
+        else {
+            $sql = <<<SQL
+                SELECT u.userid AS id, u.username AS name, u.email, u.password, FROM_UNIXTIME(signedup) AS born,
+                       u.money AS cash, u.bankmoney AS bank, u.crystals AS diamonds, u.exp AS experience, u.level,
+                       u.energy, u.maxenergy AS max_energy, u.brave AS nerve, u.maxbrave AS max_nerve, u.hp AS health,
+                       u.maxhp AS max_health, u.will AS power, u.maxwill AS max_power, u.hospital, u.jail,
+                       u.hospreason AS reason, ELT(u.user_level + 1, 'NPC', 'Player', 'Staff') AS type, u.notes,
+                       us.strength, us.agility, us.guard AS defence, us.labour AS endurance, us.IQ AS intelligence,
+                       u.crimexp AS criminal
+                FROM users u
+                LEFT JOIN userstats us USING (userid)
+                WHERE u.userid = :id     
+            SQL;
+        }
+
+        $result = $this->db->execute($sql, ['id' => $id])->fetch();
+        return is_object($result) ? $result : null;
+    }
+
+    public function emailExists(string $email): bool
+    {
+        return $this->db
+                ->execute('SELECT COUNT(*) FROM users WHERE email = :email', ['email' => $email])
+                ->fetchColumn() > 0;
+    }
+
+    public function nameExists(string $name): bool
+    {
+        return $this->db
+                ->execute('SELECT COUNT(*) FROM users WHERE username = :name', ['name' => $name])
+                ->fetchColumn() > 0;
+    }
+
+    public function updateNotes(int $id, string $notes): void
+    {
+        $this->db->execute('UPDATE users SET notes = :notes WHERE userid = :id', ['id' => $id, 'notes' => $notes]);
     }
 }

@@ -1073,7 +1073,7 @@ CREATE TABLE `users` (
   `forums_signature` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `new_announcements` int unsigned NOT NULL DEFAULT '0',
   `boxes_opened` int unsigned NOT NULL DEFAULT '0',
-  `user_notepad` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `equip_primary` int unsigned NOT NULL DEFAULT '0',
   `equip_secondary` int unsigned NOT NULL DEFAULT '0',
   `equip_armor` int unsigned NOT NULL DEFAULT '0',
@@ -1140,4 +1140,4 @@ CREATE TABLE `willps_accepted` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-03  7:59:30
+-- Dump completed on 2025-01-03  9:53:21

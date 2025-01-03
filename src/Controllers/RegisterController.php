@@ -34,7 +34,7 @@ class RegisterController extends Controller
 
                 return (new ResponseFactory())
                     ->createResponse(302)
-                    ->withHeader('Location', '/');
+                    ->withHeader('Location', '/welcome.php');
             }
         }
 

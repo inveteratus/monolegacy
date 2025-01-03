@@ -1,4 +1,34 @@
 
+INSERT INTO cities (cityname, citydesc, cityminlevel)
+    VALUES
+        ('Tokyo', 'Japan', 1),
+        ('Istanbul', 'Turkey', 1),
+        ('Paris', 'France', 1),
+        ('Bangkok', 'Thailand', 2),
+        ('Seoul', 'South Korea', 2),
+        ('London', 'United Kingdom', 3),
+        ('Kuala Lumpur', 'Malaysia', 5),
+        ('New York City', 'United States', 8),
+        ('Hong Kong', 'Hong Kong', 12),
+        ('Madrid', 'Spain', 20),
+        ('Singapore', 'Singapore', 31),
+        ('Rome', 'Italy', 50);
+
+INSERT INTO houses (hNAME, hPRICE, hWILL)
+    VALUES
+        ('Cottage', 5000, 100),
+        ('Bungalow', 13500, 150),
+        ('Ranch', 38000, 200),
+        ('Chalet', 108250, 300),
+        ('Villa', 310000, 400),
+        ('Townhouse', 890000, 600),
+        ('Condominium', 2555750, 850),
+        ('Apoartment', 7341250, 1200),
+        ('Penthouse', 21089000, 1700),
+        ('Mansion', 60583750, 2450),
+        ('Castle', 174045250, 3500),
+        ('Palace', 500000000, 5000);
+
 INSERT INTO settings (conf_name, conf_value)
     VALUES
         ('validate_period', 15),
