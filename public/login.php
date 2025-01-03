@@ -8,7 +8,6 @@ use eftec\bladeone\BladeOne;
 use Monolegacy\Classes\Database;
 use Monolegacy\Classes\ResponseEmitter;
 use Monolegacy\Controllers\LoginController;
-use Monolegacy\Repositories\UserRepository;
 use Psr\Container\ContainerInterface;
 use Respect\Validation\Factory;
 use Slim\Psr7\Factory\ServerRequestFactory;
@@ -32,7 +31,6 @@ $container = (new ContainerBuilder())
         'config' => fn(ContainerInterface $ci) => Dotenv::createArrayBacked(dirname(__DIR__))->load(),
         BladeOne::class => fn() => new BladeOne(dirname(__DIR__) . '/views', dirname(__DIR__) . '/cache', BladeOne::MODE_DEBUG),
         Database::class => fn(ContainerInterface $ci) => new Database($ci->get('config')['DB_DSN'], $ci->get('config')['DB_USER'], $ci->get('config')['DB_PASSWORD']),
-        UserRepository::class => fn(ContainerInterface $ci) => new UserRepository($ci->get(Database::class)),
     ])->build();
 
 $request = ServerRequestFactory::createFromGlobals();

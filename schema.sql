@@ -157,7 +157,7 @@ CREATE TABLE `cities` (
   `citydesc` longtext NOT NULL,
   `cityminlevel` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cityid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +223,7 @@ CREATE TABLE `crimegroups` (
   `cgNAME` varchar(255) NOT NULL DEFAULT '',
   `cgORDER` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cgID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +250,7 @@ CREATE TABLE `crimes` (
   `crimeJREASON` varchar(255) NOT NULL DEFAULT '',
   `crimeXP` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`crimeID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -501,7 +501,7 @@ CREATE TABLE `houses` (
   `hPRICE` int NOT NULL DEFAULT '0',
   `hWILL` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`hID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1021,7 +1021,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `userid` int NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `userpass` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `level` int unsigned NOT NULL DEFAULT '1',
   `exp` double unsigned NOT NULL DEFAULT '0',
   `money` int NOT NULL DEFAULT '100',
@@ -1078,7 +1078,6 @@ CREATE TABLE `users` (
   `equip_secondary` int unsigned NOT NULL DEFAULT '0',
   `equip_armor` int unsigned NOT NULL DEFAULT '0',
   `force_logout` tinyint unsigned NOT NULL DEFAULT '0',
-  `pass_salt` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1141,4 +1140,4 @@ CREATE TABLE `willps_accepted` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-02  9:27:44
+-- Dump completed on 2025-01-03  7:59:30

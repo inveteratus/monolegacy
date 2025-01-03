@@ -18,10 +18,10 @@ INSERT INTO settings (conf_name, conf_value)
         ('game_description', 'Description'),
         ('game_owner', 'Owner');
 
-INSERT INTO users (username, userpass, user_level, gender, signedup, email, lastip_signup, pass_salt)
+INSERT INTO users (username, password, user_level, gender, signedup, email, lastip_signup)
     VALUES
-        ('Administrator', '42f4ec6d429c5800fe2cf2bc21cd1d64', 2, 'Male', UNIX_TIMESTAMP(), 'admin@example.com', '0.0.0.0', 'deadbeef'),
-        ('User', '42f4ec6d429c5800fe2cf2bc21cd1d64', 1, 'Female', UNIX_TIMESTAMP(), 'user@example.com', '0.0.0.0', 'deadbeef');
+        ('Administrator', '$2y$10$9wHM3pLVV9nUfa1OUOXEs.pA6LjgZ4SMFimkGsdtMNWxod0s7MDkm', 2, 'Male', UNIX_TIMESTAMP(), 'admin@example.com', '0.0.0.0'),
+        ('User', '$2y$10$HiZpEOoSgSDkGSp9m8O1Ce8udXiCm51O9r3e/yqOzw3F2ISYzXil6', 1, 'Female', UNIX_TIMESTAMP(), 'user@example.com', '0.0.0.0');
 
 INSERT INTO userstats (userid, strength, agility, guard, labour, IQ)
     VALUES

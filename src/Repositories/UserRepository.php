@@ -13,7 +13,7 @@ class UserRepository
     public function findByEmail(string $email): ?object
     {
         $sql = <<<SQL
-            SELECT `userid` AS `id`, CONCAT(`pass_salt`, '$', `userpass`) AS `password`
+            SELECT `userid` AS `id`, `password`
             FROM `users`
             WHERE `email` = :email
         SQL;
@@ -56,21 +56,19 @@ class UserRepository
     public function create(string $name, string $email, string $password): int
     {
         $sql = <<<SQL
-            INSERT INTO users (username, userpass, gender, signedup, email, lastip_login, lastip_signup, last_login, pass_salt)
-            VALUES (:username, :userpass, :gender, :signedup, :email, :lastip_login, :lastip_signup, :last_login, :pass_salt)
+            INSERT INTO users (username, password, gender, signedup, email, lastip_login, lastip_signup, last_login)
+            VALUES (:username, :password, :gender, :signedup, :email, :lastip_login, :lastip_signup, :last_login)
         SQL;
-        $salt = substr(implode('', array_filter(str_split(random_bytes(100)), 'ctype_alnum')), -8);
 
         $this->db->execute($sql, [
             'username' => $name,
-            'userpass' => md5($salt . md5($password)),
+            'password' => password_hash($password, PASSWORD_DEFAULT),
             'gender' => ['Male', 'Female'][random_int(0, 1)],
             'signedup' => time(),
             'email' => $email,
             'lastip_login' => $_SERVER['REMOTE_ADDR'],
             'lastip_signup' => $_SERVER['REMOTE_ADDR'],
             'last_login' => time(),
-            'pass_salt' => $salt,
         ]);
 
         $id = $this->db->lastInsertId();
