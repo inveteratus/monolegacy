@@ -3,62 +3,42 @@
 namespace Monolegacy\Controllers;
 
 use DI\Attribute\Inject;
-use eftec\bladeone\BladeOne;
 use Monolegacy\Repositories\UserRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Respect\Validation\Validator as V;
 use Slim\Psr7\Factory\ResponseFactory;
 
-class LoginController
+class LoginController extends Controller
 {
-    #[Inject]
-    private BladeOne $blade;
-
     #[Inject]
     private UserRepository $repo;
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $email = '';
+        $form = [];
         $errors = [];
 
         if ($request->getMethod() == 'POST') {
-            $body = $request->getParsedBody();
+            $form = $this->validate($request, [
+                'email' => V::stringType()->notEmpty()->email(),
+                'password' => V::stringType()->notEmpty(),
+            ]);
 
-            $email = is_array($body) && array_key_exists('email', $body) && is_string($body['email'])
-                ? trim($body['email'])
-                : '';
-            $password = is_array($body) && array_key_exists('password', $body) && is_string($body['password'])
-                ? trim($body['password'])
-                : '';
-
-            if (!strlen($email)) {
-                $errors['email'] = 'Email is required';
+            if (count($form->errors)) {
+                $errors = $form->errors;
             }
-            else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = 'Invalid email';
-            }
-
-            if (!strlen($password)) {
-                $errors['password'] = 'Password is required';
-            }
-
-            if (!count($errors)) {
-                $user = $this->repo->findByEmail($email);
-                if ($user && $this->passwordVerify($password, $user->password)) {
+            else {
+                $user = $this->repo->findByEmail($form['email']);
+                if ($user && $this->passwordVerify($form['password'], $user->password)) {
                     return $this->login($user->id);
                 }
 
-                $errors['email'] = 'Invalid credentials';
+                $errors = ['email' => 'Invalid credentials'];
             }
         }
 
-        $response = (new ResponseFactory())
-            ->createResponse();
-        $response->getBody()
-            ->write($this->blade->run('login', ['email' => $email, 'errors' => $errors]));
-
-        return $response;
+        return $this->view('login', array_merge($form->values, ['errors' => $errors]));
     }
 
     private function passwordVerify($password, $hash)

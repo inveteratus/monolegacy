@@ -2,18 +2,18 @@
 
 @section('body')
     <form action="/login.php" method="post" class="bg-slate-100 rounded-md px-8 py-6 shadow border border-slate-300 max-w-md w-full flex flex-col space-y-3">
-        <div class="flex flex-col space-y-1">
+        <div class="flex flex-col">
             <label for="email" class="text-sm font-medium text-slate-600">Email</label>
             <input id="email" type="email" name="email" value="{{ $email }}" autofocus autocomplete="email" required class="p-2 border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 rounded" />
             @if (array_key_exists('email', $errors))
-                <span class="text-sm text-red-500">{{ $errors['email'] }}</span>
+                <span class="text-sm text-red-500 pt-1">{{ $errors['email'] }}</span>
             @endif
         </div>
-        <div class="flex flex-col space-y-1">
+        <div class="flex flex-col">
             <label for="password" class="text-sm font-medium text-slate-600">Password</label>
             <input id="password" type="password" name="password" autocomplete="current-password" required class="p-2 border border-slate-300 bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:ring-offset-0 focus:border-blue-500 rounded" />
             @if (array_key_exists('password', $errors))
-                <span class="text-sm text-red-500">{{ $errors['password'] }}</span>
+                <span class="text-sm text-red-500 pt-1">{{ $errors['password'] }}</span>
             @endif
         </div>
         <div class="flex pt-3">

@@ -10,6 +10,7 @@ use Monolegacy\Classes\ResponseEmitter;
 use Monolegacy\Controllers\RegisterController;
 use Monolegacy\Repositories\UserRepository;
 use Psr\Container\ContainerInterface;
+use Respect\Validation\Factory;
 use Slim\Psr7\Factory\ServerRequestFactory;
 
 session_start(['name' => 'MCCSID']);
@@ -17,6 +18,12 @@ if (array_key_exists('userid', $_SESSION) && ($_SESSION['userid'] > 0)) {
     header('Location: /');
     exit;
 }
+
+Factory::setDefaultInstance(
+    (new Factory())
+        ->withRuleNamespace('Monolegacy\\Validation\\Rules')
+        ->withExceptionNamespace('Monolegacy\\Validation\\Exceptions')
+);
 
 $container = (new ContainerBuilder())
     ->useAutowiring(true)
