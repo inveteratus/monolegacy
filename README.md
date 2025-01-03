@@ -55,10 +55,10 @@ You should now able to access the site by opening [http://localhost/](http://loc
 
 There are two users setup by default:
 
-| Name  | Username | Password | Email             | Usage                |
-|-------|----------|----------|-------------------|----------------------|
-| Admin | admin    | secret   | admin@example.com | A full administrator |
-| User  | user     | secret   | user@example.com  | A normal user        |
+| Name  | Username | Password | Email             | Usage            |
+|-------|----------|----------|-------------------|------------------|
+| Admin | admin    | secret   | admin@example.com | An administrator |
+| User  | user     | secret   | user@example.com  | A normal user    |
 
 ## Database
 
