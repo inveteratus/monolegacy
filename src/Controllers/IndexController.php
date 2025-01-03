@@ -18,7 +18,7 @@ class IndexController extends Controller
     {
         if ($request->getMethod() === 'POST') {
             if ($this->indexForm->validate($request)) {
-                $this->userRepository->updateNotes($this->indexForm->notes);
+                $this->userRepository->updateNotes($_SESSION['userid'], $this->indexForm->notes);
 
                 return (new ResponseFactory())
                     ->createResponse(302)
@@ -26,8 +26,8 @@ class IndexController extends Controller
             }
         }
 
-        return view('index', [
-            'user' => $this->userRepository->getExtended($_SESSION['userid']),
+        return $this->view('index', [
+            'user' => $this->userRepository->get($_SESSION['userid'], true),
              'form' => $this->indexForm,
         ]);
     }

@@ -157,7 +157,7 @@ CREATE TABLE `cities` (
   `citydesc` longtext NOT NULL,
   `cityminlevel` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cityid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -501,7 +501,7 @@ CREATE TABLE `houses` (
   `hPRICE` int NOT NULL DEFAULT '0',
   `hWILL` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`hID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -723,18 +723,25 @@ DROP TABLE IF EXISTS `jobranks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobranks` (
-  `jrID` int NOT NULL AUTO_INCREMENT,
-  `jrNAME` varchar(255) NOT NULL DEFAULT '',
-  `jrJOB` int NOT NULL DEFAULT '0',
-  `jrPAY` int NOT NULL DEFAULT '0',
-  `jrIQG` int NOT NULL DEFAULT '0',
-  `jrLABOURG` int NOT NULL DEFAULT '0',
-  `jrSTRG` int NOT NULL DEFAULT '0',
-  `jrIQN` int NOT NULL DEFAULT '0',
-  `jrLABOURN` int NOT NULL DEFAULT '0',
-  `jrSTRN` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`jrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `rank` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `job_id` bigint unsigned NOT NULL,
+  `pay` int unsigned NOT NULL,
+  `strength` int unsigned NOT NULL,
+  `agility` int unsigned NOT NULL,
+  `defence` int unsigned NOT NULL,
+  `endurance` int unsigned NOT NULL,
+  `intelligence` int unsigned NOT NULL,
+  `strength_gain` int unsigned NOT NULL,
+  `agility_gain` int unsigned NOT NULL,
+  `defence_gain` int unsigned NOT NULL,
+  `endurance_gain` int unsigned NOT NULL,
+  `intelligence_gain` int unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `job_id` (`job_id`),
+  CONSTRAINT `jobranks_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -745,13 +752,10 @@ DROP TABLE IF EXISTS `jobs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `jobs` (
-  `jID` int NOT NULL AUTO_INCREMENT,
-  `jNAME` varchar(255) NOT NULL DEFAULT '',
-  `jFIRST` int NOT NULL DEFAULT '0',
-  `jDESC` varchar(255) NOT NULL DEFAULT '',
-  `jOWNER` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`jID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1140,4 +1144,4 @@ CREATE TABLE `willps_accepted` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-01-03  9:53:21
+-- Dump completed on 2025-01-03 12:26:01
